@@ -21,7 +21,7 @@ public class Main {
 //        ViewGenerator.RenderDocumentAsHtml("large_will_not_getting_processed.docx");
 
         //Render a word document in html form and also apply a text as watermark on each page
-//        ViewGenerator.RenderDocumentAsHtml("word.doc", "Show me as watermark", com.aspose.ms.System.Drawing.Color.getPurple());
+//        ViewGenerator.RenderDocumentAsHtml("word.doc", "Show me as watermark", Color.CYAN);
 
         //Render a document located at a web location
 //         ViewGenerator.RenderDocumentAsHtml(new URI("http://www.example.com/sample.doc"), null);
