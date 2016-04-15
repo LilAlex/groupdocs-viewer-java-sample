@@ -21,14 +21,33 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * The type Utilities.
  * @author Aleksey Permyakov (21.03.2016).
  */
 public class Utilities {
+    /**
+     * The constant PROJECT_PATH.
+     */
     public static String PROJECT_PATH = new java.io.File("Data/").getAbsolutePath();
+    /**
+     * The constant STORAGE_PATH.
+     */
     public static String STORAGE_PATH = PROJECT_PATH + "/Storage/";
+    /**
+     * The constant OUTPUT_HTML_PATH.
+     */
     public static String OUTPUT_HTML_PATH = PROJECT_PATH + "/Output/html/";
+    /**
+     * The constant OUTPUT_IMAGE_PATH.
+     */
     public static String OUTPUT_IMAGE_PATH = PROJECT_PATH + "/Output/images/";
+    /**
+     * The constant OUTPUT_PATH.
+     */
     public static String OUTPUT_PATH = PROJECT_PATH + "/Output/";
+    /**
+     * The constant LICENSE_PATH.
+     */
     public static String LICENSE_PATH = PROJECT_PATH + "/Storage/GroupDocs.Viewer.lic";
 
     static {
@@ -36,16 +55,15 @@ public class Utilities {
         final java.io.File ohp = new java.io.File(OUTPUT_HTML_PATH);
         final java.io.File oip = new java.io.File(OUTPUT_IMAGE_PATH);
         if ((!sp.exists() && !sp.mkdirs()) || (!ohp.exists() && !ohp.mkdirs()) || (!oip.exists() && !oip.mkdirs())) {
-            System.out.println("Can't create data directories!");
+            System.err.println("Can't create data directories!!!");
         }
     }
 
-    /// <summary>
-    /// Initialize, populate and return the ViewerConfig object
-    /// </summary>
-    /// <returns>Populated ViewerConfig Object</returns>
-    public static ViewerConfig GetConfigurations()
-    {
+    /**
+     * Initialize, populate and return the ViewerConfig object
+     * @return Populated ViewerConfig Object
+     */
+    public static ViewerConfig GetConfigurations() {
         //ExStart:Configurations
         ViewerConfig config = new ViewerConfig();
         //set the storage path
@@ -53,15 +71,23 @@ public class Utilities {
         //Uncomment the below line for cache purpose
         config.setUseCache(true);
         return config;
-        //ExEnd:Configurations
-
     }
 
+    /**
+     * Gets file name without extension.
+     * @param name the name
+     * @return the file name without extension
+     */
     public static String getFileNameWithoutExtension(String name) {
         final String shortName = new File(name).getName();
         return shortName.substring(0, shortName.lastIndexOf('.'));
     }
 
+    /**
+     * Write line.
+     * @param template the template
+     * @param params   the params
+     */
     public static void writeLine(String template, Object... params) {
         for (int n = 0; n < params.length; n++) {
             template = template.replaceAll("\\{" + Integer.toString(n) + "\\}", params[n].toString());
@@ -69,30 +95,33 @@ public class Utilities {
         System.out.println(template);
     }
 
-
-
-
-    public static class PageTransformations
-    {
-        /// <summary>
-        /// Rotate a Page before rendering
-        /// </summary>
-        /// <param name="options"></param>
-        /// <param name="angle"></param>
-
+    /**
+     * The type Page transformations.
+     */
+    public static class PageTransformations {
+        /**
+         * Rotate a Page before rendering
+         * @param handler    the handler
+         * @param guid       the guid
+         * @param PageNumber the page number
+         * @param angle      the angle
+         * @throws Exception the exception
+         */
         public static void RotatePages(ViewerHandler handler, String guid, int PageNumber, int angle) throws Exception {
             //ExStart:rotationAngle
             // Set the property of handler's rotate Page
             handler.rotatePage(new RotatePageOptions(guid, PageNumber, angle));
             //ExEnd:rotationAngle
         }
-        /// <summary>
-        /// Reorder a page before rendering
-        /// </summary>
-        /// <param name="Handler">Base class of handlers</param>
-        /// <param name="guid">File name</param>
-        /// <param name="currentPageNumber">Existing number of page</param>
-        /// <param name="newPageNumber">New number of page</param>
+
+        /**
+         * Reorder a page before rendering
+         * @param Handler           Base class of handlers
+         * @param guid              File name
+         * @param currentPageNumber Existing number of page
+         * @param newPageNumber     New number of page
+         * @throws Exception the exception
+         */
         public static void ReorderPage(ViewerHandler Handler, String guid, int currentPageNumber, int newPageNumber) throws Exception {
             //ExStart:reorderPage
             //Initialize the ReorderPageOptions object by passing guid as document name, current Page Number, new page number
@@ -101,16 +130,16 @@ public class Utilities {
             Handler.reorderPage(options);
             //ExEnd:reorderPage
         }
-        /// <summary>
-        /// add a watermark text to all rendered images.
-        /// </summary>
-        /// <param name="options">HtmlOptions by reference</param>
-        /// <param name="text">Watermark text</param>
-        /// <param name="color">System.Drawing.Color</param>
-        /// <param name="position"></param>
-        /// <param name="width"></param>
-        public static void AddWatermark(ImageOptions options, String text, Color color, WatermarkPosition position, float width)
-        {
+
+        /**
+         * add a watermark text to all rendered images.
+         * @param options  HtmlOptions by reference
+         * @param text     Watermark text
+         * @param color    System.Drawing.Color
+         * @param position the position
+         * @param width    the width
+         */
+        public static void AddWatermark(ImageOptions options, String text, Color color, WatermarkPosition position, float width) {
             //ExStart:AddWatermark
             //Initialize watermark object by passing the text to display.
             Watermark watermark = new Watermark(text);
@@ -122,18 +151,17 @@ public class Utilities {
             watermark.setWidth(width);
             //Assign intialized and populated watermark object to ImageOptions or HtmlOptions objects
             options.setWatermark(watermark);
-            //ExEnd:AddWatermark
         }
-        /// <summary>
-        /// add a watermark text to all rendered Html pages.
-        /// </summary>
-        /// <param name="options">HtmlOptions by reference</param>
-        /// <param name="text">Watermark text</param>
-        /// <param name="color">System.Drawing.Color</param>
-        /// <param name="position"></param>
-        /// <param name="width"></param>
-        public static void AddWatermark(HtmlOptions options, String text, Color color, WatermarkPosition position, float width)
-        {
+
+        /**
+         * add a watermark text to all rendered Html pages.
+         * @param options  HtmlOptions by reference
+         * @param text     Watermark text
+         * @param color    System.Drawing.Color
+         * @param position the position
+         * @param width    the width
+         */
+        public static void AddWatermark(HtmlOptions options, String text, Color color, WatermarkPosition position, float width) {
 
             Watermark watermark = new Watermark(text);
             watermark.setColor(color);
@@ -145,24 +173,21 @@ public class Utilities {
     }
 
 
-    /// <summary>
-    /// Set product's license 
-    /// </summary>
-    public static void ApplyLicense()
-    {
+    /**
+     * Set product's license
+     */
+    public static void ApplyLicense() {
         License lic = new License();
         lic.setLicense(LICENSE_PATH);
     }
 
-    /// <summary>
-    /// Save file in html form
-    /// </summary>
-    /// <param name="filename">Save as provided String</param>
-    /// <param name="content">Html contents in String form</param>
-    public static void SaveAsHtml(String filename, String content)
-    {
-        try
-        {
+    /**
+     * Save file in html form
+     * @param filename Save as provided String
+     * @param content  Html contents in String form
+     */
+    public static void SaveAsHtml(String filename, String content) {
+        try {
             //ExStart:SaveAsHTML
             // set an html file name with absolute path
             String fname = new File(OUTPUT_HTML_PATH).getAbsolutePath() + "\\" + getFileNameWithoutExtension(filename) + ".html";
@@ -170,20 +195,19 @@ public class Utilities {
             // create a file at the disk
             FileUtils.writeByteArrayToFile(new File(fname), content.getBytes());
             //ExEnd:SaveAsHTML
-        }catch (IOException e) {
+        } catch (IOException e) {
             writeLine(e.getMessage());
         }
 
     }
-    /// <summary>
-    /// Save the rendered images at disk
-    /// </summary>
-    /// <param name="imageName">Save as provided String</param>
-    /// <param name="imageContent">stream of image contents</param>
-    public static void SaveAsImage(String imageName, InputStream imageContent)
-    {
-        try
-        {
+
+    /**
+     * Save the rendered images at disk
+     * @param imageName    Save as provided String
+     * @param imageContent stream of image contents
+     */
+    public static void SaveAsImage(String imageName, InputStream imageContent) {
+        try {
             //ExStart:SaveAsImage
             // extract the image from stream
             BufferedImage img = ImageIO.read(imageContent);
@@ -192,21 +216,18 @@ public class Utilities {
             new java.io.File(path).getParentFile().mkdirs();
             //save the image in the form of jpeg
             ImageIO.write(img, "jpg", new File(path));
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             writeLine(e.getMessage());
         }
     }
-    /// <summary>
-    /// Save file in any format
-    /// </summary>
-    /// <param name="filename">Save as provided String</param>
-    /// <param name="content">Stream as content of a file</param>
-    public static void SaveFile(String filename, InputStream content)
-    {
-        try
-        {
+
+    /**
+     * Save file in any format
+     * @param filename Save as provided String
+     * @param content  Stream as content of a file
+     */
+    public static void SaveFile(String filename, InputStream content) {
+        try {
             //ExStart:SaveAnyFile
             //Create file stream
             final String path = new File(OUTPUT_PATH).getAbsolutePath() + filename;
@@ -221,11 +242,8 @@ public class Utilities {
             // Use write method to write to the file specified above
             fileStream.write(bytesInStream, 0, bytesInStream.length);
             //ExEnd:SaveAnyFile
-        }
-        catch ( Exception ex)
-        {
+        } catch (Exception ex) {
             writeLine(ex.getMessage());
         }
     }
-
 }

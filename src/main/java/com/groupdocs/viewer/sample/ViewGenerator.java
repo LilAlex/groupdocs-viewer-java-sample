@@ -23,18 +23,26 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * The type View generator.
  * @author Aleksey Permyakov (21.03.2016).
  */
 public class ViewGenerator {
 
+    /**
+     * Render document as html.
+     * @param DocumentName the document name
+     * @throws Exception the exception
+     */
     public static void RenderDocumentAsHtml(String DocumentName) throws Exception {
         RenderDocumentAsHtml(DocumentName, null);
     }
-    /// <summary>
-    /// Render simple document in html representation
-    /// </summary>
-    /// <param name="DocumentName">File name</param>
-    /// <param name="DocumentPassword">Optional</param>
+
+    /**
+     * Render simple document in html representation
+     * @param DocumentName     File name
+     * @param DocumentPassword Optional
+     * @throws Exception the exception
+     */
     public static void RenderDocumentAsHtml(String DocumentName, String DocumentPassword) throws Exception {
         //ExStart:RenderAsHtml
         //Get Configurations
@@ -54,31 +62,30 @@ public class ViewGenerator {
         options.setResourcesEmbedded(true);
 
         // Set password if document is password protected. 
-        if(DocumentPassword == null || DocumentPassword.isEmpty())
+        if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
+        }
         options.setPageNumbersToConvert(Arrays.asList(1, 2));
         //Get document pages in html form
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
 
-        for (PageHtml page : pages)
-        {
+        for (PageHtml page : pages) {
             //Save each page at disk
             Utilities.SaveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
         }
-        //ExEnd:RenderAsHtml
     }
 
 
-
-    /// <summary>
-    /// Render document in html representation with watermark
-    /// </summary>
-    /// <param name="DocumentName">file/document name</param>
-    /// <param name="WatermarkText">watermark text</param>
-    /// <param name="WatermarkColor"> System.Drawing.Color</param>
-    /// <param name="position">Watermark Position is optional parameter. Default value is WatermarkPosition.Diagonal</param>
-    /// <param name="WatermarkWidth"> width of watermark as integer. it is optional Parameter default value is 100</param>
-    /// <param name="DocumentPassword">Password Parameter is optional</param>
+    /**
+     * Render document in html representation with watermark
+     * @param DocumentName     file/document name
+     * @param WatermarkText    watermark text
+     * @param WatermarkColor   System.Drawing.Color
+     * @param position         Watermark Position is optional parameter. Default value is WatermarkPosition.Diagonal
+     * @param WatermarkWidth   width of watermark as integer. it is optional Parameter default value is 100
+     * @param DocumentPassword Password Parameter is optional
+     * @throws Exception the exception
+     */
     public static void RenderDocumentAsHtml(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword) throws Exception {
         position = position == null ? WatermarkPosition.Diagonal : position;
         //ExStart:RenderAsHtmlWithWaterMark
@@ -96,8 +103,9 @@ public class ViewGenerator {
 
         options.setResourcesEmbedded(false);
         // Set password if document is password protected. 
-        if (DocumentPassword == null || DocumentPassword.isEmpty())
+        if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
+        }
 
         // Call AddWatermark and pass the reference of HtmlOptions object as 1st parameter
         Utilities.PageTransformations.AddWatermark(options, WatermarkText, WatermarkColor, position, WatermarkWidth);
@@ -105,20 +113,20 @@ public class ViewGenerator {
         //Get document pages in html form
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
 
-        for (PageHtml page : pages)
-        {
+        for (PageHtml page : pages) {
             //Save each page at disk
             Utilities.SaveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
         }
-        //ExEnd:RenderAsHtmlWithWaterMark
     }
-    /// <summary>
-    ///  document in html representation and reorder a page
-    /// </summary>
-    /// <param name="DocumentName">file/document name</param>
-    /// <param name="CurrentPageNumber">Page existing order number</param>
-    /// <param name="NewPageNumber">Page new order number</param>
-    /// <param name="DocumentPassword">Password Parameter is optional</param>
+
+    /**
+     * document in html representation and reorder a page
+     * @param DocumentName      file/document name
+     * @param CurrentPageNumber Page existing order number
+     * @param NewPageNumber     Page new order number
+     * @param DocumentPassword  Password Parameter is optional
+     * @throws Exception the exception
+     */
     public static void RenderDocumentAsHtml(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
         //ExStart:RenderAsHtmlAndReorderPage
         //Get Configurations
@@ -138,30 +146,31 @@ public class ViewGenerator {
         options.setResourcesEmbedded(true);
 
         // Set password if document is password protected. 
-        if (DocumentPassword == null || DocumentPassword.isEmpty())
+        if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
+        }
 
         //Call ReorderPage and pass the reference of ViewerHandler's class  parameter by reference. 
         Utilities.PageTransformations.ReorderPage(handler, guid, CurrentPageNumber, NewPageNumber);
 
         //down cast the handler(ViewerHandler) to viewerHtmlHandler
-        ViewerHtmlHandler htmlHandler = (ViewerHtmlHandler)handler;
+        ViewerHtmlHandler htmlHandler = (ViewerHtmlHandler) handler;
 
         //Get document pages in html form
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
 
-        for (PageHtml page : pages)
-        {
+        for (PageHtml page : pages) {
             //Save each page at disk
             Utilities.SaveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
         }
-        //ExEnd:RenderAsHtmlAndReorderPage
     }
-    /// <summary>
-    /// Render a document in html representation whom located at web/remote location.
-    /// </summary>
-    /// <param name="DocumentURL">URL of the document</param>
-    /// <param name="DocumentPassword">Password Parameter is optional</param>
+
+    /**
+     * Render a document in html representation whom located at web/remote location.
+     * @param DocumentURL      URL of the document
+     * @param DocumentPassword Password Parameter is optional
+     * @throws Exception the exception
+     */
     public static void RenderDocumentAsHtml(URI DocumentURL, String DocumentPassword) throws Exception {
         //ExStart:RenderRemoteDocAsHtml
         //Get Configurations 
@@ -173,27 +182,25 @@ public class ViewGenerator {
         //Instantiate the HtmlOptions object
         HtmlOptions options = new HtmlOptions();
 
-        if (DocumentPassword == null || DocumentPassword.isEmpty())
+        if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
+        }
 
         //Get document pages in html form
-        List<PageHtml> pages = htmlHandler.getPages(DocumentURL,options);
+        List<PageHtml> pages = htmlHandler.getPages(DocumentURL, options);
 
-        for (PageHtml page : pages)
-        {
+        for (PageHtml page : pages) {
             //Save each page at disk
             Utilities.SaveAsHtml(page.getPageNumber() + "_" + new File(DocumentURL.getPath()).getName(), page.getHtmlContent());
         }
-        //ExEnd:RenderRemoteDocAsHtml
     }
 
-    /// <summary>
-    /// Render simple document in image representation
-    /// </summary>
-    /// <param name="DocumentName">File name</param>
-    /// <param name="DocumentPassword">Optional</param>
-    public static void RenderDocumentAsImages(String DocumentName,String DocumentPassword)
-    {
+    /**
+     * Render simple document in image representation
+     * @param DocumentName     File name
+     * @param DocumentPassword Optional
+     */
+    public static void RenderDocumentAsImages(String DocumentName, String DocumentPassword) {
         //ExStart:RenderAsImage
         //Get Configurations
         ViewerConfig config = Utilities.GetConfigurations();
@@ -208,31 +215,29 @@ public class ViewGenerator {
         ImageOptions options = new ImageOptions();
 
         // Set password if document is password protected. 
-        if (DocumentPassword == null || DocumentPassword.isEmpty())
+        if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
+        }
 
         //Get document pages in image form
         List<PageImage> Images = imageHandler.getPages(guid, options);
 
-        for (PageImage image : Images)
-        {
+        for (PageImage image : Images) {
             //Save each image at disk
             Utilities.SaveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
         }
-        //ExEnd:RenderAsImage
-
     }
-    /// <summary>
-    /// Render document in image representation with watermark
-    /// </summary>
-    /// <param name="DocumentName">file/document name</param>
-    /// <param name="WatermarkText">watermark text</param>
-    /// <param name="WatermarkColor"> System.Drawing.Color</param>
-    /// <param name="position">Watermark Position is optional parameter. Default value is WatermarkPosition.Diagonal</param>
-    /// <param name="WatermarkWidth"> width of watermark as integer. it is optional Parameter default value is 100</param>
-    /// <param name="DocumentPassword">Password Parameter is optional</param>
-    public static void RenderDocumentAsImages(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword)
-    {
+
+    /**
+     * Render document in image representation with watermark
+     * @param DocumentName     file/document name
+     * @param WatermarkText    watermark text
+     * @param WatermarkColor   System.Drawing.Color
+     * @param position         Watermark Position is optional parameter. Default value is WatermarkPosition.Diagonal
+     * @param WatermarkWidth   width of watermark as integer. it is optional Parameter default value is 100
+     * @param DocumentPassword Password Parameter is optional
+     */
+    public static void RenderDocumentAsImages(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword) {
         position = position == null ? WatermarkPosition.Diagonal : position;
         //ExStart:RenderAsImageWithWaterMark
         //Get Configurations
@@ -248,8 +253,9 @@ public class ViewGenerator {
         ImageOptions options = new ImageOptions();
 
         // Set password if document is password protected. 
-        if (DocumentPassword == null || DocumentPassword.isEmpty())
+        if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
+        }
 
         // Call AddWatermark and pass the reference of ImageOptions object as 1st parameter
         Utilities.PageTransformations.AddWatermark(options, WatermarkText, WatermarkColor, position, WatermarkWidth);
@@ -257,19 +263,19 @@ public class ViewGenerator {
         //Get document pages in image form
         List<PageImage> Images = imageHandler.getPages(guid, options);
 
-        for (PageImage image : Images)
-        {
+        for (PageImage image : Images) {
             //Save each image at disk
             Utilities.SaveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
         }
-        //ExEnd:RenderAsImageWithWaterMark
     }
-    /// <summary>
-    /// Render the document in image form and set the rotation angle to rotate the page while display.
-    /// </summary>
-    /// <param name="DocumentName"></param>
-    /// <param name="RotationAngle">rotation angle in digits</param>
-    /// <param name="DocumentPassword"></param>
+
+    /**
+     * Render the document in image form and set the rotation angle to rotate the page while display.
+     * @param DocumentName     the document name
+     * @param RotationAngle    rotation angle in digits
+     * @param DocumentPassword the document password
+     * @throws Exception the exception
+     */
     public static void RenderDocumentAsImages(String DocumentName, int RotationAngle, String DocumentPassword) throws Exception {
         //ExStart:RenderAsImageWithRotationTransformation
         //Get Configurations
@@ -286,32 +292,33 @@ public class ViewGenerator {
         options.setTransformations(Transformation.Rotate);
 
         // Set password if document is password protected. 
-        if (DocumentPassword == null || DocumentPassword.isEmpty())
+        if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
+        }
 
         //Call RotatePages to apply rotate transformation to a page
-        Utilities.PageTransformations.RotatePages(handler, guid,1,RotationAngle);
+        Utilities.PageTransformations.RotatePages(handler, guid, 1, RotationAngle);
 
         //down cast the handler(ViewerHandler) to viewerHtmlHandler
-        ViewerImageHandler imageHandler = (ViewerImageHandler)handler;
+        ViewerImageHandler imageHandler = (ViewerImageHandler) handler;
 
         //Get document pages in image form
         List<PageImage> Images = imageHandler.getPages(guid, options);
 
-        for (PageImage image : Images)
-        {
+        for (PageImage image : Images) {
             //Save each image at disk
             Utilities.SaveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
         }
-        //ExEnd:RenderAsImageWithRotationTransformation
     }
-    /// <summary>
-    ///  document in image representation and reorder a page
-    /// </summary>
-    /// <param name="DocumentName">file/document name</param>
-    /// <param name="CurrentPageNumber">Page existing order number</param>
-    /// <param name="NewPageNumber">Page new order number</param>
-    /// <param name="DocumentPassword">Password Parameter is optional</param>
+
+    /**
+     * document in image representation and reorder a page
+     * @param DocumentName      file/document name
+     * @param CurrentPageNumber Page existing order number
+     * @param NewPageNumber     Page new order number
+     * @param DocumentPassword  Password Parameter is optional
+     * @throws Exception the exception
+     */
     public static void RenderDocumentAsImages(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
         //ExStart:RenderAsImageAndReorderPage
         //Get Configurations
@@ -328,32 +335,31 @@ public class ViewGenerator {
         options.setTransformations(Transformation.Reorder);
 
         // Set password if document is password protected. 
-        if (DocumentPassword == null || DocumentPassword.isEmpty())
+        if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
+        }
 
         //Call ReorderPage and pass the reference of ViewerHandler's class  parameter by reference. 
-        Utilities.PageTransformations.ReorderPage(handler,guid,CurrentPageNumber,NewPageNumber);
+        Utilities.PageTransformations.ReorderPage(handler, guid, CurrentPageNumber, NewPageNumber);
 
         //down cast the handler(ViewerHandler) to viewerHtmlHandler
-        ViewerImageHandler imageHandler = (ViewerImageHandler)handler;
+        ViewerImageHandler imageHandler = (ViewerImageHandler) handler;
 
         //Get document pages in image form
         List<PageImage> Images = imageHandler.getPages(guid, options);
 
-        for (PageImage image : Images)
-        {
+        for (PageImage image : Images) {
             //Save each image at disk
             Utilities.SaveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
         }
-        //ExEnd:RenderAsImageAndReorderPage
     }
-    /// <summary>
-    /// Render a document in image representation whom located at web/remote location.
-    /// </summary>
-    /// <param name="DocumentURL">URL of the document</param>
-    /// <param name="DocumentPassword">Password Parameter is optional</param>
-    public static void RenderDocumentAsImages(URI DocumentURL, String DocumentPassword)
-    {
+
+    /**
+     * Render a document in image representation whom located at web/remote location.
+     * @param DocumentURL      URL of the document
+     * @param DocumentPassword Password Parameter is optional
+     */
+    public static void RenderDocumentAsImages(URI DocumentURL, String DocumentPassword) {
         //ExStart:RenderRemoteDocAsImages
         //Get Configurations
         ViewerConfig config = Utilities.GetConfigurations();
@@ -365,26 +371,24 @@ public class ViewGenerator {
         ImageOptions options = new ImageOptions();
 
         // Set password if document is password protected. 
-        if (DocumentPassword == null || DocumentPassword.isEmpty())
+        if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
+        }
 
         //Get document pages in image form
         List<PageImage> Images = imageHandler.getPages(DocumentURL, options);
 
-        for (PageImage image : Images)
-        {
+        for (PageImage image : Images) {
             //Save each image at disk
             Utilities.SaveAsImage(image.getPageNumber() + "_" + new File(DocumentURL.getPath()).getName(), image.getStream());
         }
-        //ExEnd:RenderRemoteDocAsImages
     }
 
-    /// <summary>
-    /// Render a document as it is (original form)
-    /// </summary>
-    /// <param name="DocumentName"></param>
-    public static void RenderDocumentAsOriginal(String DocumentName)
-    {
+    /**
+     * Render a document as it is (original form)
+     * @param DocumentName the document name
+     */
+    public static void RenderDocumentAsOriginal(String DocumentName) {
         //ExStart:RenderOriginal
         // Create image handler 
         ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.GetConfigurations());
@@ -397,15 +401,13 @@ public class ViewGenerator {
 
         //Save each image at disk
         Utilities.SaveAsImage(DocumentName, container.getStream());
-        //ExEnd:RenderOriginal
-
     }
-    /// <summary>
-    /// Render a document in PDF Form
-    /// </summary>
-    /// <param name="DocumentName"></param>
-    public static void RenderDocumentAsPDF(String DocumentName)
-    {
+
+    /**
+     * Render a document in PDF Form
+     * @param DocumentName the document name
+     */
+    public static void RenderDocumentAsPDF(String DocumentName) {
         //ExStart:RenderAsPdf
         // Create/initialize image handler 
         ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.GetConfigurations());
@@ -420,57 +422,85 @@ public class ViewGenerator {
         FileContainer container = imageHandler.getPdfFile(options);
 
         //Change the extension of the file and assign to a String type variable filename
-        String filename = Utilities.getFileNameWithoutExtension(DocumentName)+".pdf";
+        String filename = Utilities.getFileNameWithoutExtension(DocumentName) + ".pdf";
 
         //Save each image at disk
         Utilities.SaveFile(filename, container.getStream());
-        //ExEnd:RenderAsPdf
-
     }
-    /// <summary>
-    /// Load directory structure as file tree
-    /// </summary>
-    /// <param name="Path"></param>
-    public static void LoadFileTree(String Path)
-    {
+
+    /**
+     * Load directory structure as file tree
+     */
+    public static void LoadFileTree() {
+        LoadFileTree("");
+    }
+
+    /**
+     * Load directory structure as file tree
+     * @param path the path
+     */
+    public static void LoadFileTree(String path) {
+        LoadFileTree(path, FileTreeOptions.FileTreeOrderBy.Unknown, true);
+    }
+
+    /**
+     * Load directory structure as file tree
+     * @param Path    the path
+     * @param orderBy the order by
+     * @param orderAsc
+     */
+    public static void LoadFileTree(String Path, FileTreeOptions.FileTreeOrderBy orderBy, boolean orderAsc) {
         //ExStart:LoadFileTree
         // Create/initialize image handler 
         ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.GetConfigurations());
 
         // Load file tree list for custom path 
         FileTreeOptions options = new FileTreeOptions(Path);
+        options.setOrderBy(orderBy);
+        options.setOrderAsc(orderAsc);
 
         // Load file tree list for ViewerConfig.StoragePath
         FileTreeContainer container = imageHandler.loadFileTree(options);
 
-        for (FileDescription node : container.getFileTree())
-        {
-            if (node.isDirectory())
-            {
-                Utilities.writeLine("Guid: {0} | Name: {1} | LastModificationDate: {2}",
+        for (FileDescription node : container.getFileTree()) {
+            if (node.isDirectory()) {
+                Utilities.writeLine(
+                        "Guid: {0} | Name: {1} | LastModificationDate: {2}",
                         node.getGuid(),
                         node.getName(),
-                        node.getLastModificationDate());
-            }
-            else
-                Utilities.writeLine("Guid: {0} | Name: {1} | Document type: {2} | File type: {3} | Extension: {4} | Size: {5} | LastModificationDate: {6}",
+                        node.getLastModificationDate()
+                );
+            } else {
+                Utilities.writeLine(
+                        "Guid: {0} | Name: {1} | Document type: {2} | File type: {3} | Extension: {4} | Size: {5} | LastModificationDate: {6}",
                         node.getGuid(),
                         node.getName(),
                         node.getDocumentType(),
                         node.getFileType(),
                         node.getExtension(),
                         node.getSize(),
-                        node.getLastModificationDate());
+                        node.getLastModificationDate()
+                );
+            }
         }
-
-        //ExEnd:LoadFileTree
-
+        System.out.println();
     }
 
+    /**
+     * Render document as images.
+     * @param name the name
+     */
     public static void RenderDocumentAsImages(String name) {
         RenderDocumentAsImages(name, null);
     }
 
+    /**
+     * Render document as html.
+     * @param DocumentName   the document name
+     * @param WatermarkText  the watermark text
+     * @param watermarkColor the watermark color
+     * @throws Exception the exception
+     */
     public static void RenderDocumentAsHtml(String DocumentName, String WatermarkText, Color watermarkColor) throws Exception {
         RenderDocumentAsHtml(DocumentName, WatermarkText, watermarkColor, WatermarkPosition.Diagonal, 100, null);
     }

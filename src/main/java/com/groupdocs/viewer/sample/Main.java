@@ -2,8 +2,6 @@ package com.groupdocs.viewer.sample;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-
-        //ExStart:ApplyingLicense
         /**
          *  Applying product license
          *  Please uncomment the statement if you do have license.
@@ -11,8 +9,17 @@ public class Main {
         Utilities.ApplyLicense();
         //ExEnd:ApplyingLicense
 
+        // File tree from root storage path
+        ViewGenerator.LoadFileTree();
+
+        // File tree from 'temp' directory in storage path
+//        ViewGenerator.LoadFileTree("temp");
+
+        // File tree from root storage path with sorting by size descending
+//        ViewGenerator.LoadFileTree("", FileTreeOptions.FileTreeOrderBy.Size, false);
+
         //Render a power point presentation in html form
-        ViewGenerator.RenderDocumentAsHtml("word.doc");
+//        ViewGenerator.RenderDocumentAsHtml("word.doc");
 
         //Render a spreadsheet in html form
 //         ViewGenerator.RenderDocumentAsHtml("spreadsheet.xlsx");
