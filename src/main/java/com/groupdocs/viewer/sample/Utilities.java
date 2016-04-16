@@ -212,10 +212,10 @@ public class Utilities {
             // extract the image from stream
             BufferedImage img = ImageIO.read(imageContent);
 
-            final String path = new File(OUTPUT_IMAGE_PATH).getAbsolutePath() + "\\" + getFileNameWithoutExtension(imageName) + ".jpeg";
+            final String path = new File(OUTPUT_IMAGE_PATH).getAbsolutePath() + "\\" + getFileNameWithoutExtension(imageName) + ".png";
             new java.io.File(path).getParentFile().mkdirs();
             //save the image in the form of jpeg
-            ImageIO.write(img, "jpg", new File(path));
+            ImageIO.write(img, "png", new File(path));
         } catch (Exception e) {
             writeLine(e.getMessage());
         }
