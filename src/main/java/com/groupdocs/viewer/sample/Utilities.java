@@ -1,5 +1,6 @@
 package com.groupdocs.viewer.sample;
 
+import com.groupdocs.viewer.Constants;
 import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
@@ -63,7 +64,7 @@ public class Utilities {
      * Initialize, populate and return the ViewerConfig object
      * @return Populated ViewerConfig Object
      */
-    public static ViewerConfig GetConfigurations() {
+    public static ViewerConfig getConfigurations() {
         //ExStart:Configurations
         ViewerConfig config = new ViewerConfig();
         //set the storage path
@@ -176,7 +177,7 @@ public class Utilities {
     /**
      * Set product's license
      */
-    public static void ApplyLicense() {
+    public static void applyLicense() {
         License lic = new License();
         lic.setLicense(LICENSE_PATH);
     }
@@ -186,7 +187,7 @@ public class Utilities {
      * @param filename Save as provided String
      * @param content  Html contents in String form
      */
-    public static void SaveAsHtml(String filename, String content) {
+    public static void saveAsHtml(String filename, String content) {
         try {
             //ExStart:SaveAsHTML
             // set an html file name with absolute path
@@ -206,13 +207,29 @@ public class Utilities {
      * @param imageName    Save as provided String
      * @param imageContent stream of image contents
      */
-    public static void SaveAsImage(String imageName, InputStream imageContent) {
+    public static void saveAsImage(String imageName, InputStream imageContent) {
         try {
-            //ExStart:SaveAsImage
             // extract the image from stream
             BufferedImage img = ImageIO.read(imageContent);
-
             final String path = new File(OUTPUT_IMAGE_PATH).getAbsolutePath() + "\\" + getFileNameWithoutExtension(imageName) + ".png";
+            new java.io.File(path).getParentFile().mkdirs();
+            //save the image in the form of jpeg
+            ImageIO.write(img, "png", new File(path));
+        } catch (Exception e) {
+            writeLine(e.getMessage());
+        }
+    }
+
+    /**
+     * Save the resource at disk
+     * @param filename           Save as provided String
+     * @param documentPageNumber the document page number
+     * @param imageContent       stream of image contents
+     */
+    public static void saveResourceAsImage(String filename, int documentPageNumber, InputStream imageContent) {
+        try {
+            final String path = makeHtmlResourcePath(documentPageNumber, filename);
+            BufferedImage img = ImageIO.read(imageContent);
             new java.io.File(path).getParentFile().mkdirs();
             //save the image in the form of jpeg
             ImageIO.write(img, "png", new File(path));
@@ -226,9 +243,8 @@ public class Utilities {
      * @param filename Save as provided String
      * @param content  Stream as content of a file
      */
-    public static void SaveFile(String filename, InputStream content) {
+    public static void saveFile(String filename, InputStream content) {
         try {
-            //ExStart:SaveAnyFile
             //Create file stream
             final String path = new File(OUTPUT_PATH).getAbsolutePath() + filename;
             new java.io.File(path).getParentFile().mkdirs();
@@ -246,4 +262,52 @@ public class Utilities {
             writeLine(ex.getMessage());
         }
     }
+
+    /**
+     * Save file in any format
+     * @param filename           Save as provided String
+     * @param documentPageNumber the document page number
+     * @param content            Stream as content of a file
+     */
+    public static void saveResourceFile(String filename, int documentPageNumber, InputStream content) {
+        try {
+            //Create file stream
+            final String path = makeHtmlResourcePath(documentPageNumber, filename);
+            new java.io.File(path).getParentFile().mkdirs();
+            FileOutputStream fileStream = new FileOutputStream(path);
+
+            // Initialize the bytes array with the stream length and then fill it with data
+            final long length = content.available();
+            byte[] bytesInStream = new byte[(int) length];
+            IOUtils.read(content, bytesInStream);
+
+            // Use write method to write to the file specified above
+            fileStream.write(bytesInStream, 0, bytesInStream.length);
+            //ExEnd:SaveAnyFile
+        } catch (Exception ex) {
+            writeLine(ex.getMessage());
+        }
+    }
+
+
+    /**
+     * Make html resource path string.
+     * @param documentPageNumber the document page number
+     * @param resourceName       the resource name
+     * @return the string
+     */
+    public static String makeHtmlResourcePath(int documentPageNumber, String resourceName) {
+        File outputPath = new File(OUTPUT_HTML_PATH);
+        return String.format(
+                "%s%s%s%spage%d%s%s",
+                outputPath.getAbsolutePath(),
+                File.separator,
+                Constants.RESOURCES_DIR_NAME,
+                File.separator,
+                documentPageNumber,
+                File.separator,
+                resourceName
+        );
+    }
+
 }

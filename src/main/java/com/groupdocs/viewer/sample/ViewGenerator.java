@@ -8,6 +8,8 @@ import com.groupdocs.viewer.domain.Transformation;
 import com.groupdocs.viewer.domain.WatermarkPosition;
 import com.groupdocs.viewer.domain.containers.FileContainer;
 import com.groupdocs.viewer.domain.containers.FileTreeContainer;
+import com.groupdocs.viewer.domain.html.HtmlResource;
+import com.groupdocs.viewer.domain.html.HtmlResourceType;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.domain.image.PageImage;
 import com.groupdocs.viewer.domain.options.FileTreeOptions;
@@ -18,6 +20,7 @@ import com.groupdocs.viewer.handler.ViewerImageHandler;
 
 import java.awt.*;
 import java.io.File;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
@@ -33,8 +36,8 @@ public class ViewGenerator {
      * @param DocumentName the document name
      * @throws Exception the exception
      */
-    public static void RenderDocumentAsHtml(String DocumentName) throws Exception {
-        RenderDocumentAsHtml(DocumentName, null);
+    public static void renderDocumentAsHtml(String DocumentName) throws Exception {
+        renderDocumentAsHtml(DocumentName, null);
     }
 
     /**
@@ -43,10 +46,10 @@ public class ViewGenerator {
      * @param DocumentPassword Optional
      * @throws Exception the exception
      */
-    public static void RenderDocumentAsHtml(String DocumentName, String DocumentPassword) throws Exception {
+    public static void renderDocumentAsHtml(String DocumentName, String DocumentPassword) throws Exception {
         //ExStart:RenderAsHtml
         //Get Configurations
-        ViewerConfig config = Utilities.GetConfigurations();
+        ViewerConfig config = Utilities.getConfigurations();
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
@@ -71,7 +74,7 @@ public class ViewGenerator {
 
         for (PageHtml page : pages) {
             //Save each page at disk
-            Utilities.SaveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
+            Utilities.saveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
         }
     }
 
@@ -86,11 +89,11 @@ public class ViewGenerator {
      * @param DocumentPassword Password Parameter is optional
      * @throws Exception the exception
      */
-    public static void RenderDocumentAsHtml(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword) throws Exception {
+    public static void renderDocumentAsHtml(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword) throws Exception {
         position = position == null ? WatermarkPosition.Diagonal : position;
         //ExStart:RenderAsHtmlWithWaterMark
         //Get Configurations
-        ViewerConfig config = Utilities.GetConfigurations();
+        ViewerConfig config = Utilities.getConfigurations();
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
@@ -101,7 +104,7 @@ public class ViewGenerator {
         //Instantiate the HtmlOptions object 
         HtmlOptions options = new HtmlOptions();
 
-        options.setResourcesEmbedded(false);
+        options.setResourcesEmbedded(true);
         // Set password if document is password protected. 
         if (DocumentPassword == null || DocumentPassword.isEmpty()) {
             options.setPassword(DocumentPassword);
@@ -115,7 +118,8 @@ public class ViewGenerator {
 
         for (PageHtml page : pages) {
             //Save each page at disk
-            Utilities.SaveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
+            Utilities.saveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
+            processHtmlResources(guid, htmlHandler, page);
         }
     }
 
@@ -127,10 +131,10 @@ public class ViewGenerator {
      * @param DocumentPassword  Password Parameter is optional
      * @throws Exception the exception
      */
-    public static void RenderDocumentAsHtml(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
+    public static void renderDocumentAsHtml(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
         //ExStart:RenderAsHtmlAndReorderPage
         //Get Configurations
-        ViewerConfig config = Utilities.GetConfigurations();
+        ViewerConfig config = Utilities.getConfigurations();
 
         // Cast ViewerHtmlHandler class object to its base class(ViewerHandler).
         ViewerHandler handler = new ViewerHtmlHandler(config);
@@ -161,7 +165,33 @@ public class ViewGenerator {
 
         for (PageHtml page : pages) {
             //Save each page at disk
-            Utilities.SaveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
+            Utilities.saveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
+            processHtmlResources(guid, htmlHandler, page);
+        }
+    }
+
+    private static void processHtmlResources(String guid, ViewerHtmlHandler htmlHandler, PageHtml page) {
+        final List<HtmlResource> htmlResources = page.getHtmlResources();
+        for (HtmlResource htmlResource : htmlResources) {
+            final String resourceName = htmlResource.getResourceName();
+            try {
+                final InputStream resource = htmlHandler.getResource(guid, htmlResource);
+                final HtmlResourceType resourceType = htmlResource.getResourceType();
+                final int documentPageNumber = htmlResource.getDocumentPageNumber();
+                switch (resourceType) {
+                    case Image:
+                        Utilities.saveResourceAsImage(resourceName, documentPageNumber, resource);
+                        break;
+                    case Style:
+                        Utilities.saveResourceFile(resourceName, documentPageNumber, resource);
+                        break;
+                    case Font:
+                        Utilities.saveResourceFile(resourceName, documentPageNumber, resource);
+                        break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -171,10 +201,10 @@ public class ViewGenerator {
      * @param DocumentPassword Password Parameter is optional
      * @throws Exception the exception
      */
-    public static void RenderDocumentAsHtml(URI DocumentURL, String DocumentPassword) throws Exception {
+    public static void renderDocumentAsHtml(URI DocumentURL, String DocumentPassword) throws Exception {
         //ExStart:RenderRemoteDocAsHtml
         //Get Configurations 
-        ViewerConfig config = Utilities.GetConfigurations();
+        ViewerConfig config = Utilities.getConfigurations();
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
@@ -191,7 +221,7 @@ public class ViewGenerator {
 
         for (PageHtml page : pages) {
             //Save each page at disk
-            Utilities.SaveAsHtml(page.getPageNumber() + "_" + new File(DocumentURL.getPath()).getName(), page.getHtmlContent());
+            Utilities.saveAsHtml(page.getPageNumber() + "_" + new File(DocumentURL.getPath()).getName(), page.getHtmlContent());
         }
     }
 
@@ -200,10 +230,10 @@ public class ViewGenerator {
      * @param DocumentName     File name
      * @param DocumentPassword Optional
      */
-    public static void RenderDocumentAsImages(String DocumentName, String DocumentPassword) {
+    public static void renderDocumentAsImages(String DocumentName, String DocumentPassword) {
         //ExStart:RenderAsImage
         //Get Configurations
-        ViewerConfig config = Utilities.GetConfigurations();
+        ViewerConfig config = Utilities.getConfigurations();
 
         // Create image handler 
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
@@ -224,7 +254,7 @@ public class ViewGenerator {
 
         for (PageImage image : Images) {
             //Save each image at disk
-            Utilities.SaveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
+            Utilities.saveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
         }
     }
 
@@ -237,11 +267,11 @@ public class ViewGenerator {
      * @param WatermarkWidth   width of watermark as integer. it is optional Parameter default value is 100
      * @param DocumentPassword Password Parameter is optional
      */
-    public static void RenderDocumentAsImages(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword) {
+    public static void renderDocumentAsImages(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword) {
         position = position == null ? WatermarkPosition.Diagonal : position;
         //ExStart:RenderAsImageWithWaterMark
         //Get Configurations
-        ViewerConfig config = Utilities.GetConfigurations();
+        ViewerConfig config = Utilities.getConfigurations();
 
         // Create image handler
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
@@ -265,7 +295,7 @@ public class ViewGenerator {
 
         for (PageImage image : Images) {
             //Save each image at disk
-            Utilities.SaveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
+            Utilities.saveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
         }
     }
 
@@ -276,10 +306,10 @@ public class ViewGenerator {
      * @param DocumentPassword the document password
      * @throws Exception the exception
      */
-    public static void RenderDocumentAsImages(String DocumentName, int RotationAngle, String DocumentPassword) throws Exception {
+    public static void renderDocumentAsImages(String DocumentName, int RotationAngle, String DocumentPassword) throws Exception {
         //ExStart:RenderAsImageWithRotationTransformation
         //Get Configurations
-        ViewerConfig config = Utilities.GetConfigurations();
+        ViewerConfig config = Utilities.getConfigurations();
 
         // Create image handler
         ViewerHandler handler = new ViewerImageHandler(config);
@@ -307,7 +337,7 @@ public class ViewGenerator {
 
         for (PageImage image : Images) {
             //Save each image at disk
-            Utilities.SaveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
+            Utilities.saveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
         }
     }
 
@@ -319,10 +349,10 @@ public class ViewGenerator {
      * @param DocumentPassword  Password Parameter is optional
      * @throws Exception the exception
      */
-    public static void RenderDocumentAsImages(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
+    public static void renderDocumentAsImages(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
         //ExStart:RenderAsImageAndReorderPage
         //Get Configurations
-        ViewerConfig config = Utilities.GetConfigurations();
+        ViewerConfig config = Utilities.getConfigurations();
 
         // Cast ViewerHtmlHandler class object to its base class(ViewerHandler).
         ViewerHandler handler = new ViewerImageHandler(config);
@@ -350,7 +380,7 @@ public class ViewGenerator {
 
         for (PageImage image : Images) {
             //Save each image at disk
-            Utilities.SaveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
+            Utilities.saveAsImage(image.getPageNumber() + "_" + DocumentName, image.getStream());
         }
     }
 
@@ -359,10 +389,10 @@ public class ViewGenerator {
      * @param DocumentURL      URL of the document
      * @param DocumentPassword Password Parameter is optional
      */
-    public static void RenderDocumentAsImages(URI DocumentURL, String DocumentPassword) {
+    public static void renderDocumentAsImages(URI DocumentURL, String DocumentPassword) {
         //ExStart:RenderRemoteDocAsImages
         //Get Configurations
-        ViewerConfig config = Utilities.GetConfigurations();
+        ViewerConfig config = Utilities.getConfigurations();
 
         // Create image handler
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
@@ -380,7 +410,7 @@ public class ViewGenerator {
 
         for (PageImage image : Images) {
             //Save each image at disk
-            Utilities.SaveAsImage(image.getPageNumber() + "_" + new File(DocumentURL.getPath()).getName(), image.getStream());
+            Utilities.saveAsImage(image.getPageNumber() + "_" + new File(DocumentURL.getPath()).getName(), image.getStream());
         }
     }
 
@@ -388,10 +418,10 @@ public class ViewGenerator {
      * Render a document as it is (original form)
      * @param DocumentName the document name
      */
-    public static void RenderDocumentAsOriginal(String DocumentName) {
+    public static void renderDocumentAsOriginal(String DocumentName) {
         //ExStart:RenderOriginal
         // Create image handler 
-        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.GetConfigurations());
+        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfigurations());
 
         // Guid implies that unique document name 
         String guid = DocumentName;
@@ -400,17 +430,17 @@ public class ViewGenerator {
         FileContainer container = imageHandler.getFile(guid);
 
         //Save each image at disk
-        Utilities.SaveAsImage(DocumentName, container.getStream());
+        Utilities.saveAsImage(DocumentName, container.getStream());
     }
 
     /**
      * Render a document in PDF Form
      * @param DocumentName the document name
      */
-    public static void RenderDocumentAsPDF(String DocumentName) {
+    public static void renderDocumentAsPDF(String DocumentName) {
         //ExStart:RenderAsPdf
         // Create/initialize image handler 
-        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.GetConfigurations());
+        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfigurations());
 
         //Initialize PdfFileOptions object
         PdfFileOptions options = new PdfFileOptions();
@@ -425,34 +455,34 @@ public class ViewGenerator {
         String filename = Utilities.getFileNameWithoutExtension(DocumentName) + ".pdf";
 
         //Save each image at disk
-        Utilities.SaveFile(filename, container.getStream());
+        Utilities.saveFile(filename, container.getStream());
     }
 
     /**
      * Load directory structure as file tree
      */
-    public static void LoadFileTree() {
-        LoadFileTree("");
+    public static void loadFileTree() {
+        loadFileTree("");
     }
 
     /**
      * Load directory structure as file tree
      * @param path the path
      */
-    public static void LoadFileTree(String path) {
-        LoadFileTree(path, FileTreeOptions.FileTreeOrderBy.Unknown, true);
+    public static void loadFileTree(String path) {
+        loadFileTree(path, FileTreeOptions.FileTreeOrderBy.Unknown, true);
     }
 
     /**
      * Load directory structure as file tree
-     * @param Path    the path
-     * @param orderBy the order by
-     * @param orderAsc
+     * @param Path     the path
+     * @param orderBy  the order by
+     * @param orderAsc the order asc
      */
-    public static void LoadFileTree(String Path, FileTreeOptions.FileTreeOrderBy orderBy, boolean orderAsc) {
-        //ExStart:LoadFileTree
+    public static void loadFileTree(String Path, FileTreeOptions.FileTreeOrderBy orderBy, boolean orderAsc) {
+        //ExStart:loadFileTree
         // Create/initialize image handler 
-        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.GetConfigurations());
+        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfigurations());
 
         // Load file tree list for custom path 
         FileTreeOptions options = new FileTreeOptions(Path);
@@ -490,8 +520,8 @@ public class ViewGenerator {
      * Render document as images.
      * @param name the name
      */
-    public static void RenderDocumentAsImages(String name) {
-        RenderDocumentAsImages(name, null);
+    public static void renderDocumentAsImages(String name) {
+        renderDocumentAsImages(name, null);
     }
 
     /**
@@ -501,7 +531,7 @@ public class ViewGenerator {
      * @param watermarkColor the watermark color
      * @throws Exception the exception
      */
-    public static void RenderDocumentAsHtml(String DocumentName, String WatermarkText, Color watermarkColor) throws Exception {
-        RenderDocumentAsHtml(DocumentName, WatermarkText, watermarkColor, WatermarkPosition.Diagonal, 100, null);
+    public static void renderDocumentAsHtml(String DocumentName, String WatermarkText, Color watermarkColor) throws Exception {
+        renderDocumentAsHtml(DocumentName, WatermarkText, watermarkColor, WatermarkPosition.Diagonal, 100, null);
     }
 }

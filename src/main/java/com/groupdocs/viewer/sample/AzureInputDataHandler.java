@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Azure input data handler.
+ */
 public class AzureInputDataHandler implements IInputDataHandler {
     /// <summary>
     /// The blob delimiter.
@@ -32,27 +35,41 @@ public class AzureInputDataHandler implements IInputDataHandler {
     /// The cloud blob container.
     /// </summary>
     private final CloudBlobContainer _container;
-    /// <summary>
+
+    /**
+     * Instantiates a new Azure input data handler.
+     * @param accountName   the account name
+     * @param accountKey    the account key
+     * @param containerName the container name
+     * @throws URISyntaxException the uri syntax exception
+     */
+/// <summary>
     /// Initializes a new instance of the <see cref="AzureInputDataHandler"/> class.
     /// </summary>
     /// <param name="accountName"></param>
     /// <param name="accountKey"></param>
     /// <param name="containerName"></param>
     public AzureInputDataHandler(String accountName, String accountKey, String containerName) throws URISyntaxException {
-    this(GetEndpoint(accountName), accountName, accountKey, containerName);
+        this(GetEndpoint(accountName), accountName, accountKey, containerName);
 
     }
-    /// <summary>
+
+    /**
+     * Instantiates a new Azure input data handler.
+     * @param endpoint      the endpoint
+     * @param accountName   the account name
+     * @param accountKey    the account key
+     * @param containerName the container name
+     */
+/// <summary>
     /// Initializes a new instance of the <see cref="AzureInputDataHandler"/> class.
     /// </summary>
     /// <param name="endpoint">The endpoint e.g. https://youraccountname.blob.core.windows.net/ </param>
     /// <param name="accountName">The account name.</param>
     /// <param name="accountKey">The account key.</param>
     /// <param name="containerName">The container name.</param>
-    public AzureInputDataHandler(URI endpoint, String accountName, String accountKey, String containerName)
-    {
-        try
-        {
+    public AzureInputDataHandler(URI endpoint, String accountName, String accountKey, String containerName) {
+        try {
             StorageCredentials storageCredentials = new StorageCredentialsAccountAndKey(accountName, accountKey);
             CloudStorageAccount cloudStorageAccount = new CloudStorageAccount(storageCredentials, endpoint, null, null, null);
             CloudBlobClient cloudBlobClient = cloudStorageAccount.createCloudBlobClient();
@@ -61,23 +78,26 @@ public class AzureInputDataHandler implements IInputDataHandler {
             _container = cloudBlobClient.getContainerReference(containerName);
             _container.createIfNotExists();
             cloudBlobClient.getDefaultRequestOptions().setTimeoutIntervalInMs(serverTimeout);
-        }
-        catch (StorageException e)
-        {
+        } catch (StorageException e) {
             throw new GroupDocsException("Unable to recognize that Account Name/Account Key or container name is invalid." + e.getMessage());
         } catch (URISyntaxException e) {
             throw new GroupDocsException("Unable to recognize that Account Name/Account Key." + e.getMessage());
         }
     }
-    /// <summary>
+
+    /**
+     * Gets file description.
+     * @param guid the guid
+     * @return the file description
+     */
+/// <summary>
     /// Gets the file description.
     /// </summary>
     /// <param name="guid">The unique identifier.</param>
     /// <returns>GroupDocs.Viewer.Domain.FileDescription.</returns>
     @Override
     public FileDescription getFileDescription(String guid) {
-        try
-        {
+        try {
             String blobName = GetNormalizedBlobName(guid);
             CloudBlob blob = _container.getPageBlobReference(blobName);
 //            blob.fetchAttributes();
@@ -86,28 +106,35 @@ public class AzureInputDataHandler implements IInputDataHandler {
             fileDescription.setSize(blob.getProperties().getLength());
 
             return fileDescription;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new GroupDocsException("Unabled to get file description." + e.getMessage());
         }
     }
 
+    /**
+     * Gets file.
+     * @param guid the guid
+     * @return the file
+     */
     @Override
     public InputStream getFile(String guid) {
-        try
-        {
+        try {
             String blobName = GetNormalizedBlobName(guid);
             CloudBlob blob = _container.getPageBlobReference(blobName);
             ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
             blob.download(arrayOutputStream);
             return new ByteArrayInputStream(arrayOutputStream.toByteArray());
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             throw new GroupDocsException("Unabled to get file." + ex.getMessage());
         }
     }
-    /// <summary>
+
+    /**
+     * Gets last modification date.
+     * @param guid the guid
+     * @return the last modification date
+     */
+/// <summary>
     /// Gets the last modification date.
     /// </summary>
     /// <param name="guid">The unique identifier.</param>
@@ -117,15 +144,20 @@ public class AzureInputDataHandler implements IInputDataHandler {
         FileDescription fileDescription = getFileDescription(guid);
         return fileDescription.getLastModificationDate();
     }
-    /// <summary>
+
+    /**
+     * Load file tree list.
+     * @param fileTreeOptions the file tree options
+     * @return the list
+     */
+/// <summary>
     /// Loads files/folders structure for specified path
     /// </summary>
     /// <param name="fileTreeOptions">The file tree options.</param>
     /// <returns>System.Collections.Generic.List&lt;GroupDocs.Viewer.Domain.FileDescription&gt;.</returns>
     @Override
     public List<FileDescription> loadFileTree(FileTreeOptions fileTreeOptions) {
-        try
-        {
+        try {
             String path = GetNormalizedBlobName(fileTreeOptions.getPath());
             List<FileDescription> fileTree = GetFileTree(path);
 //            switch (fileTreeOptions.getOrderBy())
@@ -143,12 +175,11 @@ public class AzureInputDataHandler implements IInputDataHandler {
 //                    break;
 //            }
             return fileTree;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             throw new GroupDocsException("Failed to load file tree." + ex.getMessage());
         }
     }
+
     /// <summary>
     /// Gets the endpoint e.g. https://youraccountname.blob.core.windows.net/
     /// </summary>
@@ -158,6 +189,7 @@ public class AzureInputDataHandler implements IInputDataHandler {
         String endpoint = EndpointTemplate.replace("{account-name}", accountName);
         return new URI(endpoint);
     }
+
     /// <summary>
     /// Gets the file tree.
     /// </summary>
@@ -166,16 +198,12 @@ public class AzureInputDataHandler implements IInputDataHandler {
     private List<FileDescription> GetFileTree(String blobName) throws URISyntaxException, StorageException {
         CloudBlobDirectory directory = _container.getDirectoryReference(blobName);
         List<FileDescription> fileTree = new ArrayList<FileDescription>();
-        for (ListBlobItem blob : directory.getContainer().listBlobs())
-        {
+        for (ListBlobItem blob : directory.getContainer().listBlobs()) {
             FileDescription fileDescription;
             CloudBlobDirectory blobDirectory = (CloudBlobDirectory) blob;
-            if (blobDirectory != null)
-            {
+            if (blobDirectory != null) {
                 fileDescription = new FileDescription(blobDirectory.getPrefix(), true);
-            }
-            else
-            {
+            } else {
                 CloudBlob blobFile = (CloudBlob) blob;
                 fileDescription = new FileDescription(blobFile.getName(), false);
                 fileDescription.setSize(blobFile.getProperties().getLength());
@@ -185,22 +213,22 @@ public class AzureInputDataHandler implements IInputDataHandler {
         }
         return fileTree;
     }
+
     /// <summary>
     /// Gets normalized blob name, updates guid from dir\\file.ext to dir/file.ext
     /// </summary>
     /// <param name="guid">The unique identifier.</param>
     /// <returns>Normalized blob name.</returns>
-    private String GetNormalizedBlobName(String guid)
-    {
+    private String GetNormalizedBlobName(String guid) {
         return guid.replace("\\+", Delimiter);
     }
+
     /// <summary>
     /// Gets date time or empty date.
     /// </summary>
     /// <param name="dateTimeOffset">The date time offset.</param>
     /// <returns>Date time or empty date.</returns>
-    private Date getDateTimeOrEmptyDate(Date dateTimeOffset)
-    {
+    private Date getDateTimeOrEmptyDate(Date dateTimeOffset) {
         Date emptyDate = new Date(1, 1, 1);
         return dateTimeOffset != null ? dateTimeOffset : emptyDate;
     }
