@@ -64,7 +64,7 @@ public class Utilities {
      * Initialize, populate and return the ViewerConfig object
      * @return Populated ViewerConfig Object
      */
-    public static ViewerConfig getConfigurations() {
+    public static ViewerConfig getConfiguration() {
         //ExStart:Configurations
         ViewerConfig config = new ViewerConfig();
         //set the storage path

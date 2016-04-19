@@ -49,7 +49,7 @@ public class ViewGenerator {
     public static void renderDocumentAsHtml(String DocumentName, String DocumentPassword) throws Exception {
         //ExStart:RenderAsHtml
         //Get Configurations
-        ViewerConfig config = Utilities.getConfigurations();
+        ViewerConfig config = Utilities.getConfiguration();
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
@@ -93,7 +93,7 @@ public class ViewGenerator {
         position = position == null ? WatermarkPosition.Diagonal : position;
         //ExStart:RenderAsHtmlWithWaterMark
         //Get Configurations
-        ViewerConfig config = Utilities.getConfigurations();
+        ViewerConfig config = Utilities.getConfiguration();
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
@@ -134,7 +134,7 @@ public class ViewGenerator {
     public static void renderDocumentAsHtml(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
         //ExStart:RenderAsHtmlAndReorderPage
         //Get Configurations
-        ViewerConfig config = Utilities.getConfigurations();
+        ViewerConfig config = Utilities.getConfiguration();
 
         // Cast ViewerHtmlHandler class object to its base class(ViewerHandler).
         ViewerHandler handler = new ViewerHtmlHandler(config);
@@ -204,7 +204,7 @@ public class ViewGenerator {
     public static void renderDocumentAsHtml(URI DocumentURL, String DocumentPassword) throws Exception {
         //ExStart:RenderRemoteDocAsHtml
         //Get Configurations 
-        ViewerConfig config = Utilities.getConfigurations();
+        ViewerConfig config = Utilities.getConfiguration();
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
@@ -233,7 +233,7 @@ public class ViewGenerator {
     public static void renderDocumentAsImages(String DocumentName, String DocumentPassword) {
         //ExStart:RenderAsImage
         //Get Configurations
-        ViewerConfig config = Utilities.getConfigurations();
+        ViewerConfig config = Utilities.getConfiguration();
 
         // Create image handler 
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
@@ -271,7 +271,7 @@ public class ViewGenerator {
         position = position == null ? WatermarkPosition.Diagonal : position;
         //ExStart:RenderAsImageWithWaterMark
         //Get Configurations
-        ViewerConfig config = Utilities.getConfigurations();
+        ViewerConfig config = Utilities.getConfiguration();
 
         // Create image handler
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
@@ -309,7 +309,7 @@ public class ViewGenerator {
     public static void renderDocumentAsImages(String DocumentName, int RotationAngle, String DocumentPassword) throws Exception {
         //ExStart:RenderAsImageWithRotationTransformation
         //Get Configurations
-        ViewerConfig config = Utilities.getConfigurations();
+        ViewerConfig config = Utilities.getConfiguration();
 
         // Create image handler
         ViewerHandler handler = new ViewerImageHandler(config);
@@ -352,7 +352,7 @@ public class ViewGenerator {
     public static void renderDocumentAsImages(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
         //ExStart:RenderAsImageAndReorderPage
         //Get Configurations
-        ViewerConfig config = Utilities.getConfigurations();
+        ViewerConfig config = Utilities.getConfiguration();
 
         // Cast ViewerHtmlHandler class object to its base class(ViewerHandler).
         ViewerHandler handler = new ViewerImageHandler(config);
@@ -392,7 +392,7 @@ public class ViewGenerator {
     public static void renderDocumentAsImages(URI DocumentURL, String DocumentPassword) {
         //ExStart:RenderRemoteDocAsImages
         //Get Configurations
-        ViewerConfig config = Utilities.getConfigurations();
+        ViewerConfig config = Utilities.getConfiguration();
 
         // Create image handler
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
@@ -421,7 +421,7 @@ public class ViewGenerator {
     public static void renderDocumentAsOriginal(String DocumentName) {
         //ExStart:RenderOriginal
         // Create image handler 
-        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfigurations());
+        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfiguration());
 
         // Guid implies that unique document name 
         String guid = DocumentName;
@@ -440,7 +440,7 @@ public class ViewGenerator {
     public static void renderDocumentAsPDF(String DocumentName) {
         //ExStart:RenderAsPdf
         // Create/initialize image handler 
-        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfigurations());
+        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfiguration());
 
         //Initialize PdfFileOptions object
         PdfFileOptions options = new PdfFileOptions();
@@ -482,7 +482,7 @@ public class ViewGenerator {
     public static void loadFileTree(String Path, FileTreeOptions.FileTreeOrderBy orderBy, boolean orderAsc) {
         //ExStart:loadFileTree
         // Create/initialize image handler 
-        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfigurations());
+        ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfiguration());
 
         // Load file tree list for custom path 
         FileTreeOptions options = new FileTreeOptions(Path);
