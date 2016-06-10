@@ -1,0 +1,94 @@
+Delivered-To: liosha.89@gmail.com
+Received: by 10.229.125.13 with SMTP id w13csp67752qcr;
+        Mon, 9 Dec 2013 05:49:29 -0800 (PST)
+X-Received: by 10.224.88.134 with SMTP id a6mr86945797qam.73.1386596960757;
+        Mon, 09 Dec 2013 05:49:20 -0800 (PST)
+Authentication-Results: mx.google.com;
+       spf=neutral (google.com: 208.180.210.83 is neither permitted nor denied by best guess record for domain of noreply@groupdocs.com) smtp.mail=noreply@groupdocs.com
+Received-SPF: neutral (google.com: 208.180.210.83 is neither permitted nor denied by best guess record for domain of noreply@groupdocs.com) client-ip=208.180.210.83;
+Message-ID: <52a5ca60.54a0e50a.45e0.73e4MFETCHER_ADDED@google.com>
+Received: by 10.229.160.84 with POP3 id m20mf2435015qcx.28;
+        Mon, 09 Dec 2013 05:49:20 -0800 (PST)
+X-Gmail-Fetch-Info: aleksey.permyakov@groupdocs.com 3 email.banckle.com 995 aleksey.permyakov@groupdocs.com
+Return-Path: noreply@groupdocs.com
+Received: from 208.180.210.83 ([208.180.210.83])
+	by email.banckle.com with ESMTP ID 12244;
+        Mon, 26 Nov 2012 09:35:01 -0500
+MIME-Version: 1.0
+From: noreply@groupdocs.com
+To: aleksey.permyakov@groupdocs.com
+Date: 26 Nov 2012 08:51:11 -0600
+Subject: Welcome to GroupDocs!
+Content-Type: text/html; charset=us-ascii
+Content-Transfer-Encoding: quoted-printable
+
+<html>=0D=0A  <head>=0D=0A    <META http-equiv=3D"Content-Type" c=
+ontent=3D"text/html; charset=3Dutf-16">=0D=0A    <style>=0D=0A.he=
+aderTop=0D=0A{=0D=0A    background-color: #FFCC66;=0D=0A    borde=
+r-top: 0px solid #000000;=0D=0A    border-bottom: 1px solid #FFFF=
+FF;=0D=0A    text-align: center;=0D=0A}=0D=0A.adminText=0D=0A{=0D=0A=
+    font-size: 10px;=0D=0A    color: #996600;=0D=0A    line-heigh=
+t: 200%;=0D=0A    font-family: verdana;=0D=0A    text-decoration:=
+ none;=0D=0A}=0D=0A.headerBar=0D=0A{=0D=0A    background-color: #=
+F0F0F0;=0D=0A    border-top: 0px solid #333333;=0D=0A    border-b=
+ottom: 10px solid #FFFFFF;=0D=0A    padding: 10px;=0D=0A}=0D=0A.h=
+eaderBar h1=0D=0A{=0D=0A    margin-top: 15px;=0D=0A    font-size:=
+ 24px;=0D=0A    font-weight: bold;=0D=0A    color: #666666;=0D=0A=
+    font-family: arial;=0D=0A    line-height: 110%;=0D=0A}=0D=0A.=
+title=0D=0A{=0D=0A    font-size: 22px;=0D=0A    font-weight: bold=
+;=0D=0A    color: #666666;=0D=0A    font-family: arial;=0D=0A    =
+line-height: 110%;=0D=0A}=0D=0A.subtitle=0D=0A{=0D=0A    font-siz=
+e: 14px;=0D=0A    font-weight: bold;=0D=0A    color: #6E6E6E;=0D=0A=
+    font-family: arial;=0D=0A    line-height: 110%;=0D=0A}=0D=0A.=
+infoText=0D=0A{=0D=0A    font-size: 12px;=0D=0A    font-weight: n=
+ormal;=0D=0A    color: #666666;=0D=0A    font-style: italic;=0D=0A=
+    font-family: arial;=0D=0A}=0D=0A.defaultText=0D=0A{=0D=0A    =
+font-size: 12px;=0D=0A    color: #000000;=0D=0A    line-height: 1=
+50%;=0D=0A    font-family: trebuchet ms;=0D=0A}=0D=0A.footerBar=0D=0A=
+{=0D=0A    background-color: #F0F0F0;=0D=0A    border-top: 10px s=
+olid #FFFFFF;=0D=0A}=0D=0A.footerText=0D=0A{=0D=0A    font-size: =
+10px;=0D=0A    color: #6E6E6E;=0D=0A    line-height: 100%;=0D=0A =
+   font-family: verdana;=0D=0A}=0D=0Aa=0D=0A{=0D=0A    color: #00=
+80FF;=0D=0A    color: #0080FF;=0D=0A    color: #0080FF;=0D=0A}=0D=0A=
+tr.oddRow=0D=0A{=0D=0A	background-color: #dcdcdc;=0D=0A}=0D=0Atr.=
+evenRow=0D=0A{=0D=0A	background-color: #eaeaea;=0D=0A}=0D=0A</sty=
+le>=0D=0A  </head>=0D=0A  <body leftmargin=3D"0" marginwidth=3D"0=
+" topmargin=3D"0" marginheight=3D"0" offset=3D"0">=0D=0A    <tabl=
+e width=3D"100%" cellpadding=3D"10" cellspacing=3D"0" bgcolor=3D"=
+#E6E6E6">=0D=0A      <tr>=0D=0A        <td valign=3D"top" align=3D=
+"center">=0D=0A          <table width=3D"600" cellpadding=3D"0" c=
+ellspacing=3D"0">=0D=0A            <tr>=0D=0A              <td cl=
+ass=3D"headerBar">=0D=0A                <h1>=0D=0A            Wel=
+come to GroupDocs!=0D=0A          </h1>=0D=0A              </td>=0D=0A=
+              <td class=3D"headerBar" align=3D"right"><img alt=3D=
+"GroupDocs TM" width=3D"238px" height=3D"50px" src=3D"http://dev-=
+apps.groupdocs.com/Content/images/logo/groupdocs-logo.png"></td>=0D=0A=
+            </tr>=0D=0A          </table>=0D=0A          <table w=
+idth=3D"600" cellpadding=3D"20" cellspacing=3D"0" bgcolor=3D"#FFF=
+FFF">=0D=0A            <tr>=0D=0A              <td bgcolor=3D"#FF=
+FFFF" valign=3D"top" class=3D"defaultText">=0D=0A                =
+<p>=0D=0A                  <p>=0D=0A      Dear aleksey.permyakov@=
+groupdocs.com,=0D=0A    </p>=0D=0A                  <p>=0D=0A    =
+  Welcome aboard!=0D=0A    </p>=0D=0A                  <p>=0D=0A =
+     Thank you for signing up for a free GroupDocs account.=0D=0A=
+    </p>=0D=0A                  <p>To start using GroupDocs, <a h=
+ref=3D"http://dev-apps.groupdocs.com/account-verification/598509f=
+740ffe1b437f335a32ffb38fb49f96a99fbaecf693d751282a8f26212">verify=
+ your account by clicking this link</a>.</p>=0D=0A               =
+   <p>=0D=0A      GroupDocs lets you store, share, convert, sign =
+and assemble documents all in one handy place. We hope you find i=
+t useful. Go on, try it out.=0D=0A    </p>=0D=0A                <=
+/p>=0D=0A              </td>=0D=0A            </tr>=0D=0A        =
+    <tr>=0D=0A              <td class=3D"footerBar" valign=3D"top=
+"><span class=3D"footerText">=0D=0A	Kind regards,<br><br>=0D=0A=0D=0A=
+	The GroupDocs Team<br><a href=3D"http://www.GroupDocs.com">Group=
+Docs.com</a><br>=0D=0A	Work faster. Together.<br><br>=0D=0A=0D=0A=
+	Want to keep in touch? You'll find us on <a href=3D"https://twit=
+ter.com/#!/GroupDocs">Twitter</a> and <a href=3D"http://www.faceb=
+ook.com/groupdocs">Facebook</a>.=0D=0A    </span></td>=0D=0A     =
+       </tr>=0D=0A          </table>=0D=0A        </td>=0D=0A    =
+  </tr>=0D=0A    </table>=0D=0A  </body>=0D=0A</html>
+
+
+
+

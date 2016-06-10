@@ -230,7 +230,7 @@ public class ViewGenerator {
      * @param DocumentName     File name
      * @param DocumentPassword Optional
      */
-    public static void renderDocumentAsImages(String DocumentName, String DocumentPassword) {
+    public static void renderDocumentAsImages(String DocumentName, String DocumentPassword) throws Exception {
         //ExStart:RenderAsImage
         //Get Configurations
         ViewerConfig config = Utilities.getConfiguration();
@@ -267,7 +267,7 @@ public class ViewGenerator {
      * @param WatermarkWidth   width of watermark as integer. it is optional Parameter default value is 100
      * @param DocumentPassword Password Parameter is optional
      */
-    public static void renderDocumentAsImages(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword) {
+    public static void renderDocumentAsImages(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword) throws Exception {
         position = position == null ? WatermarkPosition.Diagonal : position;
         //ExStart:RenderAsImageWithWaterMark
         //Get Configurations
@@ -389,7 +389,7 @@ public class ViewGenerator {
      * @param DocumentURL      URL of the document
      * @param DocumentPassword Password Parameter is optional
      */
-    public static void renderDocumentAsImages(URI DocumentURL, String DocumentPassword) {
+    public static void renderDocumentAsImages(URI DocumentURL, String DocumentPassword) throws Exception {
         //ExStart:RenderRemoteDocAsImages
         //Get Configurations
         ViewerConfig config = Utilities.getConfiguration();
@@ -520,7 +520,7 @@ public class ViewGenerator {
      * Render document as images.
      * @param name the name
      */
-    public static void renderDocumentAsImages(String name) {
+    public static void renderDocumentAsImages(String name) throws Exception {
         renderDocumentAsImages(name, null);
     }
 
