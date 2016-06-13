@@ -1,5 +1,8 @@
 package com.groupdocs.viewer.sample;
 
+import com.groupdocs.viewer.config.ViewerConfig;
+import com.groupdocs.viewer.handler.ViewerHtmlHandler;
+import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.licensing.License;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -21,6 +24,16 @@ public class GenericJUnit {
     public static final Boolean[] _TRUE_FALSE = {
             true,
             false
+    };
+
+    @DataPoints("_FONT_PATHS")
+    @SuppressWarnings("unused")
+    public static final String[] _FONT_PATHS = {
+            null,
+            "",
+            "Z:\\Some\\directory\\that\\not\\exist",
+            "FakePath??!!@%$$&*(^",
+            "C:\\Windows\\Fonts"
     };
     @SuppressWarnings("unused")
     @DataPoints("_EXCEL_FILES")
@@ -148,5 +161,32 @@ public class GenericJUnit {
             Assert.fail("Can't create working directory!");
         }
         new License().setLicense(System.getenv("GROUPDOCS_TOTAL"));
+    }
+
+    protected ViewerHtmlHandler createHtmlHandler(boolean useCache, boolean usePdf) {
+        // Setup GroupDocs.Viewer config
+        ViewerConfig config = createViewerConfig(useCache, usePdf);
+
+        // Create image handler
+        return new ViewerHtmlHandler(config);
+    }
+
+    protected static ViewerConfig createViewerConfig(boolean useCache, boolean usePdf) {
+        // Setup GroupDocs.Viewer config
+        ViewerConfig config = new ViewerConfig();
+        config.setStoragePath(RESOURCES_DIRECTORY);
+        config.setCachePath(WORKING_DIRECTORY);
+        config.setTempPath(WORKING_DIRECTORY);
+        config.setUseCache(useCache);
+        config.setUsePdf(usePdf);
+        return config;
+    }
+
+    protected ViewerImageHandler createImageHandler(boolean useCache, boolean usePdf) {
+        // Setup GroupDocs.Viewer config
+        ViewerConfig config = createViewerConfig(useCache, usePdf);
+
+        // Create image handler
+        return new ViewerImageHandler(config);
     }
 }

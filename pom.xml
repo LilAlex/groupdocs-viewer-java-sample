@@ -81,7 +81,7 @@
                     <skip>${qa.skip.junit}</skip>
                     <workingDirectory>target/</workingDirectory>
                     <includes>
-                        <include>**/**Test.java</include>
+                        <include>**/**Tests.java</include>
                     </includes>
                     <systemProperties>
                         <test.working.directory>${project.build.directory}\junitworkdirectory\</test.working.directory>

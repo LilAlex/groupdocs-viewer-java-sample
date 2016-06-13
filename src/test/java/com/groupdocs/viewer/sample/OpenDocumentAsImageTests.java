@@ -1,6 +1,5 @@
 package com.groupdocs.viewer.sample;
 
-import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.ImageOptions;
 import com.groupdocs.viewer.domain.image.PageImage;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
@@ -20,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  */
 //@Ignore
 @RunWith(Theories.class)
-public class OpenDocumentAsImageTest extends GenericJUnit {
+public class OpenDocumentAsImageTests extends GenericJUnit {
     @Theory
     public void testSetLicense() {
         new License().setLicense(System.getenv("GROUPDOCS_TOTAL"));
@@ -41,7 +40,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
                         fileName, quality, showGridLines, onePagePerSheet, showHiddenSheets, useCache, usePdf
                 ));
         // Setup GroupDocs.Viewer config
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
 
         // Set image options to show grid lines
         ImageOptions options = createOptions(quality);
@@ -60,7 +59,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
 
         // Set image options
         ImageOptions options = createOptions(quality);
@@ -76,7 +75,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         // Set image options
         ImageOptions options = createOptions(quality);
 
@@ -91,7 +90,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         // Set image options
         ImageOptions options = createOptions(quality);
 
@@ -106,7 +105,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         // Set image options
         ImageOptions options = createOptions(quality);
 
@@ -121,7 +120,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         // Set image options
         ImageOptions options = createOptions(quality);
 
@@ -136,7 +135,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         // Set image options
         ImageOptions options = createOptions(quality);
 
@@ -151,7 +150,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         // Set image options
         ImageOptions options = createOptions(quality);
 
@@ -166,7 +165,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         // Set image options
         ImageOptions options = createOptions(quality);
 
@@ -181,7 +180,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         // Set image options
         ImageOptions options = createOptions(quality);
 
@@ -196,7 +195,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         ImageOptions options = createOptions(quality);
 
 
@@ -211,7 +210,7 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tquality: %d\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, quality, useCache, usePdf));
-        ViewerImageHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerImageHandler imageHandler = createImageHandler(useCache, usePdf);
         // Set image options
         ImageOptions options = createOptions(quality);
 
@@ -235,24 +234,5 @@ public class OpenDocumentAsImageTest extends GenericJUnit {
         ImageOptions options = new ImageOptions();
         options.setJpegQuality(quality);
         return options;
-    }
-
-    private ViewerImageHandler createHandler(boolean useCache, boolean usePdf) {
-        // Setup GroupDocs.Viewer config
-        ViewerConfig config = createViewerConfig(useCache, usePdf);
-
-        // Create image handler
-        return new ViewerImageHandler(config);
-    }
-
-    private ViewerConfig createViewerConfig(boolean useCache, boolean usePdf) {
-        // Setup GroupDocs.Viewer config
-        ViewerConfig config = new ViewerConfig();
-        config.setStoragePath(RESOURCES_DIRECTORY);
-        config.setCachePath(WORKING_DIRECTORY);
-        config.setTempPath(WORKING_DIRECTORY);
-        config.setUseCache(useCache);
-        config.setUsePdf(usePdf);
-        return config;
     }
 }

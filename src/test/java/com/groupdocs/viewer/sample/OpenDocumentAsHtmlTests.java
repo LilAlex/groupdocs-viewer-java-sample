@@ -1,6 +1,5 @@
 package com.groupdocs.viewer.sample;
 
-import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
@@ -20,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  */
 //@Ignore
 @RunWith(Theories.class)
-public class OpenDocumentAsHtmlTest extends GenericJUnit {
+public class OpenDocumentAsHtmlTests extends GenericJUnit {
     @Theory
     public void testSetLicense() {
         new License().setLicense(System.getenv("GROUPDOCS_TOTAL"));
@@ -41,7 +40,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
                         fileName, resourcesEmbedded, showGridLines, onePagePerSheet, showHiddenSheets, useCache, usePdf
                 ));
         // Setup GroupDocs.Viewer config
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
 
         // Set image options to show grid lines
         HtmlOptions options = createOptions(resourcesEmbedded);
@@ -60,7 +59,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         HtmlOptions options = createOptions(resourcesEmbedded);
 
         assertPagesAsHtmls(fileName, imageHandler, options);
@@ -74,7 +73,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -89,7 +88,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -104,7 +103,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -119,7 +118,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -134,7 +133,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -149,7 +148,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -164,7 +163,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -179,7 +178,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -194,7 +193,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -209,7 +208,7 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
             @FromDataPoints("_TRUE_FALSE") boolean usePdf) throws Exception {
         System.out.println(
                 String.format("\t- run configuration: \n\t\tfileName: %s\n\t\tresourcesEmbedded: %s\n\t\tuseCache: %s\n\t\tusePdf: %s", fileName, resourcesEmbedded, useCache, usePdf));
-        ViewerHtmlHandler imageHandler = createHandler(useCache, usePdf);
+        ViewerHtmlHandler imageHandler = createHtmlHandler(useCache, usePdf);
         // Set image options
         HtmlOptions options = createOptions(resourcesEmbedded);
 
@@ -233,24 +232,5 @@ public class OpenDocumentAsHtmlTest extends GenericJUnit {
         HtmlOptions options = new HtmlOptions();
         options.setResourcesEmbedded(resourcesEmbedded);
         return options;
-    }
-
-    private ViewerHtmlHandler createHandler(boolean useCache, boolean usePdf) {
-        // Setup GroupDocs.Viewer config
-        ViewerConfig config = createViewerConfig(useCache, usePdf);
-
-        // Create image handler
-        return new ViewerHtmlHandler(config);
-    }
-
-    private ViewerConfig createViewerConfig(boolean useCache, boolean usePdf) {
-        // Setup GroupDocs.Viewer config
-        ViewerConfig config = new ViewerConfig();
-        config.setStoragePath(RESOURCES_DIRECTORY);
-        config.setCachePath(WORKING_DIRECTORY);
-        config.setTempPath(WORKING_DIRECTORY);
-        config.setUseCache(useCache);
-        config.setUsePdf(usePdf);
-        return config;
     }
 }
