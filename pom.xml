@@ -6,7 +6,7 @@
 
     <groupId>com.temporary</groupId>
     <artifactId>groupdocs-viewer-java-sample</artifactId>
-    <version>3.2.0</version>
+    <version>3.2.1</version>
     <properties>
         <java.version>1.7</java.version>
         <qa.skip.junit>false</qa.skip.junit>
