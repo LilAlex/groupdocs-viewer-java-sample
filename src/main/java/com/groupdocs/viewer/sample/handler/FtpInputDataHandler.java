@@ -1,6 +1,7 @@
-package com.groupdocs.viewer.sample;
+package com.groupdocs.viewer.sample.handler;
 
 import com.groupdocs.viewer.domain.FileDescription;
+import com.groupdocs.viewer.domain.cache.CachedDocumentDescription;
 import com.groupdocs.viewer.domain.options.FileTreeOptions;
 import com.groupdocs.viewer.handler.input.IInputDataHandler;
 import org.apache.commons.io.output.ByteArrayOutputStream;
@@ -19,28 +20,17 @@ import java.util.List;
  * @author Aleksey Permyakov (13.04.2016).
  */
 public class FtpInputDataHandler implements IInputDataHandler {
-
     private final String _server = "ftp://localhost";
     private final String _userName = "anonymous";
     private final String _userPassword = "";
 
-    /**
-     * Gets file description.
-     * @param guid the guid
-     * @return the file description
-     */
     @Override
-    public FileDescription getFileDescription(String guid) {
+    public FileDescription getFileDescription(String guid) throws Exception {
         return new FileDescription(guid);
     }
 
-    /**
-     * Gets file.
-     * @param guid the guid
-     * @return the file
-     */
     @Override
-    public InputStream getFile(String guid) {
+    public InputStream getFile(String guid) throws Exception {
         ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
         try {
             FTPClient ftpClient = new FTPClient();
@@ -55,13 +45,8 @@ public class FtpInputDataHandler implements IInputDataHandler {
         return new ByteArrayInputStream(arrayOutputStream.toByteArray());
     }
 
-    /**
-     * Gets last modification date.
-     * @param guid the guid
-     * @return the last modification date
-     */
     @Override
-    public Date getLastModificationDate(String guid) {
+    public Date getLastModificationDate(String guid) throws Exception {
         FTPClient ftpClient = new FTPClient();
         try {
             ftpClient.connect(_server);
@@ -84,13 +69,8 @@ public class FtpInputDataHandler implements IInputDataHandler {
         return null;
     }
 
-    /**
-     * Load file tree list.
-     * @param fileTreeOptions the file tree options
-     * @return the list
-     */
     @Override
-    public List<FileDescription> loadFileTree(FileTreeOptions fileTreeOptions) {
+    public List<FileDescription> loadFileTree(FileTreeOptions fileTreeOptions) throws Exception {
         List<FileDescription> fileDescriptions = new ArrayList<FileDescription>();
         try {
             FTPClient ftpClient = new FTPClient();
@@ -106,5 +86,10 @@ public class FtpInputDataHandler implements IInputDataHandler {
             e.printStackTrace();
         }
         return fileDescriptions;
+    }
+
+    @Override
+    public void saveDocument(CachedDocumentDescription cachedDocumentDescription, InputStream documentStream) throws Exception {
+        // ...
     }
 }

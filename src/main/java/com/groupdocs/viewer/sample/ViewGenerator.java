@@ -42,7 +42,7 @@ public class ViewGenerator {
 
     /**
      * Render simple document in html representation
-     * @param DocumentName     File name
+     * @param DocumentName File name
      * @param DocumentPassword Optional
      * @throws Exception the exception
      */
@@ -81,11 +81,11 @@ public class ViewGenerator {
 
     /**
      * Render document in html representation with watermark
-     * @param DocumentName     file/document name
-     * @param WatermarkText    watermark text
-     * @param WatermarkColor   System.Drawing.Color
-     * @param position         Watermark Position is optional parameter. Default value is WatermarkPosition.Diagonal
-     * @param WatermarkWidth   width of watermark as integer. it is optional Parameter default value is 100
+     * @param DocumentName file/document name
+     * @param WatermarkText watermark text
+     * @param WatermarkColor System.Drawing.Color
+     * @param position Watermark Position is optional parameter. Default value is WatermarkPosition.Diagonal
+     * @param WatermarkWidth width of watermark as integer. it is optional Parameter default value is 100
      * @param DocumentPassword Password Parameter is optional
      * @throws Exception the exception
      */
@@ -125,10 +125,10 @@ public class ViewGenerator {
 
     /**
      * document in html representation and reorder a page
-     * @param DocumentName      file/document name
+     * @param DocumentName file/document name
      * @param CurrentPageNumber Page existing order number
-     * @param NewPageNumber     Page new order number
-     * @param DocumentPassword  Password Parameter is optional
+     * @param NewPageNumber Page new order number
+     * @param DocumentPassword Password Parameter is optional
      * @throws Exception the exception
      */
     public static void renderDocumentAsHtml(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
@@ -197,7 +197,7 @@ public class ViewGenerator {
 
     /**
      * Render a document in html representation whom located at web/remote location.
-     * @param DocumentURL      URL of the document
+     * @param DocumentURL URL of the document
      * @param DocumentPassword Password Parameter is optional
      * @throws Exception the exception
      */
@@ -227,8 +227,9 @@ public class ViewGenerator {
 
     /**
      * Render simple document in image representation
-     * @param DocumentName     File name
+     * @param DocumentName File name
      * @param DocumentPassword Optional
+     * @throws Exception the exception
      */
     public static void renderDocumentAsImages(String DocumentName, String DocumentPassword) throws Exception {
         //ExStart:RenderAsImage
@@ -260,12 +261,13 @@ public class ViewGenerator {
 
     /**
      * Render document in image representation with watermark
-     * @param DocumentName     file/document name
-     * @param WatermarkText    watermark text
-     * @param WatermarkColor   System.Drawing.Color
-     * @param position         Watermark Position is optional parameter. Default value is WatermarkPosition.Diagonal
-     * @param WatermarkWidth   width of watermark as integer. it is optional Parameter default value is 100
+     * @param DocumentName file/document name
+     * @param WatermarkText watermark text
+     * @param WatermarkColor System.Drawing.Color
+     * @param position Watermark Position is optional parameter. Default value is WatermarkPosition.Diagonal
+     * @param WatermarkWidth width of watermark as integer. it is optional Parameter default value is 100
      * @param DocumentPassword Password Parameter is optional
+     * @throws Exception the exception
      */
     public static void renderDocumentAsImages(String DocumentName, String WatermarkText, Color WatermarkColor, WatermarkPosition position, int WatermarkWidth, String DocumentPassword) throws Exception {
         position = position == null ? WatermarkPosition.Diagonal : position;
@@ -301,8 +303,8 @@ public class ViewGenerator {
 
     /**
      * Render the document in image form and set the rotation angle to rotate the page while display.
-     * @param DocumentName     the document name
-     * @param RotationAngle    rotation angle in digits
+     * @param DocumentName the document name
+     * @param RotationAngle rotation angle in digits
      * @param DocumentPassword the document password
      * @throws Exception the exception
      */
@@ -343,10 +345,10 @@ public class ViewGenerator {
 
     /**
      * document in image representation and reorder a page
-     * @param DocumentName      file/document name
+     * @param DocumentName file/document name
      * @param CurrentPageNumber Page existing order number
-     * @param NewPageNumber     Page new order number
-     * @param DocumentPassword  Password Parameter is optional
+     * @param NewPageNumber Page new order number
+     * @param DocumentPassword Password Parameter is optional
      * @throws Exception the exception
      */
     public static void renderDocumentAsImages(String DocumentName, int CurrentPageNumber, int NewPageNumber, String DocumentPassword) throws Exception {
@@ -386,8 +388,9 @@ public class ViewGenerator {
 
     /**
      * Render a document in image representation whom located at web/remote location.
-     * @param DocumentURL      URL of the document
+     * @param DocumentURL URL of the document
      * @param DocumentPassword Password Parameter is optional
+     * @throws Exception the exception
      */
     public static void renderDocumentAsImages(URI DocumentURL, String DocumentPassword) throws Exception {
         //ExStart:RenderRemoteDocAsImages
@@ -417,8 +420,9 @@ public class ViewGenerator {
     /**
      * Render a document as it is (original form)
      * @param DocumentName the document name
+     * @throws Exception the exception
      */
-    public static void renderDocumentAsOriginal(String DocumentName) {
+    public static void renderDocumentAsOriginal(String DocumentName) throws Exception {
         //ExStart:RenderOriginal
         // Create image handler 
         ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfiguration());
@@ -436,8 +440,9 @@ public class ViewGenerator {
     /**
      * Render a document in PDF Form
      * @param DocumentName the document name
+     * @throws Exception the exception
      */
-    public static void renderDocumentAsPDF(String DocumentName) {
+    public static void renderDocumentAsPDF(String DocumentName) throws Exception {
         //ExStart:RenderAsPdf
         // Create/initialize image handler 
         ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfiguration());
@@ -460,26 +465,29 @@ public class ViewGenerator {
 
     /**
      * Load directory structure as file tree
+     * @throws Exception the exception
      */
-    public static void loadFileTree() {
+    public static void loadFileTree() throws Exception {
         loadFileTree("");
     }
 
     /**
      * Load directory structure as file tree
      * @param path the path
+     * @throws Exception the exception
      */
-    public static void loadFileTree(String path) {
+    public static void loadFileTree(String path) throws Exception {
         loadFileTree(path, FileTreeOptions.FileTreeOrderBy.Unknown, true);
     }
 
     /**
      * Load directory structure as file tree
-     * @param Path     the path
-     * @param orderBy  the order by
+     * @param Path the path
+     * @param orderBy the order by
      * @param orderAsc the order asc
+     * @throws Exception the exception
      */
-    public static void loadFileTree(String Path, FileTreeOptions.FileTreeOrderBy orderBy, boolean orderAsc) {
+    public static void loadFileTree(String Path, FileTreeOptions.FileTreeOrderBy orderBy, boolean orderAsc) throws Exception {
         //ExStart:loadFileTree
         // Create/initialize image handler 
         ViewerImageHandler imageHandler = new ViewerImageHandler(Utilities.getConfiguration());
@@ -519,6 +527,7 @@ public class ViewGenerator {
     /**
      * Render document as images.
      * @param name the name
+     * @throws Exception the exception
      */
     public static void renderDocumentAsImages(String name) throws Exception {
         renderDocumentAsImages(name, null);
@@ -526,8 +535,8 @@ public class ViewGenerator {
 
     /**
      * Render document as html.
-     * @param DocumentName   the document name
-     * @param WatermarkText  the watermark text
+     * @param DocumentName the document name
+     * @param WatermarkText the watermark text
      * @param watermarkColor the watermark color
      * @throws Exception the exception
      */
