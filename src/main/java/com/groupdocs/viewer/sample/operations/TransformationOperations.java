@@ -48,7 +48,11 @@ public class TransformationOperations {
 
         // Get image representation of all document pages, including rotate transformations
         List<PageImage> pages = imageHandler.getPages(guid, imageOptions);
-        System.out.println(pages.size());
+        System.out.println("Pages count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            System.out.println("\tStream length: " + pageImage.getStream().available());
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+        }
         System.out.println();
     }
 
