@@ -1,5 +1,6 @@
 package com.groupdocs.viewer.sample.operations;
 
+import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
@@ -34,11 +35,13 @@ public class HtmlOperations {
 
     /**
      * Gets html representation.
-     * @param htmlHandler the html handler
+     * @param config
      * @param guid the guid
      * @throws Exception the exception
      */
-    public static void getHtmlRepresentation(ViewerHtmlHandler htmlHandler, String guid) throws Exception {
+    public static void getHtmlRepresentation(ViewerConfig config, String guid) throws Exception {
+        config.setUseCache(true);
+        ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
         List<PageHtml> pages = htmlHandler.getPages(guid);
 
         for (PageHtml page : pages) {
