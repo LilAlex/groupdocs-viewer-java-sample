@@ -350,7 +350,7 @@ public class TransformationOperations {
 
         // Set options to include rotate and reorder transformations
         HtmlOptions options = new HtmlOptions();
-        options.setTransformations(Transformation.fromValue(Transformation.Rotate.value() | Transformation.Reorder.value()));
+        options.setTransformations(Transformation.from(Transformation.Rotate, Transformation.Reorder));
 
         // Set watermark properties
         Watermark watermark = new Watermark("This is watermark text");
@@ -362,7 +362,15 @@ public class TransformationOperations {
 
         // Get document pages html representation with multiple transformations
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
-        System.out.println(pages.size());
+        System.out.println("Pages count: " + pages.size());
+        int number = 0;
+        for (PageHtml pageHtml : pages) {
+            System.out.println("\tHtml content: " + pageHtml.getHtmlContent().replaceAll("\n", ""));
+            System.out.println("\tPage number: " + pageHtml.getPageNumber());
+            if (++number > 2) {
+                break;
+            }
+        }
         System.out.println();
     }
 }
