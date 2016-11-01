@@ -69,11 +69,19 @@ public class TransformationOperations {
 
         // Get image representation of all document pages, without transformations
         List<PageImage> pagesWithoutTransformations = imageHandler.getPages(guid, noTransformationsOptions);
-        System.out.println(pagesWithoutTransformations.size());
+        System.out.println("Pages count: " + pagesWithoutTransformations.size());
+        for (PageImage pageImage : pagesWithoutTransformations) {
+            System.out.println("\tStream length: " + pageImage.getStream().available());
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+        }
 
         // Get image representation of all document pages, without transformations
-        List<PageImage> pagesWithoutTransformations2 = imageHandler.getPages(guid);
-        System.out.println(pagesWithoutTransformations2.size());
+        List<PageImage> pages = imageHandler.getPages(guid);
+        System.out.println("Pages count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            System.out.println("\tStream length: " + pageImage.getStream().available());
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+        }
         System.out.println();
     }
 
@@ -101,7 +109,11 @@ public class TransformationOperations {
     public static void retrieveAllHtmlPagesIncludingTransformation(ViewerHtmlHandler htmlHandler, String guid) throws Exception {
         // Get html representation of all document pages, including rotate transformations
         List<PageHtml> pages = htmlHandler.getPages(guid, new HtmlOptions());
-        System.out.println(pages.size());
+        System.out.println("Pages count: " + pages.size());
+        for (PageHtml pageHtml : pages) {
+            System.out.println("\tHtml content: " + pageHtml.getHtmlContent());
+            System.out.println("\tPage number: " + pageHtml.getPageNumber());
+        }
         System.out.println();
     }
 
