@@ -130,11 +130,19 @@ public class TransformationOperations {
 
         // Get html representation of all document pages, without transformations
         List<PageHtml> pagesWithoutTransformations = htmlHandler.getPages(guid, noTransformationsOptions);
-        System.out.println(pagesWithoutTransformations.size());
+        System.out.println("Pages count: " + pagesWithoutTransformations.size());
+        for (PageHtml pageHtml : pagesWithoutTransformations) {
+            System.out.println("\tHtml content: " + pageHtml.getHtmlContent());
+            System.out.println("\tPage number: " + pageHtml.getPageNumber());
+        }
 
         // Get html representation of all document pages, without transformations
         List<PageHtml> pagesWithoutTransformations2 = htmlHandler.getPages(guid);
-        System.out.println(pagesWithoutTransformations2.size());
+        System.out.println("Pages count: " + pagesWithoutTransformations2.size());
+        for (PageHtml pageHtml : pagesWithoutTransformations2) {
+            System.out.println("\tHtml content: " + pageHtml.getHtmlContent());
+            System.out.println("\tPage number: " + pageHtml.getPageNumber());
+        }
         System.out.println();
     }
 
@@ -189,7 +197,11 @@ public class TransformationOperations {
 
         // Get document pages image representation with watermark
         List<PageImage> pages = imageHandler.getPages(guid, options);
-        System.out.println(pages.size());
+        System.out.println("Pages count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            System.out.println("\tStream length: " + pageImage.getStream().available());
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+        }
         System.out.println();
     }
 
@@ -214,7 +226,11 @@ public class TransformationOperations {
 
         // Get document pages image representation with watermark
         List<PageImage> pages = imageHandler.getPages(guid, options);
-        System.out.println(pages.size());
+        System.out.println("Pages count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            System.out.println("\tStream length: " + pageImage.getStream().available());
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+        }
         System.out.println();
     }
 
@@ -237,7 +253,11 @@ public class TransformationOperations {
 
         // Get document pages html representation with watermark
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
-        System.out.println(pages.size());
+        System.out.println("Pages count: " + pages.size());
+        for (PageHtml pageHtml : pages) {
+            System.out.println("\tHtml content: " + pageHtml.getHtmlContent().replaceAll("\n", ""));
+            System.out.println("\tPage number: " + pageHtml.getPageNumber());
+        }
         System.out.println();
     }
 
@@ -262,7 +282,11 @@ public class TransformationOperations {
 
         // Get document pages html representation with watermark
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
-        System.out.println(pages.size());
+        System.out.println("Pages count: " + pages.size());
+        for (PageHtml pageHtml : pages) {
+            System.out.println("\tHtml content: " + pageHtml.getHtmlContent().replaceAll("\n", ""));
+            System.out.println("\tPage number: " + pageHtml.getPageNumber());
+        }
         System.out.println();
     }
 
@@ -284,7 +308,7 @@ public class TransformationOperations {
 
         // Set options to include rotate and reorder transformations
         ImageOptions options = new ImageOptions();
-        options.setTransformations(Transformation.fromValue(Transformation.Rotate.value() | Transformation.Reorder.value()));
+        options.setTransformations(Transformation.from(Transformation.Rotate, Transformation.Reorder));
 
         // Set watermark properties
         Watermark watermark = new Watermark("This is watermark text");
@@ -296,7 +320,15 @@ public class TransformationOperations {
 
         // Get document pages image representation with multiple transformations
         List<PageImage> pages = imageHandler.getPages(guid, options);
-        System.out.println(pages.size());
+        System.out.println("Pages count: " + pages.size());
+        int number = 0;
+        for (PageImage pageImage : pages) {
+            System.out.println("\tStream length: " + pageImage.getStream().available());
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+            if (++number > 2) {
+                break;
+            }
+        }
         System.out.println();
     }
 
