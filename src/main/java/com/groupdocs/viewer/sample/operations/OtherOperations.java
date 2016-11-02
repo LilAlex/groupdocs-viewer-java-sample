@@ -657,19 +657,19 @@ public class OtherOperations {
         DocumentInfoOptions wordsDocumentInfoOptions = new DocumentInfoOptions(wordsDocumentGuid);
         wordsDocumentInfoOptions.getWordsDocumentInfoOptions().setEncoding(encoding);
         DocumentInfoContainer wordsDocumentInfoContainer = imageHandler.getDocumentInfo(wordsDocumentInfoOptions);
-        System.out.println(wordsDocumentInfoContainer.getSize());
+        System.out.println("File size: " + wordsDocumentInfoContainer.getSize());
 
         //Get cells document info with encoding
         DocumentInfoOptions cellsDocumentInfoOptions = new DocumentInfoOptions(cellsDocumentGuid);
         cellsDocumentInfoOptions.getCellsDocumentInfoOptions().setEncoding(encoding);
         DocumentInfoContainer cellsDocumentInfoContainer = imageHandler.getDocumentInfo(cellsDocumentInfoOptions);
-        System.out.println(cellsDocumentInfoContainer.getSize());
+        System.out.println("File size: " + cellsDocumentInfoContainer.getSize());
 
         //Get email document info with encoding
         DocumentInfoOptions emailDocumentInfoOptions = new DocumentInfoOptions(emailDocumentGuid);
         emailDocumentInfoOptions.getEmailDocumentInfoOptions().setEncoding(encoding);
         DocumentInfoContainer emailDocumentInfoContainer = imageHandler.getDocumentInfo(emailDocumentInfoOptions);
-        System.out.println(emailDocumentInfoContainer.getSize());
+        System.out.println("File size: " + emailDocumentInfoContainer.getSize());
         System.out.println();
     }
 
@@ -689,19 +689,19 @@ public class OtherOperations {
         DocumentInfoOptions wordsDocumentInfoOptions = new DocumentInfoOptions();
         wordsDocumentInfoOptions.getWordsOptions().setEncoding(encoding);
         DocumentInfoContainer wordsDocumentInfoContainer = imageHandler.getDocumentInfo(wordsDocumentGuid, wordsDocumentInfoOptions);
-        System.out.println(wordsDocumentInfoContainer.getSize());
+        System.out.println("File size: " + wordsDocumentInfoContainer.getSize());
 
         //Get cells document info with encoding
         DocumentInfoOptions cellsDocumentInfoOptions = new DocumentInfoOptions();
         cellsDocumentInfoOptions.getCellsOptions().setEncoding(encoding);
         DocumentInfoContainer cellsDocumentInfoContainer = imageHandler.getDocumentInfo(cellsDocumentGuid, cellsDocumentInfoOptions);
-        System.out.println(cellsDocumentInfoContainer.getSize());
+        System.out.println("File size: " + cellsDocumentInfoContainer.getSize());
 
         //Get email document info with encoding
         DocumentInfoOptions emailDocumentInfoOptions = new DocumentInfoOptions();
         emailDocumentInfoOptions.getEmailOptions().setEncoding(encoding);
         DocumentInfoContainer emailDocumentInfoContainer = imageHandler.getDocumentInfo(emailDocumentGuid, emailDocumentInfoOptions);
-        System.out.println(emailDocumentInfoContainer.getSize());
+        System.out.println("File size: " + emailDocumentInfoContainer.getSize());
         System.out.println();
     }
 
@@ -721,22 +721,22 @@ public class OtherOperations {
         DocumentInfoOptions documentInfoOptions = new DocumentInfoOptions();
         //Get document info
         DocumentInfoContainer documentInfoContainer = viewerImageHandler.getDocumentInfo(guid, documentInfoOptions);
-
+        System.out.println("File name: " + documentInfoContainer.getName());
         // Go through all pages
         for (PageData pageData : documentInfoContainer.getPages()) {
-            System.out.println("Page number: " + pageData.getNumber());
+            System.out.println("\tPage number: " + pageData.getNumber());
 
             //Go through all page rows
             for (int i = 0; i < pageData.getRows().size(); i++) {
                 RowData rowData = pageData.getRows().get(i);
 
                 // Write data to console
-                System.out.println("Row: " + (i + 1));
-                System.out.println("Text: " + rowData.getText());
-                System.out.println("Text width: " + rowData.getLineWidth());
-                System.out.println("Text height: " + rowData.getLineHeight());
-                System.out.println("Distance from left: " + rowData.getLineLeft());
-                System.out.println("Distance from top: " + rowData.getLineTop());
+                System.out.println("\t\tRow: " + (i + 1));
+                System.out.println("\t\tText: " + rowData.getText());
+                System.out.println("\t\tText width: " + rowData.getLineWidth());
+                System.out.println("\t\tText height: " + rowData.getLineHeight());
+                System.out.println("\t\tDistance from left: " + rowData.getLineLeft());
+                System.out.println("\t\tDistance from top: " + rowData.getLineTop());
 
                 // Get words
                 String[] words = rowData.getText().split(" ");
@@ -746,11 +746,9 @@ public class OtherOperations {
                     int coordinateIndex = j == 0 ? 0 : j + 1;
 
                     // Write data to console
-                    System.out.println("");
-                    System.out.println("Word: '" + words[j] + "'");
-                    System.out.println("Word distance from left: " + rowData.getTextCoordinates().get(coordinateIndex));
-                    System.out.println("Word width: " + rowData.getTextCoordinates().get(coordinateIndex + 1));
-                    System.out.println("");
+                    System.out.println("\t\t\tWord: '" + words[j] + "'");
+                    System.out.println("\t\t\tWord distance from left: " + rowData.getTextCoordinates().get(coordinateIndex));
+                    System.out.println("\t\t\tWord width: " + rowData.getTextCoordinates().get(coordinateIndex + 1));
                 }
             }
         }
@@ -795,7 +793,7 @@ public class OtherOperations {
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config, null, null, fileDataStore);
 
         List<PageHtml> pages = htmlHandler.getPages(guid);
-        System.out.println(pages.size());
+        System.out.println("Page count: " + pages.size());
         System.out.println();
     }
 
@@ -821,19 +819,17 @@ public class OtherOperations {
         options.getDiagramOptions().setShowHiddenPages(true);
 
         DocumentInfoContainer container = imageHandler.getDocumentInfo(guid);
+        System.out.println("File name: " + container.getSize());
+        System.out.println("Page count" + container.getPages().size());
 
         for (PageData page : container.getPages()) {
-            System.out.println("Page number: " + page.getNumber() + ", Page Name: " + page.getName() + ", IsVisible: " + page.isVisible());
+            System.out.println("\tPage number: " + page.getNumber() + ", Page Name: " + page.getName() + ", IsVisible: " + page.isVisible());
         }
 
         List<PageImage> pages = imageHandler.getPages(guid, options);
 
         for (PageImage page : pages) {
-            System.out.println("Page number: " + page.getPageNumber());
-
-            // Page image stream
-            InputStream imageContent = page.getStream();
-            System.out.println(imageContent.available());
+            System.out.println("\tPage number: " + page.getPageNumber() + ", Stream length: " + page.getStream().available());
         }
         System.out.println();
     }
