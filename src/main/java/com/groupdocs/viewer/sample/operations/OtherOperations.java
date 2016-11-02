@@ -235,6 +235,10 @@ public class OtherOperations {
         // Get pages by absolute path
         List<PageImage> pages = imageHandler.getPages(guid);
         System.out.println("Page count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+            System.out.println("\tStream content: " + pageImage.getStream().available());
+        }
         System.out.println();
     }
 
@@ -248,6 +252,10 @@ public class OtherOperations {
         // Get pages by absolute path
         List<PageImage> pages = imageHandler.getPages(guid);
         System.out.println("Page count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+            System.out.println("\tStream content: " + pageImage.getStream().available());
+        }
         System.out.println();
     }
 
@@ -263,6 +271,10 @@ public class OtherOperations {
         // Get pages by absolute path
         List<PageImage> pages = imageHandler.getPages(uri);
         System.out.println("Page count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+            System.out.println("\tStream content: " + pageImage.getStream().available());
+        }
         System.out.println();
     }
 
@@ -278,6 +290,10 @@ public class OtherOperations {
         // Get pages by absolute path
         List<PageImage> pages = imageHandler.getPages(fileStream, guid);
         System.out.println("Page count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+            System.out.println("\tStream content: " + pageImage.getStream().available());
+        }
         System.out.println();
     }
 
@@ -468,7 +484,7 @@ public class OtherOperations {
 
         //The pdf file stream
         InputStream pdfStream = fileContainer.getStream();
-        System.out.println(pdfStream.available());
+        System.out.println("Stream length: " + pdfStream.available());
         System.out.println();
     }
 
@@ -484,8 +500,12 @@ public class OtherOperations {
         imageOptions.getCellsOptions().setOnePagePerSheet(false);
 
         //Get pages
-        List<PageImage> pageImages = imageHandler.getPages(guid, imageOptions);
-        System.out.println(pageImages.size());
+        List<PageImage> pages = imageHandler.getPages(guid, imageOptions);
+        System.out.println("Page count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            System.out.println("\tPage number: " + pageImage.getPageNumber());
+            System.out.println("\tStream content: " + pageImage.getStream().available());
+        }
         System.out.println();
     }
 
@@ -517,17 +537,15 @@ public class OtherOperations {
 
         DocumentInfoContainer container = imageHandler.getDocumentInfo(new DocumentInfoOptions(guid));
 
-        for (PageData page : container.getPages())
+        for (PageData page : container.getPages()) {
             System.out.println("Page number: " + page.getNumber() + ", Page Name: " + page.getName() + ", IsVisible: " + page.isVisible());
-
+        }
         List<PageImage> pages = imageHandler.getPages(guid, options);
 
         for (PageImage page : pages) {
             System.out.println("Page number: " + page.getPageNumber());
-
             // Page image stream
-            InputStream imageContent = page.getStream();
-            System.out.println(imageContent.available());
+            System.out.println("Stream length: " + page.getStream().available());
         }
         System.out.println();
     }
@@ -549,9 +567,10 @@ public class OtherOperations {
             System.out.println("Page number: " + page.getNumber() + ", Page Name: " + page.getName() + ", IsVisible: " + page.isVisible());
         }
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
-
         for (PageHtml page : pages) {
             System.out.println("Page number: " + page.getPageNumber());
+            // Page image stream
+            System.out.println("Stream length: " + page.getHtmlContent());
         }
         System.out.println();
     }
@@ -568,7 +587,7 @@ public class OtherOperations {
         // Create html handler
         CultureInfo cultureInfo = new CultureInfo("fr-FR");
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(viewerConfig, cultureInfo);
-        System.out.println(htmlHandler);
+        System.out.println("Html handler: " + htmlHandler);
         System.out.println();
     }
 
@@ -592,33 +611,33 @@ public class OtherOperations {
 
         //Get words document pages with encoding
         List<PageImage> wordsDocumentPages = imageHandler.getPages(wordsDocumentGuid, imageOptions);
-        System.out.println(wordsDocumentPages.size());
+        System.out.println("Pages count: " + wordsDocumentPages.size());
 
         //Get cells document pages with encoding
         List<PageImage> cellsDocumentPages = imageHandler.getPages(cellsDocumentGuid, imageOptions);
-        System.out.println(cellsDocumentPages.size());
+        System.out.println("Pages count: " + cellsDocumentPages.size());
 
         //Get email document pages with encoding
         List<PageImage> emailDocumentPages = imageHandler.getPages(emailDocumentGuid, imageOptions);
-        System.out.println(emailDocumentPages.size());
+        System.out.println("Pages count: " + emailDocumentPages.size());
 
         //Get words document info with encoding
         DocumentInfoOptions wordsDocumentInfoOptions = new DocumentInfoOptions(wordsDocumentGuid);
         wordsDocumentInfoOptions.getWordsDocumentInfoOptions().setEncoding(encoding);
         DocumentInfoContainer wordsDocumentInfoContainer = imageHandler.getDocumentInfo(wordsDocumentInfoOptions);
-        System.out.println(wordsDocumentInfoContainer.getSize());
+        System.out.println("File size: " + wordsDocumentInfoContainer.getSize());
 
         //Get cells document info with encoding
         DocumentInfoOptions cellsDocumentInfoOptions = new DocumentInfoOptions(cellsDocumentGuid);
         cellsDocumentInfoOptions.getCellsDocumentInfoOptions().setEncoding(encoding);
         DocumentInfoContainer cellsDocumentInfoContainer = imageHandler.getDocumentInfo(cellsDocumentInfoOptions);
-        System.out.println(cellsDocumentInfoContainer.getSize());
+        System.out.println("File size: " + cellsDocumentInfoContainer.getSize());
 
         //Get email document info with encoding
         DocumentInfoOptions emailDocumentInfoOptions = new DocumentInfoOptions(emailDocumentGuid);
         emailDocumentInfoOptions.getEmailDocumentInfoOptions().setEncoding(encoding);
         DocumentInfoContainer emailDocumentInfoContainer = imageHandler.getDocumentInfo(emailDocumentInfoOptions);
-        System.out.println(emailDocumentInfoContainer.getSize());
+        System.out.println("File size: " + emailDocumentInfoContainer.getSize());
         System.out.println();
     }
 
