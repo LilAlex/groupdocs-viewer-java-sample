@@ -846,16 +846,20 @@ public class OtherOperations {
         options.getDiagramOptions().setShowHiddenPages(true);
 
         DocumentInfoContainer container = htmlHandler.getDocumentInfo(guid);
+        System.out.println("File name: " + container.getSize());
+        System.out.println("Page count: " + container.getPages().size());
 
         for (PageData page : container.getPages()) {
-            System.out.println("Page number: " + page.getNumber() + ", Page Name: " + page.getName() + ", IsVisible: " + page.isVisible());
+            System.out.println("\tPage number: " + page.getNumber());
+            System.out.println("\tPage Name: " + page.getName());
+            System.out.println("\tIsVisible: " + page.isVisible());
         }
 
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
 
         for (PageHtml page : pages) {
-            System.out.println("Page number: " + page.getPageNumber());
-            System.out.println("Html content: " + page.getHtmlContent());
+            System.out.println("\tPage number: " + page.getPageNumber());
+            System.out.println("\tHtml content: " + page.getHtmlContent());
         }
         System.out.println();
     }
