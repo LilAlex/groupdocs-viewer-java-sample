@@ -111,7 +111,7 @@ public class TransformationOperations {
         List<PageHtml> pages = htmlHandler.getPages(guid, new HtmlOptions());
         System.out.println("Pages count: " + pages.size());
         for (PageHtml pageHtml : pages) {
-            System.out.println("\tHtml content: " + pageHtml.getHtmlContent());
+            System.out.println("\tHtml content: " + pageHtml.getHtmlContent().substring(0, 150) + "...");
             System.out.println("\tPage number: " + pageHtml.getPageNumber());
         }
         System.out.println();
@@ -132,7 +132,7 @@ public class TransformationOperations {
         List<PageHtml> pagesWithoutTransformations = htmlHandler.getPages(guid, noTransformationsOptions);
         System.out.println("Pages count: " + pagesWithoutTransformations.size());
         for (PageHtml pageHtml : pagesWithoutTransformations) {
-            System.out.println("\tHtml content: " + pageHtml.getHtmlContent());
+            System.out.println("\tHtml content: " + pageHtml.getHtmlContent().substring(0, 150) + "...");
             System.out.println("\tPage number: " + pageHtml.getPageNumber());
         }
 
@@ -140,7 +140,7 @@ public class TransformationOperations {
         List<PageHtml> pagesWithoutTransformations2 = htmlHandler.getPages(guid);
         System.out.println("Pages count: " + pagesWithoutTransformations2.size());
         for (PageHtml pageHtml : pagesWithoutTransformations2) {
-            System.out.println("\tHtml content: " + pageHtml.getHtmlContent());
+            System.out.println("\tHtml content: " + pageHtml.getHtmlContent().substring(0, 150) + "...");
             System.out.println("\tPage number: " + pageHtml.getPageNumber());
         }
         System.out.println();

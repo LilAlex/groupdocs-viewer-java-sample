@@ -40,8 +40,8 @@ public class CommonOperations {
         System.out.println("Size: " + documentInfo.getSize());
 
         for (PageData pageData : documentInfo.getPages()) {
-            System.out.println("Page number: " + pageData.getNumber());
-            System.out.println("Page name: " + pageData.getName());
+            System.out.println("\tPage number: " + pageData.getNumber());
+            System.out.println("\tPage name: " + pageData.getName());
         }
         System.out.println();
     }
@@ -69,8 +69,8 @@ public class CommonOperations {
         System.out.println("Size: " + documentInfo.getSize());
 
         for (PageData pageData : documentInfo.getPages()) {
-            System.out.println("Page number: " + pageData.getNumber());
-            System.out.println("Page name: " + pageData.getName());
+            System.out.println("\tPage number: " + pageData.getNumber());
+            System.out.println("\tPage name: " + pageData.getName());
         }
         System.out.println();
     }
@@ -113,8 +113,8 @@ public class CommonOperations {
         System.out.println("Size: " + documentInfo.getSize());
 
         for (PageData pageData : documentInfo.getPages()) {
-            System.out.println("Page number: " + pageData.getNumber());
-            System.out.println("Page name: " + pageData.getName());
+            System.out.println("\tPage number: " + pageData.getNumber());
+            System.out.println("\tPage name: " + pageData.getName());
         }
         System.out.println();
     }
@@ -142,8 +142,8 @@ public class CommonOperations {
         System.out.println("PageCount: " + documentInfo.getPages().size());
         System.out.println("Size: " + documentInfo.getSize());
         for (PageData pageData : documentInfo.getPages()) {
-            System.out.println("Page number: " + pageData.getNumber());
-            System.out.println("Page name: " + pageData.getName());
+            System.out.println("\tPage number: " + pageData.getNumber());
+            System.out.println("\tPage name: " + pageData.getName());
         }
         System.out.println();
     }
@@ -173,8 +173,8 @@ public class CommonOperations {
         System.out.println("Size: " + documentInfo.getSize());
 
         for (PageData pageData : documentInfo.getPages()) {
-            System.out.println("Page number: " + pageData.getNumber());
-            System.out.println("Page name: " + pageData.getName());
+            System.out.println("\tPage number: " + pageData.getNumber());
+            System.out.println("\tPage name: " + pageData.getName());
         }
         System.out.println();
     }
@@ -194,8 +194,7 @@ public class CommonOperations {
 
         System.out.println("DateCreated: " + documentInfo.getDateCreated());
         System.out.println("DocumentType: " + documentInfo.getDocumentType());
-        System.out.println("DocumentTypeFormat: " + documentInfo.getDocumentTypeFormat()
-        );
+        System.out.println("DocumentTypeFormat: " + documentInfo.getDocumentTypeFormat());
         System.out.println("Extension: " + documentInfo.getExtension());
         System.out.println("FileType: " + documentInfo.getFileType());
         System.out.println("Guid: " + documentInfo.getGuid());
@@ -205,8 +204,8 @@ public class CommonOperations {
         System.out.println("Size: " + documentInfo.getSize());
 
         for (PageData pageData : documentInfo.getPages()) {
-            System.out.println("Page number: " + pageData.getNumber());
-            System.out.println("Page name: " + pageData.getName());
+            System.out.println("\tPage number: " + pageData.getNumber());
+            System.out.println("\tPage name: " + pageData.getName());
         }
         System.out.println();
     }

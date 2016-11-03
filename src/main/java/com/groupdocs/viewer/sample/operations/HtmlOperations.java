@@ -25,10 +25,11 @@ public class HtmlOperations {
         HtmlOptions options = new HtmlOptions();
         options.setResourcesEmbedded(true);
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
+        System.out.println("Page count: " + pages.size());
 
         for (PageHtml page : pages) {
-            System.out.println("Page number: " + page.getPageNumber());
-            System.out.println("Html content: " + page.getHtmlContent());
+            System.out.println("\tPage number: " + page.getPageNumber());
+            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150) + "...");
         }
         System.out.println();
     }
@@ -43,11 +44,12 @@ public class HtmlOperations {
         config.setUseCache(true);
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
         List<PageHtml> pages = htmlHandler.getPages(guid);
+        System.out.println("Page count: " + pages.size());
 
         for (PageHtml page : pages) {
-            System.out.println("Page number: " + page.getPageNumber());
-            System.out.println("Resources count: " + page.getHtmlResources().size());
-            System.out.println("Html content: " + page.getHtmlContent());
+            System.out.println("\tPage number: " + page.getPageNumber());
+            System.out.println("\tResources count: " + page.getHtmlResources().size());
+            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150) + "...");
 
             // Html resources descriptions
             for (HtmlResource resource : page.getHtmlResources()) {
@@ -55,7 +57,7 @@ public class HtmlOperations {
 
                 // Get html page resource stream
                 InputStream resourceStream = htmlHandler.getResource(guid, resource);
-                System.out.println("Stream size: " + resourceStream.available());
+                System.out.println("\t\tStream size: " + resourceStream.available());
             }
         }
         System.out.println();
@@ -73,10 +75,11 @@ public class HtmlOperations {
         options.setPageNumber(2);
         options.setCountPagesToConvert(5);
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
+        System.out.println("Page count: " + pages.size());
 
         for (PageHtml page : pages) {
-            System.out.println("Page number: " + page.getPageNumber());
-            System.out.println("Html content: " + page.getHtmlContent());
+            System.out.println("\tPage number: " + page.getPageNumber());
+            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150) + "...");
         }
         System.out.println();
     }
@@ -93,10 +96,11 @@ public class HtmlOperations {
         options.setPageNumbersToConvert(Arrays.asList(1, 3, 5, 6, 8));
 
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
+        System.out.println("Page count: " + pages.size());
 
         for (PageHtml page : pages) {
-            System.out.println("Page number: " + page.getPageNumber());
-            System.out.println("Html content: " + page.getHtmlContent());
+            System.out.println("\tPage number: " + page.getPageNumber());
+            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150) + "...");
         }
         System.out.println();
     }

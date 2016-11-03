@@ -40,9 +40,9 @@ public class Main {
         System.out.println();
 
         HtmlOperations.getHtmlRepresentationWithEmbeddedResources(htmlHandler, "word.doc");
-        HtmlOperations.getHtmlRepresentation(htmlHandler, "word.doc");
+        HtmlOperations.getHtmlRepresentation(config.clone(), "word-with-resources.docx");
         HtmlOperations.getHtmlRepresentationOfNConsecutivePages(htmlHandler, "word.doc");
-        HtmlOperations.getHtmlRepresentationOfCustomPageNumbers(htmlHandler, "word.doc");
+        HtmlOperations.getHtmlRepresentationOfCustomPageNumbers(htmlHandler, "word.docx");
         HtmlOperations.specifyInternalHyperlinkPrefixForExcelFiles();
         HtmlOperations.specifyResourcePrefix();
 
@@ -50,13 +50,13 @@ public class Main {
 
         ImageOperations.getImageRepresentation(imageHandler, "word.doc");
         ImageOperations.getImageRepresentationOfNConsecutivePages(imageHandler, "word.doc");
-        ImageOperations.getImageRepresentationOfCustomPageNumbers(imageHandler, "word.doc");
+        ImageOperations.getImageRepresentationOfCustomPageNumbers(imageHandler, "word.docx");
         ImageOperations.getImageRepresentationWithJpegQuality(imageHandler, "word.doc");
 
         System.out.println();
 
         TransformationOperations.rotate1stImagePageBy90Deg(imageHandler, "word.doc");
-        TransformationOperations.reorder1stAnd2ndImagePages(imageHandler, "word.doc");
+        TransformationOperations.reorder1stAnd2ndImagePages(imageHandler, "word.docx");
 
         System.out.println();
 
@@ -66,7 +66,7 @@ public class Main {
         System.out.println();
 
         TransformationOperations.rotateHtml1stPageBy90Deg(htmlHandler, "word.doc");
-        TransformationOperations.reorderHtml1stPageBy90Deg(htmlHandler, "word.doc");
+        TransformationOperations.reorderHtml1stPageBy90Deg(htmlHandler, "word.docx");
 
         System.out.println();
 
@@ -82,8 +82,8 @@ public class Main {
 
         System.out.println();
 
-        TransformationOperations.performMultipleTransformationsInImageMode(imageHandler, "word.doc");
-        TransformationOperations.performMultipleTransformationsInHtmlMode(htmlHandler, "word.doc");
+        TransformationOperations.performMultipleTransformationsInImageMode(imageHandler, "word.docx");
+        TransformationOperations.performMultipleTransformationsInHtmlMode(htmlHandler, "word.docx");
 
         System.out.println();
 
@@ -110,7 +110,7 @@ public class Main {
 
         System.out.println();
 
-        OtherOperations.howToUseCustomInputDataHandler(config, "word.doc");
+        OtherOperations.howToUseCustomInputDataHandler(config.clone(), "word.doc");
 
         System.out.println();
 
@@ -152,7 +152,7 @@ public class Main {
 
         System.out.println();
 
-        OtherOperations.howToGetTextCoordinatesInImageMode(config, "word.doc");
+        OtherOperations.howToGetTextCoordinatesInImageMode(config.clone(), "word.doc");
 
         System.out.println();
 
@@ -161,11 +161,11 @@ public class Main {
 
         System.out.println();
 
-        OtherOperations.howToUseCustomFileDataStore(config, "word.doc");
+        OtherOperations.howToUseCustomFileDataStore(config.clone(), "word.doc");
 
         System.out.println();
 
-        OtherOperations.setDefaultFontName(config);
+        OtherOperations.setDefaultFontName(config.clone());
 
         System.out.println();
 
@@ -174,12 +174,12 @@ public class Main {
 
         System.out.println();
 
-        OtherOperations.howToUseCustomCacheDataHandler(config, "word.doc");
+        OtherOperations.howToUseCustomCacheDataHandler(config.clone(), "word.doc");
 
         System.out.println();
 
-        OtherOperations.getAttachmentOriginalFile(imageHandler, "word.doc");
-        OtherOperations.getAttachmentDocumentHtmlRepresentation(config, "document-with-attachments.msg");
-        OtherOperations.getAttachmentDocumentImageRepresentation(config, "document-with-attachments.msg");
+        OtherOperations.getAttachmentOriginalFile(imageHandler, "document-with-attachments.msg", "attachment-image.png");
+        OtherOperations.getAttachmentDocumentHtmlRepresentation(config.clone(), "document-with-attachments.msg");
+        OtherOperations.getAttachmentDocumentImageRepresentation(config.clone(), "document-with-attachments.msg");
     }
 }

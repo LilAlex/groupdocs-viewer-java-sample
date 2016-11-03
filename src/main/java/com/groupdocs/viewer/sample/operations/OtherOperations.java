@@ -462,7 +462,7 @@ public class OtherOperations {
 
         for (PageHtml page : pages) {
             System.out.println("Page number: " + page.getPageNumber());
-            System.out.println("Html content: " + page.getHtmlContent());
+            System.out.println("Html content: " + page.getHtmlContent().substring(0, 150) + "...");
         }
         System.out.println();
     }
@@ -570,7 +570,7 @@ public class OtherOperations {
         for (PageHtml page : pages) {
             System.out.println("Page number: " + page.getPageNumber());
             // Page image stream
-            System.out.println("Stream length: " + page.getHtmlContent());
+            System.out.println("Stream length: " + page.getHtmlContent().substring(0, 150) + "...");
         }
         System.out.println();
     }
@@ -859,7 +859,7 @@ public class OtherOperations {
 
         for (PageHtml page : pages) {
             System.out.println("\tPage number: " + page.getPageNumber());
-            System.out.println("\tHtml content: " + page.getHtmlContent());
+            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150) + "...");
         }
         System.out.println();
     }
@@ -951,15 +951,19 @@ public class OtherOperations {
         ViewerImageHandler handler = new ViewerImageHandler(config);
 
         DocumentInfoContainer info = handler.getDocumentInfo(guid);
+        System.out.println("File name: " + info.getSize());
+        System.out.println("Page count: " + info.getPages().size());
 
         // Iterate over the attachments collection
         for (AttachmentBase attachment : info.getAttachments()) {
-            System.out.println("Attach name: " + attachment.getName() + ", size: " + attachment.getFileType());
+            System.out.println("\tAttach name: " + attachment.getName());
+            System.out.println("\tSize: " + attachment.getFileType());
 
             // Get attachment document image representation
             List<PageImage> pages = handler.getPages(attachment);
             for (PageImage page : pages) {
-                System.out.println("  Page: " + page.getPageNumber() + ", size: " + page.getStream().available());
+                System.out.println("\t\tPage: " + page.getPageNumber());
+                System.out.println("\t\tSize: " + page.getStream().available());
             }
         }
         System.out.println();

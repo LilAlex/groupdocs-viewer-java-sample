@@ -74,7 +74,7 @@ public class ViewGenerator {
 
         for (PageHtml page : pages) {
             //Save each page at disk
-            Utilities.saveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
+            Utilities.saveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent().substring(0, 150) + "...");
         }
     }
 
@@ -118,7 +118,7 @@ public class ViewGenerator {
 
         for (PageHtml page : pages) {
             //Save each page at disk
-            Utilities.saveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
+            Utilities.saveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent().substring(0, 150) + "...");
             processHtmlResources(guid, htmlHandler, page);
         }
     }
@@ -165,7 +165,7 @@ public class ViewGenerator {
 
         for (PageHtml page : pages) {
             //Save each page at disk
-            Utilities.saveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent());
+            Utilities.saveAsHtml(page.getPageNumber() + "_" + DocumentName, page.getHtmlContent().substring(0, 150) + "...");
             processHtmlResources(guid, htmlHandler, page);
         }
     }
@@ -221,7 +221,7 @@ public class ViewGenerator {
 
         for (PageHtml page : pages) {
             //Save each page at disk
-            Utilities.saveAsHtml(page.getPageNumber() + "_" + new File(DocumentURL.getPath()).getName(), page.getHtmlContent());
+            Utilities.saveAsHtml(page.getPageNumber() + "_" + new File(DocumentURL.getPath()).getName(), page.getHtmlContent().substring(0, 150) + "...");
         }
     }
 
