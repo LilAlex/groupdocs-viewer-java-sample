@@ -873,14 +873,14 @@ public class OtherOperations {
     public static void howToUseCustomCacheDataHandler(ViewerConfig config, String guid) throws Exception {
         // Use custom ICacheDataHandler implementation
 //        ICacheDataHandler cacheDataHandler = new CustomCacheDataHandler();
-        ICacheDataHandler cacheDataHandler = new AmazonS3CacheDataHandler(null, null);
-
-        // Get file HTML representation
-        ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config, null, cacheDataHandler);
-
-        List<PageHtml> pages = htmlHandler.getPages(guid);
-        System.out.println(pages.size());
-        System.out.println();
+//        ICacheDataHandler cacheDataHandler = new AmazonS3CacheDataHandler(null, null);
+//
+//        // Get file HTML representation
+//        ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config, null, cacheDataHandler);
+//
+//        List<PageHtml> pages = htmlHandler.getPages(guid);
+//        System.out.println(pages.size());
+//        System.out.println();
     }
 
     /**
@@ -889,8 +889,8 @@ public class OtherOperations {
      * @param guid the guid
      * @throws Exception the exception
      */
-    public static void getAttachmentOriginalFile(ViewerImageHandler imageHandler, String guid) throws Exception {
-        EmailAttachment attachment = new EmailAttachment("document-with-attachments.msg", "attachment-image.png");
+    public static void getAttachmentOriginalFile(ViewerImageHandler imageHandler, String guid, String name) throws Exception {
+        EmailAttachment attachment = new EmailAttachment(guid, name);
 
         // Get attachment original file
         FileContainer fileContainer = imageHandler.getFile(attachment);
@@ -916,18 +916,22 @@ public class OtherOperations {
         ViewerHtmlHandler handler = new ViewerHtmlHandler(config);
 
         DocumentInfoContainer info = handler.getDocumentInfo(guid);
+        System.out.println("File name: " + info.getSize());
+        System.out.println("Page count: " + info.getPages().size());
 
         // Iterate over the attachments collection
         for (AttachmentBase attachment : info.getAttachments()) {
-            System.out.println("Attach name: " + attachment.getName() + ", size: " + attachment.getFileType());
+            System.out.println("\tAttach name: " + attachment.getName() + ", size: " + attachment.getFileType());
 
             // Get attachment document html representation
             List<PageHtml> pages = handler.getPages(attachment, htmlOptions);
             for (PageHtml page : pages) {
-                System.out.println("  Page: " + page.getPageNumber() + ", size: " + page.getHtmlContent().length());
+                System.out.println("\t\tPage: " + page.getPageNumber());
+                System.out.println("\t\tSize: " + page.getHtmlContent().length());
                 for (HtmlResource htmlResource : page.getHtmlResources()) {
                     InputStream resourceStream = handler.getResource(attachment, htmlResource);
-                    System.out.println("     Resource: " + htmlResource.getResourceName() + ", size: " + resourceStream.available());
+                    System.out.println("\t\t\tResource: " + htmlResource.getResourceName());
+                    System.out.println("\t\t\tSize: " + resourceStream.available());
                 }
             }
         }
