@@ -1,6 +1,5 @@
 package com.groupdocs.viewer.sample.operations;
 
-import com.groupdocs.foundation.utils.CultureInfo;
 import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
@@ -17,6 +16,7 @@ import com.groupdocs.viewer.helper.FileDataStore;
 import com.groupdocs.viewer.helper.IFileDataStore;
 import com.groupdocs.viewer.sample.Utilities;
 import com.groupdocs.viewer.sample.handler.AmazonS3CacheDataHandler;
+import com.groupdocs.viewer.utils.CultureInfo;
 
 import java.awt.*;
 import java.io.File;

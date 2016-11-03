@@ -3,7 +3,6 @@ package com.groupdocs.viewer.sample.handler;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.*;
-import com.aspose.ms.System.GC;
 import com.groupdocs.viewer.common.IDisposable;
 import com.groupdocs.viewer.common.MemoryStream;
 import com.groupdocs.viewer.common.Path;
@@ -426,7 +425,6 @@ public class AmazonS3CacheDataHandler implements ICacheDataHandler, IDisposable 
      */
     public void dispose() {
         Dispose(true);
-        GC.suppressFinalize(this);
     }
 
     /**

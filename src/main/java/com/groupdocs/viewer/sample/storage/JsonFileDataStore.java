@@ -1,11 +1,11 @@
 package com.groupdocs.viewer.sample.storage;
 
-import com.aspose.ms.System.ArgumentNullException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.groupdocs.viewer.common.Path;
 import com.groupdocs.viewer.domain.FileData;
 import com.groupdocs.viewer.domain.FileDescription;
 import com.groupdocs.viewer.domain.WordsFileData;
+import com.groupdocs.viewer.exception.ArgumentNullException;
 import com.groupdocs.viewer.exception.DirectoryNotFoundException;
 import com.groupdocs.viewer.helper.IFileDataStore;
 import org.apache.commons.io.FileUtils;
@@ -34,34 +34,35 @@ public class JsonFileDataStore implements IFileDataStore {
     }
 
     public FileData getFileData(FileDescription fileDescription) throws IOException {
-        if (fileDescription == null)
-            throw new ArgumentNullException("fileDescription");
-
-        String path = getFilePath(fileDescription);
-        String json = FileUtils.readFileToString(new File(path));
-
-        ObjectMapper xmlMapper = new ObjectMapper();
-        if (fileDescription.getDocumentType().equals("Words")) {
-            return xmlMapper.readValue(json.getBytes(), WordsFileData.class);
-        }
-        return xmlMapper.readValue(json.getBytes(), FileData.class);
+//        if (fileDescription == null)
+//            throw new ArgumentNullException("fileDescription");
+//
+//        String path = getFilePath(fileDescription);
+//        String json = FileUtils.readFileToString(new File(path));
+//
+//        ObjectMapper xmlMapper = new ObjectMapper();
+//        if (fileDescription.getDocumentType().equals("Words")) {
+//            return xmlMapper.readValue(json.getBytes(), WordsFileData.class);
+//        }
+//        return xmlMapper.readValue(json.getBytes(), FileData.class);
+        return null;
     }
 
     public void saveFileData(FileDescription fileDescription, FileData fileData) throws IOException {
-        if (fileDescription == null)
-            throw new ArgumentNullException("fileDescription");
-        if (fileData == null)
-            throw new ArgumentNullException("fileData");
-
-        String path = getFilePath(fileDescription);
-        ObjectMapper xmlMapper = new ObjectMapper();
-        String json = xmlMapper.writeValueAsString(fileData);
-
-        String dir = new File(path).getName();
-        if (dir != null && !new File(dir).exists())
-            new File(dir).mkdirs();
-
-        FileUtils.write(new File(path), json);
+//        if (fileDescription == null)
+//            throw new ArgumentNullException("fileDescription");
+//        if (fileData == null)
+//            throw new ArgumentNullException("fileData");
+//
+//        String path = getFilePath(fileDescription);
+//        ObjectMapper xmlMapper = new ObjectMapper();
+//        String json = xmlMapper.writeValueAsString(fileData);
+//
+//        String dir = new File(path).getName();
+//        if (dir != null && !new File(dir).exists())
+//            new File(dir).mkdirs();
+//
+//        FileUtils.write(new File(path), json);
     }
 
     private String getFilePath(FileDescription fileDescription) {

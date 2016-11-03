@@ -5,9 +5,8 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
-import com.aspose.ms.System.GC;
-import com.aspose.ms.System.IDisposable;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.groupdocs.viewer.common.IDisposable;
 import com.groupdocs.viewer.domain.EmailFileData;
 import com.groupdocs.viewer.domain.FileData;
 import com.groupdocs.viewer.domain.FileDescription;
@@ -175,7 +174,6 @@ public class AmazonS3FileDataStore implements IFileDataStore, IDisposable {
      */
     public void dispose() {
         dispose(true);
-        GC.suppressFinalize(this);
     }
 
 
