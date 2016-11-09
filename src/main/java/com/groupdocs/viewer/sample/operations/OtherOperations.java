@@ -192,7 +192,7 @@ public class OtherOperations {
         options.setGuid(guid);
 
         // Set apply rotate and reorder transformations
-        options.setTransformations(Transformation.Rotate.value() | Transformation.Reorder.value() | Transformation.AddPrintAction.value());
+        options.setTransformations(Transformation.Rotate, Transformation.Reorder, Transformation.AddPrintAction);
 
         // Get file as pdf with transformations
         FileContainer container = imageHandler.getPdfFile(options);
@@ -217,7 +217,7 @@ public class OtherOperations {
 
         // Set apply rotate and reorder transformations
         PdfFileOptions options = new PdfFileOptions();
-        options.setTransformations(Transformation.Rotate.value() | Transformation.Reorder.value() | Transformation.AddPrintAction.value());
+        options.setTransformations(Transformation.Rotate, Transformation.Reorder, Transformation.AddPrintAction);
 
         // Get file as pdf with transformations
         FileContainer container = imageHandler.getPdfFile(guid, options);

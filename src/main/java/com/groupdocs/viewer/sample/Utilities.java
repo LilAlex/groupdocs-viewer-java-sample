@@ -1,6 +1,5 @@
 package com.groupdocs.viewer.sample;
 
-import com.groupdocs.viewer.Constants;
 import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
@@ -306,7 +305,7 @@ public class Utilities {
                 "%s%s%s%spage%d%s%s",
                 outputPath.getAbsolutePath(),
                 File.separator,
-                Constants.RESOURCES_DIR_NAME,
+                "resources",
                 File.separator,
                 documentPageNumber,
                 File.separator,

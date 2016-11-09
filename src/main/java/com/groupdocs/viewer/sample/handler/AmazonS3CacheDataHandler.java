@@ -11,7 +11,6 @@ import com.groupdocs.viewer.exception.ArgumentNullException;
 import com.groupdocs.viewer.exception.ArgumentOutOfRangeException;
 import com.groupdocs.viewer.exception.InvalidOperationException;
 import com.groupdocs.viewer.handler.cache.ICacheDataHandler;
-import com.groupdocs.viewer.helper.comparer.Func2P;
 import com.groupdocs.viewer.sample.storage.AmazonS3FileDataStore;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -475,5 +474,11 @@ public class AmazonS3CacheDataHandler implements ICacheDataHandler, IDisposable 
             }
             return res;
         }
+    }
+
+
+    public abstract class Func2P< T, R> {
+
+        public abstract R invoke(T t);
     }
 }
