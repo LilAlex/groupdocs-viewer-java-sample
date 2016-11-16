@@ -61,7 +61,11 @@ public class TaskOperations {
                 System.out.println("\t\tStream size: " + resourceStream.available());
             }
         }
-        System.out.println("Cache directory exists: " + new File(Utilities.STORAGE_PATH + File.separator + "temp").exists());
+        final boolean isCacheExists = new File(Utilities.STORAGE_PATH + File.separator + "temp").exists();
+        if (config.getUseCache() && isCacheExists) {
+            throw new Exception("use cache is false but directory was created");
+        }
+        System.out.println("Cache directory exists: " + isCacheExists);
         System.out.println();
     }
 }
