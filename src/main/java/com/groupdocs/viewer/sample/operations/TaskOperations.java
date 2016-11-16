@@ -1,12 +1,17 @@
 package com.groupdocs.viewer.sample.operations;
 
 import com.groupdocs.viewer.config.ViewerConfig;
+import com.groupdocs.viewer.converter.options.ConvertImageFileType;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
+import com.groupdocs.viewer.converter.options.ImageOptions;
 import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
+import com.groupdocs.viewer.domain.image.PageImage;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
+import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import java.io.File;
 import java.io.InputStream;
@@ -67,5 +72,25 @@ public class TaskOperations {
         }
         System.out.println("Cache directory exists: " + isCacheExists);
         System.out.println();
+    }
+
+    public static void VIEWERJAVA962(ViewerImageHandler imageHandler, String guids) throws Exception {
+        ImageOptions imageOptions = new ImageOptions();
+        imageOptions.setWidth(200);
+        imageOptions.setHeight(300);
+        imageOptions.setCountPagesToConvert(2);
+        imageOptions.setConvertImageFileType(ConvertImageFileType.PNG);
+        final List<PageImage> pages = imageHandler.getPages(guids, imageOptions);
+        System.out.println("Thumbnails count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            final InputStream stream = pageImage.getStream();
+            final int pageNumber = pageImage.getPageNumber();
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guids + File.separator + "thumbnail_" + pageNumber + ".png");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(stream));
+            } else {
+                throw new Exception("can't create thumbnails directory");
+            }
+        }
     }
 }

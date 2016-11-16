@@ -186,5 +186,6 @@ public class Main {
 
         TaskOperations.VIEWERJAVA853(htmlHandler, "Book1.xlsx");
         TaskOperations.VIEWERJAVA924(config, "word.doc");
+        TaskOperations.VIEWERJAVA962(imageHandler, "for-thumbnail.bmp");
     }
 }
