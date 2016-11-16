@@ -1,9 +1,11 @@
 package com.groupdocs.viewer.sample.operations;
 
+import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
+import com.groupdocs.viewer.sample.Utilities;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -36,6 +38,30 @@ public class TaskOperations {
                 System.out.println("\t\tStream size: " + resourceStream.available());
             }
         }
+        System.out.println();
+    }
+
+    public static void VIEWERJAVA924(ViewerConfig config, String guid) throws Exception {
+        config.setUseCache(false);
+        ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
+        List<PageHtml> pages = htmlHandler.getPages(guid);
+        System.out.println("Page count: " + pages.size());
+
+        for (PageHtml page : pages) {
+            System.out.println("\tPage number: " + page.getPageNumber());
+            System.out.println("\tResources count: " + page.getHtmlResources().size());
+            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150) + "...");
+
+            // Html resources descriptions
+            for (HtmlResource resource : page.getHtmlResources()) {
+                System.out.println(resource.getResourceName() + resource.getResourceType());
+
+                // Get html page resource stream
+                InputStream resourceStream = htmlHandler.getResource(guid, resource);
+                System.out.println("\t\tStream size: " + resourceStream.available());
+            }
+        }
+        System.out.println("Cache directory exists: " + new File(Utilities.STORAGE_PATH + File.separator + "temp").exists());
         System.out.println();
     }
 }

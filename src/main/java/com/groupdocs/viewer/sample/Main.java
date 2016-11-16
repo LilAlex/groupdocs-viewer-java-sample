@@ -185,5 +185,6 @@ public class Main {
         System.out.println();
 
         TaskOperations.VIEWERJAVA853(htmlHandler, "Book1.xlsx");
+        TaskOperations.VIEWERJAVA924(config, "word.doc");
     }
 }
