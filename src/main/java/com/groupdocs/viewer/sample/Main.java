@@ -181,5 +181,9 @@ public class Main {
         OtherOperations.getAttachmentOriginalFile(imageHandler, "document-with-attachments.msg", "attachment-image.png");
         OtherOperations.getAttachmentDocumentHtmlRepresentation(config.clone(), "document-with-attachments.msg");
         OtherOperations.getAttachmentDocumentImageRepresentation(config.clone(), "document-with-attachments.msg");
+
+        System.out.println();
+
+        TaskOperations.VIEWERJAVA853(htmlHandler, "Book1.xlsx");
     }
 }
