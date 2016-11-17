@@ -187,5 +187,7 @@ public class Main {
         TaskOperations.VIEWERJAVA853(htmlHandler, "Book1.xlsx");
         TaskOperations.VIEWERJAVA924(config, "word.doc");
         TaskOperations.VIEWERJAVA962(imageHandler, "for-thumbnail.bmp");
+        TaskOperations.VIEWERJAVA967(imageHandler, "TestFile.pps");
+        TaskOperations.VIEWERJAVA988(imageHandler, "suspeita-de-piramide.html");
     }
 }

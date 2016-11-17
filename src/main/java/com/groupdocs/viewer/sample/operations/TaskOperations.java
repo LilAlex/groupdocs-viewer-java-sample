@@ -93,4 +93,35 @@ public class TaskOperations {
             }
         }
     }
-}
+
+    public static void VIEWERJAVA967(ViewerImageHandler imageHandler, String guid) throws Exception {
+        final List<PageImage> pages = imageHandler.getPages(guid);
+        System.out.println("Pages count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            final InputStream stream = pageImage.getStream();
+            final int pageNumber = pageImage.getPageNumber();
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "page_" + pageNumber + ".png");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(stream));
+            } else {
+                throw new Exception("can't create directory");
+            }
+        }
+        System.out.println();
+    }
+
+    public static void VIEWERJAVA988(ViewerImageHandler imageHandler, String guid) throws Exception {
+        final List<PageImage> pages = imageHandler.getPages(guid);
+        System.out.println("Pages count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            final InputStream stream = pageImage.getStream();
+            final int pageNumber = pageImage.getPageNumber();
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "page_" + pageNumber + ".png");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(stream));
+            } else {
+                throw new Exception("can't create directory");
+            }
+        }
+        System.out.println();
+    }}
