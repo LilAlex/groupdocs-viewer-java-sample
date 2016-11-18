@@ -30,6 +30,11 @@ public class Main {
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
 
+        OtherOperations.howToClearAllCacheFiles(imageHandler);
+        OtherOperations.howToClearFilesFromCacheOlderThanSpecifiedTimeInterval(imageHandler);
+
+        System.out.println();
+
         CommonOperations.getDocumentInformationByGuid320(htmlHandler, "word.doc");
         CommonOperations.getDocumentInformationByGuid370(htmlHandler, "word.doc");
         CommonOperations.getDocumentInformationByStream(htmlHandler, "word.doc");
@@ -156,11 +161,6 @@ public class Main {
 
         System.out.println();
 
-        OtherOperations.howToClearAllCacheFiles(imageHandler);
-        OtherOperations.howToClearFilesFromCacheOlderThanSpecifiedTimeInterval(imageHandler);
-
-        System.out.println();
-
         OtherOperations.howToUseCustomFileDataStore(config.clone(), "word.doc");
 
         System.out.println();
@@ -190,5 +190,7 @@ public class Main {
         TaskOperations.VIEWERJAVA967(imageHandler, "TestFile.pps");
         TaskOperations.VIEWERJAVA988(imageHandler, "suspeita-de-piramide.html");
         TaskOperations.VIEWERJAVA1002(imageHandler, "GroupDocs_Demo.vtx");
+        TaskOperations.VIEWERJAVA1015_1(htmlHandler, "nrcs144p2_034944.pdf");
+        TaskOperations.VIEWERJAVA1015_2(htmlHandler, "pdf341811029.pdf");
     }
 }
