@@ -80,18 +80,18 @@ public class TaskOperations {
         System.out.println();
     }
 
-    public static void VIEWERJAVA962(ViewerImageHandler imageHandler, String guids) throws Exception {
+    public static void VIEWERJAVA962(ViewerImageHandler imageHandler, String guid) throws Exception {
         ImageOptions imageOptions = new ImageOptions();
         imageOptions.setWidth(200);
         imageOptions.setHeight(300);
         imageOptions.setCountPagesToConvert(2);
         imageOptions.setConvertImageFileType(ConvertImageFileType.PNG);
-        final List<PageImage> pages = imageHandler.getPages(guids, imageOptions);
+        final List<PageImage> pages = imageHandler.getPages(guid, imageOptions);
         System.out.println("Thumbnails count: " + pages.size());
         for (PageImage pageImage : pages) {
             final InputStream stream = pageImage.getStream();
             final int pageNumber = pageImage.getPageNumber();
-            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guids + File.separator + "thumbnail_" + pageNumber + ".png");
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "thumbnail_" + pageNumber + ".png");
             if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
                 FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(stream));
             } else {
@@ -271,6 +271,48 @@ public class TaskOperations {
                 // Get html page resource stream
                 InputStream resourceStream = htmlHandler.getResource(guid, resource);
                 System.out.println("\t\tStream size: " + resourceStream.available());
+            }
+        }
+        System.out.println();
+    }
+
+    public static void VIEWERJAVA1186_1(ViewerImageHandler imageHandler, String guid) throws Exception {
+        ImageOptions imageOptions = new ImageOptions();
+        imageOptions.setWidth(200);
+        imageOptions.setHeight(300);
+        imageOptions.setCountPagesToConvert(2);
+        imageOptions.setConvertImageFileType(ConvertImageFileType.PNG);
+        final List<PageImage> pages = imageHandler.getPages(guid, imageOptions);
+        System.out.println("Thumbnails count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            final InputStream stream = pageImage.getStream();
+            final int pageNumber = pageImage.getPageNumber();
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "thumbnail_" + pageNumber + ".png");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(stream));
+            } else {
+                throw new Exception("can't create thumbnails directory");
+            }
+        }
+        System.out.println();
+    }
+
+    public static void VIEWERJAVA1186_2(ViewerImageHandler imageHandler, String guid) throws Exception {
+        ImageOptions imageOptions = new ImageOptions();
+        imageOptions.setWidth(200);
+        imageOptions.setHeight(300);
+        imageOptions.setCountPagesToConvert(2);
+        imageOptions.setConvertImageFileType(ConvertImageFileType.PNG);
+        final List<PageImage> pages = imageHandler.getPages(guid, imageOptions);
+        System.out.println("Thumbnails count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            final InputStream stream = pageImage.getStream();
+            final int pageNumber = pageImage.getPageNumber();
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "thumbnail_" + pageNumber + ".png");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(stream));
+            } else {
+                throw new Exception("can't create thumbnails directory");
             }
         }
         System.out.println();

@@ -195,5 +195,7 @@ public class Main {
         TaskOperations.VIEWERJAVA1079(imageHandler, "test.pdf");
 //        TaskOperations.VIEWERJAVA1080_not_fixed(htmlHandler, "test.docx");
         TaskOperations.VIEWERJAVA1108(htmlHandler, "gd_issue.doc");
+        TaskOperations.VIEWERJAVA1186_1(imageHandler, "slide-document.ppt");
+        TaskOperations.VIEWERJAVA1186_2(imageHandler, "slide-document.pptx");
     }
 }
