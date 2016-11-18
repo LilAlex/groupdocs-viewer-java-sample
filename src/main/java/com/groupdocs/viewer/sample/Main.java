@@ -192,5 +192,6 @@ public class Main {
         TaskOperations.VIEWERJAVA1002(imageHandler, "GroupDocs_Demo.vtx");
         TaskOperations.VIEWERJAVA1015_1(htmlHandler, "nrcs144p2_034944.pdf");
         TaskOperations.VIEWERJAVA1015_2(htmlHandler, "pdf341811029.pdf");
+        TaskOperations.VIEWERJAVA1079(imageHandler, "test.pdf");
     }
 }
