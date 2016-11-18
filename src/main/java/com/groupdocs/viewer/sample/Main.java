@@ -189,5 +189,6 @@ public class Main {
         TaskOperations.VIEWERJAVA962(imageHandler, "for-thumbnail.bmp");
         TaskOperations.VIEWERJAVA967(imageHandler, "TestFile.pps");
         TaskOperations.VIEWERJAVA988(imageHandler, "suspeita-de-piramide.html");
+        TaskOperations.VIEWERJAVA1002(imageHandler, "GroupDocs_Demo.vtx");
     }
 }

@@ -4,15 +4,21 @@ import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.ConvertImageFileType;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
+import com.groupdocs.viewer.domain.Transformation;
+import com.groupdocs.viewer.domain.Watermark;
+import com.groupdocs.viewer.domain.WatermarkPosition;
 import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.domain.image.PageImage;
+import com.groupdocs.viewer.domain.options.ReorderPageOptions;
+import com.groupdocs.viewer.domain.options.RotatePageOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
+import java.awt.*;
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
@@ -124,4 +130,29 @@ public class TaskOperations {
             }
         }
         System.out.println();
-    }}
+    }
+
+    public static void VIEWERJAVA1002(ViewerImageHandler imageHandler, String guid) throws Exception {
+        // Rotate the first page 90 degrees
+        imageHandler.rotatePage(new RotatePageOptions(guid, 1, 90));
+        // Set options to include rotate and reorder transformations
+        ImageOptions options = new ImageOptions();
+        options.setTransformations(Transformation.Rotate);
+        // Get document pages image representation with multiple transformations
+        List<PageImage> pages = imageHandler.getPages(guid, options);
+        System.out.println("Pages count: " + pages.size());
+        for (PageImage pageImage : pages) {
+            final InputStream stream = pageImage.getStream();
+            final int pageNumber = pageImage.getPageNumber();
+            System.out.println("\tStream length: " + stream.available());
+            System.out.println("\tPage number: " + pageNumber);
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "page_" + pageNumber + ".png");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(stream));
+            } else {
+                throw new Exception("can't create directory");
+            }
+        }
+        System.out.println();
+    }
+}
