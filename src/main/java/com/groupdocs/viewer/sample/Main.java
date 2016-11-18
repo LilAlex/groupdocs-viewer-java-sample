@@ -193,5 +193,7 @@ public class Main {
         TaskOperations.VIEWERJAVA1015_1(htmlHandler, "nrcs144p2_034944.pdf");
         TaskOperations.VIEWERJAVA1015_2(htmlHandler, "pdf341811029.pdf");
         TaskOperations.VIEWERJAVA1079(imageHandler, "test.pdf");
+//        TaskOperations.VIEWERJAVA1080_not_fixed(htmlHandler, "test.docx");
+        TaskOperations.VIEWERJAVA1108(htmlHandler, "gd_issue.doc");
     }
 }
