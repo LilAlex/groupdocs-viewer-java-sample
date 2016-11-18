@@ -259,7 +259,7 @@ public class TaskOperations {
         for (PageHtml page : pages) {
             System.out.println("\tPage number: " + page.getPageNumber());
             System.out.println("\tResources count: " + page.getHtmlResources().size());
-            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150) + "...");
+            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150).replaceAll("\\s+", " ") + "...");
             final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "page_" + page.getPageNumber() + ".html");
             if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
                 FileUtils.write(file, page.getHtmlContent());
@@ -313,6 +313,30 @@ public class TaskOperations {
                 FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(stream));
             } else {
                 throw new Exception("can't create thumbnails directory");
+            }
+        }
+        System.out.println();
+    }
+
+    public static void VIEWERJAVA1203(ViewerHtmlHandler htmlHandler, String guid) throws Exception {
+        List<PageHtml> pages = htmlHandler.getPages(guid);
+        System.out.println("Page count: " + pages.size());
+
+        for (PageHtml page : pages) {
+            System.out.println("\tPage number: " + page.getPageNumber());
+            System.out.println("\tResources count: " + page.getHtmlResources().size());
+            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150).replaceAll("\\s+", " ") + "...");
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "page_" + page.getPageNumber() + ".html");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.write(file, page.getHtmlContent());
+            }
+            // Html resources descriptions
+            for (HtmlResource resource : page.getHtmlResources()) {
+                System.out.println(resource.getResourceName() + resource.getResourceType());
+
+                // Get html page resource stream
+                InputStream resourceStream = htmlHandler.getResource(guid, resource);
+                System.out.println("\t\tStream size: " + resourceStream.available());
             }
         }
         System.out.println();

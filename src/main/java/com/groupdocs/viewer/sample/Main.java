@@ -197,5 +197,6 @@ public class Main {
         TaskOperations.VIEWERJAVA1108(htmlHandler, "gd_issue.doc");
         TaskOperations.VIEWERJAVA1186_1(imageHandler, "slide-document.ppt");
         TaskOperations.VIEWERJAVA1186_2(imageHandler, "slide-document.pptx");
+        TaskOperations.VIEWERJAVA1203(htmlHandler, "MISSOURI.pdf");
     }
 }
