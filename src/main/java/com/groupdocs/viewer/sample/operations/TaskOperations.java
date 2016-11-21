@@ -4,24 +4,31 @@ import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.ConvertImageFileType;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
-import com.groupdocs.viewer.domain.Transformation;
-import com.groupdocs.viewer.domain.Watermark;
-import com.groupdocs.viewer.domain.WatermarkPosition;
+import com.groupdocs.viewer.domain.*;
+import com.groupdocs.viewer.domain.cache.CachedDocumentDescription;
+import com.groupdocs.viewer.domain.containers.DocumentInfoContainer;
 import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.domain.image.PageImage;
+import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
+import com.groupdocs.viewer.domain.options.FileTreeOptions;
 import com.groupdocs.viewer.domain.options.ReorderPageOptions;
 import com.groupdocs.viewer.domain.options.RotatePageOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
+import com.groupdocs.viewer.handler.input.IInputDataHandler;
 import com.groupdocs.viewer.sample.Utilities;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import java.awt.*;
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+
+import static java.util.Arrays.asList;
 
 /**
  * @author Aleksey Permyakov
@@ -339,6 +346,47 @@ public class TaskOperations {
                 System.out.println("\t\tStream size: " + resourceStream.available());
             }
         }
+        System.out.println();
+    }
+
+    public static void VIEWERJAVA1204(ViewerConfig config, final String guid) throws Exception {
+        // Create html handler
+        ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config, new IInputDataHandler() {
+            public FileDescription getFileDescription(String my_guid_without_extension) {
+                FileDescription fileDescription = new FileDescription(my_guid_without_extension + ".pdf"); // specify extension
+                fileDescription.setSize(1024);
+                fileDescription.setName("The file name" + ".pdf");
+                return fileDescription;
+            }
+
+            public InputStream getFile(String s) throws FileNotFoundException {
+                return new FileInputStream(Utilities.STORAGE_PATH + File.separator + guid);
+            }
+
+            public Date getLastModificationDate(String s) {
+                return GregorianCalendar.getInstance().getTime();
+            }
+
+            public List<FileDescription> loadFileTree(FileTreeOptions fileTreeOptions) {
+                return asList(new FileDescription("my_guid_without_extension"));
+            }
+
+            @Override
+            public void saveDocument(CachedDocumentDescription cachedDocumentDescription, InputStream documentStream) throws Exception {
+
+            }
+        });
+
+        // Get document information
+        DocumentInfoOptions options = new DocumentInfoOptions("my_guid_without_extension");
+        DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(options);
+
+        System.out.println("DocumentType: " + documentInfo.getDocumentType());
+        System.out.println("Extension: " + documentInfo.getExtension());
+        System.out.println("FileType: " + documentInfo.getFileType());
+        System.out.println("Guid: " + documentInfo.getGuid());
+        System.out.println("Name: " + documentInfo.getName());
+        System.out.println("Size: " + documentInfo.getSize());
         System.out.println();
     }
 }
