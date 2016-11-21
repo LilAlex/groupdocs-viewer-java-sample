@@ -199,5 +199,6 @@ public class Main {
         TaskOperations.VIEWERJAVA1186_2(imageHandler, "slide-document.pptx");
         TaskOperations.VIEWERJAVA1203(htmlHandler, "MISSOURI.pdf");
         TaskOperations.VIEWERJAVA1204(config, "MISSOURI.pdf");
+        TaskOperations.VIEWERJAVA1206(htmlHandler, "sample.xlsx");
     }
 }
