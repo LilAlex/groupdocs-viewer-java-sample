@@ -204,5 +204,7 @@ public class Main {
         TaskOperations.VIEWERJAVA1212_1(htmlHandler, "Input_sample.xlsx");
         TaskOperations.VIEWERJAVA1212_2(imageHandler, "Input_sample.xlsx");
         TaskOperations.VIEWERJAVA1216(htmlHandler, "Oesterreich_NF_KW10.pdf");
+        TaskOperations.VIEWERJAVA1217_1(htmlHandler, "Document_Annotation_6.1.2.xlsx");
+        TaskOperations.VIEWERJAVA1217_2(imageHandler, "Document_Annotation_6.1.2.xlsx");
     }
 }
