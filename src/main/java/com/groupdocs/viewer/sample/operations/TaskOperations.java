@@ -1,6 +1,7 @@
 package com.groupdocs.viewer.sample.operations;
 
 import com.groupdocs.viewer.config.ViewerConfig;
+import com.groupdocs.viewer.converter.options.CellsOptions;
 import com.groupdocs.viewer.converter.options.ConvertImageFileType;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
@@ -425,6 +426,50 @@ public class TaskOperations {
             InputStream imageContent = page.getStream();
             System.out.println(imageContent.available());
             final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "page_" + page.getPageNumber() + ".png");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(imageContent));
+            }
+        }
+        System.out.println();
+    }
+
+    public static void VIEWERJAVA1212_1(ViewerHtmlHandler htmlHandler, String guid) throws Exception {
+        List<PageHtml> pages = htmlHandler.getPages(guid);
+        System.out.println("Page count: " + pages.size());
+        for (PageHtml page : pages) {
+            System.out.println("\tPage number: " + page.getPageNumber());
+            System.out.println("\tResources count: " + page.getHtmlResources().size());
+            System.out.println("\tHtml content: " + page.getHtmlContent().substring(0, 150).replaceAll("\\s+", " ") + "...");
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "page_image_" + page.getPageNumber() + ".html");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.write(file, page.getHtmlContent());
+            }
+            // Html resources descriptions
+            for (HtmlResource resource : page.getHtmlResources()) {
+                System.out.println(resource.getResourceName() + resource.getResourceType());
+
+                // Get html page resource stream
+                InputStream resourceStream = htmlHandler.getResource(guid, resource);
+                System.out.println("\t\tStream size: " + resourceStream.available());
+            }
+        }
+        System.out.println();
+    }
+
+    public static void VIEWERJAVA1212_2(ViewerImageHandler imageHandler, String guid) throws Exception {
+        ImageOptions imageOptions = new ImageOptions();
+        CellsOptions cellsOptions = new CellsOptions();
+        cellsOptions.setOnePagePerSheet(false);
+        imageOptions.setCellsOptions(cellsOptions);
+        List<PageImage> pages = imageHandler.getPages(guid, imageOptions);
+
+        for (PageImage page : pages) {
+            System.out.println("Page number: " + page.getPageNumber());
+
+            // Page image stream
+            InputStream imageContent = page.getStream();
+            System.out.println(imageContent.available());
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "page_html_" + page.getPageNumber() + ".png");
             if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
                 FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(imageContent));
             }
