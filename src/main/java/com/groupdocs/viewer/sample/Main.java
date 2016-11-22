@@ -200,5 +200,6 @@ public class Main {
         TaskOperations.VIEWERJAVA1203(htmlHandler, "MISSOURI.pdf");
         TaskOperations.VIEWERJAVA1204(config, "MISSOURI.pdf");
         TaskOperations.VIEWERJAVA1206(htmlHandler, "sample.xlsx");
+        TaskOperations.VIEWERJAVA1211(imageHandler, "candy.pdf");
     }
 }

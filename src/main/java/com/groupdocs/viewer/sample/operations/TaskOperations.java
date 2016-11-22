@@ -413,4 +413,22 @@ public class TaskOperations {
         }
         System.out.println();
     }
+
+    public static void VIEWERJAVA1211(ViewerImageHandler imageHandler, String guid) throws Exception {
+        ImageOptions imageOptions = new ImageOptions();
+        List<PageImage> pages = imageHandler.getPages(guid, imageOptions);
+
+        for (PageImage page : pages) {
+            System.out.println("Page number: " + page.getPageNumber());
+
+            // Page image stream
+            InputStream imageContent = page.getStream();
+            System.out.println(imageContent.available());
+            final File file = new File(Utilities.OUTPUT_PATH + File.separator + guid + File.separator + "page_" + page.getPageNumber() + ".png");
+            if (file.getParentFile().exists() || file.getParentFile().mkdirs()) {
+                FileUtils.writeByteArrayToFile(file, IOUtils.toByteArray(imageContent));
+            }
+        }
+        System.out.println();
+    }
 }
