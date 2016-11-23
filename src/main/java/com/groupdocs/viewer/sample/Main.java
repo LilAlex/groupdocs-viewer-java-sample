@@ -206,5 +206,7 @@ public class Main {
         TaskOperations.VIEWERJAVA1216(htmlHandler, "Oesterreich_NF_KW10.pdf");
         TaskOperations.VIEWERJAVA1217_1(htmlHandler, "Document_Annotation_6.1.2.xlsx");
         TaskOperations.VIEWERJAVA1217_2(imageHandler, "Document_Annotation_6.1.2.xlsx");
+        TaskOperations.VIEWERJAVA1220_1(htmlHandler, "Bottom_plate.dwg");
+        TaskOperations.VIEWERJAVA1220_2(imageHandler, "Bottom_plate.dwg");
     }
 }
