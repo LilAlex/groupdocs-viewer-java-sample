@@ -3,6 +3,7 @@ package com.groupdocs.viewer.sample;
 import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
+import com.groupdocs.viewer.licensing.License;
 import com.groupdocs.viewer.sample.operations.*;
 
 /**
@@ -20,6 +21,7 @@ public class Main {
          *  Please uncomment the statement if you do have license.
          */
         Utilities.applyLicense();
+        System.out.println("The Viewer is licensed: " + License.isValidLicense());
 
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
