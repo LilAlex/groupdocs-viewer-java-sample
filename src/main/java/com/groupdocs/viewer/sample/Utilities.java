@@ -187,7 +187,9 @@ public class Utilities {
      */
     public static void applyLicense() {
         License lic = new License();
-        lic.setLicense(LICENSE_PATH);
+        if (LICENSE_PATH != null && new File(LICENSE_PATH).exists()) {
+            lic.setLicense(LICENSE_PATH);
+        }
     }
 
     /**

@@ -15,6 +15,16 @@ How-to install/run
 <br/><br/>
 
 
+How to set license file
+---------------
+1. Go to `groupdocs-viewer-java-sample\src\main\java\com\groupdocs\viewer\sample\`
+2. Open file `Utilities.java`
+3. Specify path and name of license file to LICENSE_PATH variable
+or
+1. Specify environment variable GROUPDOCS_TOTAL with path to livense file
+<br/><br/>
+
+
 How to find storage directory
 ---------------
 1. Go to ./Data/Storage/
