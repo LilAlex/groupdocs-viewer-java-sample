@@ -222,7 +222,7 @@ public class OpenDocumentAsHtmlTests extends GenericJUnit {
 
         for (PageHtml page : pages) {
             assertTrue(page.getPageNumber() > 0);
-            assertNotNull(page.getHtmlContent().substring(0, 150) + "...");
+            assertNotNull(page.getHtmlContent());
             assertTrue(page.getHtmlContent().length() > 0);
         }
     }
