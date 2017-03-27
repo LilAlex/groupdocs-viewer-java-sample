@@ -1,5 +1,6 @@
 package com.groupdocs.viewer.sample;
 
+import com.groupdocs.viewer.Constants;
 import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
@@ -20,67 +21,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static com.groupdocs.viewer.sample.TestRunner.OUTPUT_HTML_PATH;
+import static com.groupdocs.viewer.sample.TestRunner.OUTPUT_IMAGE_PATH;
+import static com.groupdocs.viewer.sample.TestRunner.OUTPUT_PATH;
+
 /**
  * The type Utilities.
  * @author Aleksey Permyakov (21.03.2016).
  */
 public class Utilities {
-    /**
-     * The constant PROJECT_PATH.
-     */
-    public static String PROJECT_PATH = new java.io.File("Data/").getAbsolutePath();
-    /**
-     * The constant FONTS_PATH.
-     */
-    public static String FONTS_PATH = PROJECT_PATH + "/Fonts/";
-    /**
-     * The constant STORAGE_PATH.
-     */
-    public static String STORAGE_PATH = PROJECT_PATH + "/Storage/";
-    /**
-     * The constant OUTPUT_HTML_PATH.
-     */
-    public static String OUTPUT_HTML_PATH = PROJECT_PATH + "/Output/html/";
-    /**
-     * The constant OUTPUT_IMAGE_PATH.
-     */
-    public static String OUTPUT_IMAGE_PATH = PROJECT_PATH + "/Output/images/";
-    /**
-     * The constant OUTPUT_PATH.
-     */
-    public static String OUTPUT_PATH = PROJECT_PATH + "/Output/";
-    /**
-     * The constant LICENSE_PATH.
-     */
-    public static String LICENSE_PATH = PROJECT_PATH + "/Storage/GroupDocs.Viewer.lic";
-
-    static {
-        final java.io.File sp = new java.io.File(STORAGE_PATH);
-        final java.io.File ohp = new java.io.File(OUTPUT_HTML_PATH);
-        final java.io.File oip = new java.io.File(OUTPUT_IMAGE_PATH);
-        final java.io.File lcp = new java.io.File(LICENSE_PATH);
-        if (!lcp.exists()) {
-            LICENSE_PATH = System.getenv("GROUPDOCS_TOTAL");
-            System.out.println("License file does not exists! Using license from %GROUPDOCS_TOTAL% ...");
-        }
-        if ((!sp.exists() && !sp.mkdirs()) || (!ohp.exists() && !ohp.mkdirs()) || (!oip.exists() && !oip.mkdirs())) {
-            System.err.println("Can't create data directories!!!");
-        }
-    }
-
-    /**
-     * Initialize, populate and return the ViewerConfig object
-     * @return Populated ViewerConfig Object
-     */
-    public static ViewerConfig getConfiguration() {
-        //ExStart:Configurations
-        ViewerConfig config = new ViewerConfig();
-        //set the storage path
-        config.setStoragePath(STORAGE_PATH);
-        //Uncomment the below line for cache purpose
-        config.setUseCache(true);
-        return config;
-    }
 
     /**
      * Gets file name without extension.
@@ -95,7 +44,7 @@ public class Utilities {
     /**
      * Write line.
      * @param template the template
-     * @param params the params
+     * @param params   the params
      */
     public static void writeLine(String template, Object... params) {
         for (int n = 0; n < params.length; n++) {
@@ -104,16 +53,25 @@ public class Utilities {
         System.out.println(template);
     }
 
+    public static void showTestHeader() {
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            System.out.println("=====================================================");
+            System.out.println("Running test: " + e.getStackTrace()[1].getMethodName());
+        }
+    }
+
     /**
      * The type Page transformations.
      */
     public static class PageTransformations {
         /**
          * Rotate a Page before rendering
-         * @param handler the handler
-         * @param guid the guid
+         * @param handler    the handler
+         * @param guid       the guid
          * @param PageNumber the page number
-         * @param angle the angle
+         * @param angle      the angle
          * @throws Exception the exception
          */
         public static void RotatePages(ViewerHandler handler, String guid, int PageNumber, int angle) throws Exception {
@@ -125,10 +83,10 @@ public class Utilities {
 
         /**
          * Reorder a page before rendering
-         * @param Handler Base class of handlers
-         * @param guid File name
+         * @param Handler           Base class of handlers
+         * @param guid              File name
          * @param currentPageNumber Existing number of page
-         * @param newPageNumber New number of page
+         * @param newPageNumber     New number of page
          * @throws Exception the exception
          */
         public static void ReorderPage(ViewerHandler Handler, String guid, int currentPageNumber, int newPageNumber) throws Exception {
@@ -142,11 +100,11 @@ public class Utilities {
 
         /**
          * add a watermark text to all rendered images.
-         * @param options HtmlOptions by reference
-         * @param text Watermark text
-         * @param color System.Drawing.Color
+         * @param options  HtmlOptions by reference
+         * @param text     Watermark text
+         * @param color    System.Drawing.Color
          * @param position the position
-         * @param width the width
+         * @param width    the width
          */
         public static void AddWatermark(ImageOptions options, String text, Color color, WatermarkPosition position, float width) {
             //ExStart:AddWatermark
@@ -164,11 +122,11 @@ public class Utilities {
 
         /**
          * add a watermark text to all rendered Html pages.
-         * @param options HtmlOptions by reference
-         * @param text Watermark text
-         * @param color System.Drawing.Color
+         * @param options  HtmlOptions by reference
+         * @param text     Watermark text
+         * @param color    System.Drawing.Color
          * @param position the position
-         * @param width the width
+         * @param width    the width
          */
         public static void AddWatermark(HtmlOptions options, String text, Color color, WatermarkPosition position, float width) {
 
@@ -187,15 +145,13 @@ public class Utilities {
      */
     public static void applyLicense() {
         License lic = new License();
-        if (LICENSE_PATH != null && new File(LICENSE_PATH).exists()) {
-            lic.setLicense(LICENSE_PATH);
-        }
+        lic.setLicense(System.getenv("GROUPDOCS_TOTAL"));
     }
 
     /**
      * Save file in html form
      * @param filename Save as provided String
-     * @param content Html contents in String form
+     * @param content  Html contents in String form
      */
     public static void saveAsHtml(String filename, String content) {
         try {
@@ -214,7 +170,7 @@ public class Utilities {
 
     /**
      * Save the rendered images at disk
-     * @param imageName Save as provided String
+     * @param imageName    Save as provided String
      * @param imageContent stream of image contents
      */
     public static void saveAsImage(String imageName, InputStream imageContent) {
@@ -232,9 +188,9 @@ public class Utilities {
 
     /**
      * Save the resource at disk
-     * @param filename Save as provided String
+     * @param filename           Save as provided String
      * @param documentPageNumber the document page number
-     * @param imageContent stream of image contents
+     * @param imageContent       stream of image contents
      */
     public static void saveResourceAsImage(String filename, int documentPageNumber, InputStream imageContent) {
         try {
@@ -251,7 +207,7 @@ public class Utilities {
     /**
      * Save file in any format
      * @param filename Save as provided String
-     * @param content Stream as content of a file
+     * @param content  Stream as content of a file
      */
     public static void saveFile(String filename, InputStream content) {
         try {
@@ -275,9 +231,9 @@ public class Utilities {
 
     /**
      * Save file in any format
-     * @param filename Save as provided String
+     * @param filename           Save as provided String
      * @param documentPageNumber the document page number
-     * @param content Stream as content of a file
+     * @param content            Stream as content of a file
      */
     public static void saveResourceFile(String filename, int documentPageNumber, InputStream content) {
         try {
@@ -303,7 +259,7 @@ public class Utilities {
     /**
      * Make html resource path string.
      * @param documentPageNumber the document page number
-     * @param resourceName the resource name
+     * @param resourceName       the resource name
      * @return the string
      */
     public static String makeHtmlResourcePath(int documentPageNumber, String resourceName) {
@@ -312,7 +268,7 @@ public class Utilities {
                 "%s%s%s%spage%d%s%s",
                 outputPath.getAbsolutePath(),
                 File.separator,
-                "resources",
+                Constants.RESOURCES_DIR_NAME,
                 File.separator,
                 documentPageNumber,
                 File.separator,

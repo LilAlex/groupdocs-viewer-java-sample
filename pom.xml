@@ -6,10 +6,9 @@
 
     <groupId>com.temporary</groupId>
     <artifactId>groupdocs-viewer-java-sample</artifactId>
-    <version>3.7.0</version>
+    <version>17.2.0</version>
     <properties>
         <java.version>1.7</java.version>
-        <qa.skip.junit>false</qa.skip.junit>
         <groupdocs.viewer>${project.version}</groupdocs.viewer>
         <java.bootstrap.classes>${java.home}/lib/rt.jar</java.bootstrap.classes>
         <java.cryptographic.extension.classes>${java.home}/lib/jce.jar</java.cryptographic.extension.classes>
@@ -17,15 +16,15 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-        <dependency>
             <groupId>com.groupdocs</groupId>
             <artifactId>groupdocs-viewer</artifactId>
             <version>${groupdocs.viewer}</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
         </dependency>
         <dependency>
             <groupId>com.microsoft.azure</groupId>
@@ -41,14 +40,20 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient -->
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-s3 -->
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-java-sdk-s3</artifactId>
-            <version>1.11.46</version>
+            <version>1.11.73</version>
         </dependency>
+
     </dependencies>
     <build>
         <plugins>
@@ -64,7 +69,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.groupdocs.viewer.sample.Main</mainClass>
+                    <mainClass>com.groupdocs.viewer.sample.TestRunner</mainClass>
                     <cleanupDaemonThreads>false</cleanupDaemonThreads>
                     <executable>maven</executable>
                 </configuration>
@@ -76,25 +81,6 @@
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                    <argLine>-Xms1024m -Xmx2048m -XX:MaxPermSize=512m -Dfile.encoding=UTF-8</argLine>
-                    <skip>${qa.skip.junit}</skip>
-                    <workingDirectory>target/</workingDirectory>
-                    <includes>
-                        <include>**/**Tests.java</include>
-                    </includes>
-                    <systemProperties>
-                        <test.working.directory>${project.build.directory}\junitworkdirectory\</test.working.directory>
-                        <test.resources.directory>${project.build.testSourceDirectory}\..\resources\</test.resources.directory>
-                    </systemProperties>
-                    <!--<parallel>classes</parallel>-->
-                    <!--<threadCount>2</threadCount>-->
                 </configuration>
             </plugin>
         </plugins>
