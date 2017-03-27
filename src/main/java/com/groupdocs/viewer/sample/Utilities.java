@@ -21,58 +21,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static com.groupdocs.viewer.sample.TestRunner.OUTPUT_HTML_PATH;
+import static com.groupdocs.viewer.sample.TestRunner.OUTPUT_IMAGE_PATH;
+import static com.groupdocs.viewer.sample.TestRunner.OUTPUT_PATH;
+
 /**
  * The type Utilities.
  * @author Aleksey Permyakov (21.03.2016).
  */
 public class Utilities {
-    /**
-     * The constant PROJECT_PATH.
-     */
-    public static String PROJECT_PATH = new java.io.File("Data/").getAbsolutePath();
-    /**
-     * The constant STORAGE_PATH.
-     */
-    public static String STORAGE_PATH = PROJECT_PATH + "/Storage/";
-    /**
-     * The constant OUTPUT_HTML_PATH.
-     */
-    public static String OUTPUT_HTML_PATH = PROJECT_PATH + "/Output/html/";
-    /**
-     * The constant OUTPUT_IMAGE_PATH.
-     */
-    public static String OUTPUT_IMAGE_PATH = PROJECT_PATH + "/Output/images/";
-    /**
-     * The constant OUTPUT_PATH.
-     */
-    public static String OUTPUT_PATH = PROJECT_PATH + "/Output/";
-    /**
-     * The constant LICENSE_PATH.
-     */
-    public static String LICENSE_PATH = PROJECT_PATH + "/Storage/GroupDocs.Viewer.lic";
-
-    static {
-        final java.io.File sp = new java.io.File(STORAGE_PATH);
-        final java.io.File ohp = new java.io.File(OUTPUT_HTML_PATH);
-        final java.io.File oip = new java.io.File(OUTPUT_IMAGE_PATH);
-        if ((!sp.exists() && !sp.mkdirs()) || (!ohp.exists() && !ohp.mkdirs()) || (!oip.exists() && !oip.mkdirs())) {
-            System.err.println("Can't create data directories!!!");
-        }
-    }
-
-    /**
-     * Initialize, populate and return the ViewerConfig object
-     * @return Populated ViewerConfig Object
-     */
-    public static ViewerConfig getConfiguration() {
-        //ExStart:Configurations
-        ViewerConfig config = new ViewerConfig();
-        //set the storage path
-        config.setStoragePath(STORAGE_PATH);
-        //Uncomment the below line for cache purpose
-        config.setUseCache(true);
-        return config;
-    }
 
     /**
      * Gets file name without extension.
@@ -94,6 +51,15 @@ public class Utilities {
             template = template.replaceAll("\\{" + Integer.toString(n) + "\\}", params[n].toString());
         }
         System.out.println(template);
+    }
+
+    public static void showTestHeader() {
+        try {
+            throw new Exception();
+        } catch (Exception e) {
+            System.out.println("=====================================================");
+            System.out.println("Running test: " + e.getStackTrace()[1].getMethodName());
+        }
     }
 
     /**
@@ -179,7 +145,7 @@ public class Utilities {
      */
     public static void applyLicense() {
         License lic = new License();
-        lic.setLicense(LICENSE_PATH);
+        lic.setLicense(System.getenv("GROUPDOCS_TOTAL"));
     }
 
     /**
