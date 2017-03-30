@@ -30,7 +30,7 @@ public class ParameterlessConstructorsTests {
         Utilities.showTestHeader();
         ViewerConfig config = new ViewerConfig();
         ViewerHtmlHandler handler = new ViewerHtmlHandler(config);
-        List<PageHtml> pages = handler.getPages("document.doc");
+        List<PageHtml> pages = handler.getPages(STORAGE_PATH + "\\document.doc");
         assertEquals("Page count is incorrect", pages.size(), 2);
         for (PageHtml page : pages) {
             assertTrue("Page content is empty", page.getHtmlContent().length() > 0);
@@ -67,7 +67,7 @@ public class ParameterlessConstructorsTests {
 
         HtmlOptions options = new HtmlOptions();
         options.setResourcesEmbedded(false);
-        List<PageHtml> pages = htmlHandler.getPages(guid, options);
+        List<PageHtml> pages = htmlHandler.getPages(STORAGE_PATH + "\\" + guid, options);
         assertEquals("Page count is incorrect", pages.size(), 2);
         for (PageHtml page : pages) {
             assertTrue("Page content is empty", page.getHtmlContent().length() > 0);

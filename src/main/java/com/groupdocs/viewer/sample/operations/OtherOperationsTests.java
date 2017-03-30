@@ -5,19 +5,14 @@ import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
 import com.groupdocs.viewer.domain.*;
 import com.groupdocs.viewer.domain.containers.*;
-import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.domain.image.PageImage;
 import com.groupdocs.viewer.domain.options.*;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
-import com.groupdocs.viewer.handler.input.IInputDataHandler;
-import com.groupdocs.viewer.helper.IFileDataStore;
 import com.groupdocs.viewer.sample.Utilities;
 import com.groupdocs.viewer.utils.CultureInfo;
-import org.bouncycastle.crypto.tls.CipherType;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.awt.*;
@@ -629,25 +624,32 @@ public class OtherOperationsTests {
 
                 // Write data to console
                 System.out.println("Row: " + (i + 1));
-                System.out.println("Text: " + rowData.getText());
+                final String text = rowData.getText();
+                System.out.println("Text: " + text);
                 System.out.println("Text width: " + rowData.getLineWidth());
                 System.out.println("Text height: " + rowData.getLineHeight());
                 System.out.println("Distance from left: " + rowData.getLineLeft());
                 System.out.println("Distance from top: " + rowData.getLineTop());
 
                 // Get words
-                String[] words = rowData.getText().split(" ");
+                if (text != null) {
+                    String[] words = text.split(" ");
 
-                // Go through all word coordinates
-                for (int j = 0; j < words.length; j++) {
-                    int coordinateIndex = j == 0 ? 0 : j + 1;
+                    // Go through all word coordinates
+                    for (int j = 0; j < words.length; j++) {
+                        int coordinateIndex = j * 2;
+                        final String word = words[j];
+                        if (word == null || word.isEmpty()) {
+                            continue;
+                        }
 
-                    // Write data to console
-                    System.out.println("");
-                    System.out.println("Word: '" + words[j] + "'");
-                    System.out.println("Word distance from left: " + rowData.getTextCoordinates().get(coordinateIndex));
-                    System.out.println("Word width: " + rowData.getTextCoordinates().get(coordinateIndex + 1));
-                    System.out.println("");
+                        // Write data to console
+                        System.out.println("");
+                        System.out.println("Word: '" + word + "'");
+                        System.out.println("Word distance from left: " + rowData.getTextCoordinates().get(coordinateIndex));
+                        System.out.println("Word width: " + rowData.getTextCoordinates().get(coordinateIndex + 1));
+                        System.out.println("");
+                    }
                 }
             }
         }

@@ -11,7 +11,6 @@ import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.InputStream;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import static com.groupdocs.viewer.sample.TestRunner.STORAGE_PATH;
 import static com.groupdocs.viewer.sample.TestRunner.applyLicense;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**

@@ -3,25 +3,28 @@ package com.groupdocs.viewer.sample.operations;
 import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
-import com.groupdocs.viewer.domain.containers.FileContainer;
 import com.groupdocs.viewer.domain.html.PageHtml;
-import com.groupdocs.viewer.domain.image.PageImage;
 import com.groupdocs.viewer.domain.options.PdfFileOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
-import org.junit.Ignore;
+import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
 import java.util.List;
 
 import static com.groupdocs.viewer.sample.TestRunner.STORAGE_PATH;
+import static com.groupdocs.viewer.sample.Utilities.applyLicense;
 
 /**
  * @author liosha (15.03.2017)
  */
 public class AdvancedOperationsTests {
+
+    @Before
+    public void before() {
+        applyLicense();
+    }
 
     @Test
     public void testHowToRenderContentWithPreventGlyphsGroupingEnabled() throws Exception {
