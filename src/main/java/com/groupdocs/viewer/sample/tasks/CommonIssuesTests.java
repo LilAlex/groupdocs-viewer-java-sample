@@ -116,7 +116,8 @@ public class CommonIssuesTests {
                 System.out.println("	Page: " + page.getPageNumber() + ", size: " + page.getHtmlContent().length());
                 for (HtmlResource htmlResource : page.getHtmlResources()) {
                     InputStream resourceStream = handler.getResource(attachment, htmlResource);
-                    FileUtils.writeStringToFile(new File(new File(OUTPUT_HTML_PATH).getParentFile().getAbsolutePath() + "_" + page.getPageNumber() + attachment.getName()), page.getHtmlContent());
+                    IOUtils.copy(resourceStream, new FileOutputStream(OUTPUT_HTML_PATH + "_" + page.getPageNumber() + "." + htmlResource.getResourceName()));
+//                    FileUtils.writeStringToFile(new File(OUTPUT_HTML_PATH + "_" + page.getPageNumber() + attachment.getName()), page.getHtmlContent());
                     System.out.println("	Resource: " + htmlResource.getResourceName());
                 }
             }
