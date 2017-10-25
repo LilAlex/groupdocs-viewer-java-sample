@@ -1,13 +1,18 @@
 package com.groupdocs.viewer.sample.tasks;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.groupdocs.viewer.config.ViewerConfig;
+import com.groupdocs.viewer.converter.options.FileDataOptions;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.domain.*;
 import com.groupdocs.viewer.domain.containers.DocumentInfoContainer;
 import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
+import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
 import com.groupdocs.viewer.handler.ViewerHandler;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
+import com.groupdocs.viewer.helper.FileDataJsonSerializer;
 import com.groupdocs.viewer.sample.Utilities;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -263,6 +268,7 @@ public class CommonIssuesTests {
         assertTrue("RowData is not serializable!", new RowData() instanceof Serializable);
         assertTrue("PageData is not serializable!", new PageData() instanceof Serializable);
         assertTrue("ContentControl is not serializable!", new ContentControl() instanceof Serializable);
+        assertTrue("DocumentInfoContainer is not serializable!", new DocumentInfoContainer() instanceof Serializable);
         try {
             final EmailFileData fileData = new EmailFileData();
             fileData.setDateCreated(new Date());
@@ -278,10 +284,80 @@ public class CommonIssuesTests {
             out.flush();
             databytes = bos.toByteArray();
             assertTrue("Result data is empty!", databytes.length > 0);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void testVIEWERJAVA1214() throws Exception {
+        // setup Viewer configuration
+        ViewerConfig signConfig = new ViewerConfig();
+        signConfig.setStoragePath(STORAGE_PATH);
+        // Create html handler
+        ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(signConfig);
+        FileData fileData = new WordsFileData();
+        String guid = "VIEWERJAVA-1214.docx";
+        // Get document information
+        DocumentInfoOptions options = new DocumentInfoOptions(guid);
+        DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(options);
+        int maxWidth = 0;
+        int maxHeight = 0;
+        for (PageData pageData : documentInfo.getPages()) {
+            if (pageData.getHeight() > maxHeight) {
+                maxHeight = pageData.getHeight();
+                maxWidth = pageData.getWidth();
+            }
+        }
+        fileData.setDateCreated(new Date());
+        fileData.getDateCreated();
+        fileData.setDateModified(documentInfo.getLastModificationDate());
+        fileData.getDateModified();
+        fileData.setPageCount(documentInfo.getPages().size());
+        fileData.setPages(documentInfo.getPages());
+        fileData.setMaxWidth(maxWidth);
+        fileData.setMaxHeight(maxHeight);
+        //documentInfo.setDocumentType(new FileDataJsonSerializer(fileData, new FileDataOptions()).serialize());
+        String json = (new FileDataJsonSerializer(fileData, new FileDataOptions())).serialize();
+        FileWriter file = new FileWriter(OUTPUT_PATH + File.separator + "file.json");
+        file.write(json);
+        file.close();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(bos);
+        out.writeObject(fileData);
+        out.flush();
+        byte[] databytes = bos.toByteArray();
+        assertTrue("Result data is empty!", databytes.length > 0);
+
+        // Json
+        ObjectMapper jsonMapper = new ObjectMapper();
+        final String jsonContent = jsonMapper.writeValueAsString(fileData);
+        assertNotNull("jsonContent is null", jsonContent);
+        assertFalse("jsonContent is empty", jsonContent.isEmpty());
+        System.out.println(jsonContent);
+
+        assertNotNull("DocumentInfoContainer was not serialized", jsonMapper.writeValueAsString(new DocumentInfoContainer()));
+
+        // Xml
+        XmlMapper xmlMapper = new XmlMapper();
+        final String xmlContent = xmlMapper.writeValueAsString(fileData);
+        assertNotNull("xmlContent is null", xmlContent);
+        assertFalse("xmlContent is empty", xmlContent.isEmpty());
+        System.out.println(xmlContent);
+
+        assertNotNull("DocumentInfoContainer was not serialized", xmlMapper.writeValueAsString(new DocumentInfoContainer()));
+    }
+
+    @Test
+    public void testVIEWERJAVA1366() throws Exception {
+        String guid = "VIEWERJAVA-1366.pdf";
+        ViewerHtmlHandler handler = new ViewerHtmlHandler();
+        DocumentInfoContainer container = handler.getDocumentInfo(STORAGE_PATH + File.separator + guid);
+        assertNotNull("container is null!", container);
+        System.out.println(container);
     }
 
     @Test
