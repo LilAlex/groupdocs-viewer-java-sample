@@ -481,7 +481,7 @@ public class DocumentTransformationsTests {
 
         // Set options to include rotate and reorder transformations
         ImageOptions options = new ImageOptions();
-        options.setTransformations(Transformation.from(Transformation.Rotate, Transformation.Reorder));
+        options.setTransformations(Transformation.Rotate | Transformation.Reorder);
 
         // Set watermark properties
         Watermark watermark = new Watermark("This is watermark text");
@@ -522,7 +522,7 @@ public class DocumentTransformationsTests {
 
         // Set options to include rotate and reorder transformations
         ImageOptions options = new ImageOptions();
-        options.setTransformations(Transformation.from(Transformation.Rotate, Transformation.Reorder));
+        options.setTransformations(Transformation.Rotate | Transformation.Reorder);
 
         // Set watermark properties
         Watermark watermark = new Watermark("This is watermark text");

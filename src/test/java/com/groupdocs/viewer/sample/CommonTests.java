@@ -11,7 +11,6 @@ import org.junit.experimental.theories.Theory;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Aleksey Permyakov (13.06.2016).
@@ -31,7 +30,7 @@ public class CommonTests extends GenericJUnit {
                 String.format("\t- run configuration: \n\t\tfileName: %s", fileName));
         // Init viewer handler with config
         ViewerHtmlHandler htmlHandler = createHtmlHandler(false, false);
-        final DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(new DocumentInfoOptions(fileName));
+        final DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(fileName, new DocumentInfoOptions(fileName));
         assertNotNull(documentInfo);
         assertNotNull(documentInfo.getGuid());
     }

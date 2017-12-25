@@ -1,28 +1,14 @@
 package com.groupdocs.viewer.sample;
 
-import com.groupdocs.viewer.config.ViewerConfig;
-import com.groupdocs.viewer.converter.options.HtmlOptions;
-import com.groupdocs.viewer.converter.options.ImageOptions;
-import com.groupdocs.viewer.domain.Watermark;
-import com.groupdocs.viewer.domain.WatermarkPosition;
-import com.groupdocs.viewer.domain.options.ReorderPageOptions;
-import com.groupdocs.viewer.domain.options.RotatePageOptions;
-import com.groupdocs.viewer.handler.ViewerHandler;
 import com.groupdocs.viewer.licensing.License;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
-import static com.groupdocs.viewer.sample.TestRunner.OUTPUT_HTML_PATH;
-import static com.groupdocs.viewer.sample.TestRunner.OUTPUT_IMAGE_PATH;
-import static com.groupdocs.viewer.sample.TestRunner.OUTPUT_PATH;
+import static com.groupdocs.viewer.sample.TestRunner.*;
 
 /**
  * The type Utilities.
@@ -62,89 +48,19 @@ public class Utilities {
     }
 
     /**
-     * The type Page transformations.
-     */
-    public static class PageTransformations {
-        /**
-         * Rotate a Page before rendering
-         * @param handler    the handler
-         * @param guid       the guid
-         * @param PageNumber the page number
-         * @param angle      the angle
-         * @throws Exception the exception
-         */
-        public static void RotatePages(ViewerHandler handler, String guid, int PageNumber, int angle) throws Exception {
-            //ExStart:rotationAngle
-            // Set the property of handler's rotate Page
-            handler.rotatePage(new RotatePageOptions(guid, PageNumber, angle));
-            //ExEnd:rotationAngle
-        }
-
-        /**
-         * Reorder a page before rendering
-         * @param Handler           Base class of handlers
-         * @param guid              File name
-         * @param currentPageNumber Existing number of page
-         * @param newPageNumber     New number of page
-         * @throws Exception the exception
-         */
-        public static void ReorderPage(ViewerHandler Handler, String guid, int currentPageNumber, int newPageNumber) throws Exception {
-            //ExStart:reorderPage
-            //Initialize the ReorderPageOptions object by passing guid as document name, current Page Number, new page number
-            ReorderPageOptions options = new ReorderPageOptions(guid, currentPageNumber, newPageNumber);
-            // call ViewerHandler's Reorder page function by passing initialized ReorderPageOptions object.
-            Handler.reorderPage(options);
-            //ExEnd:reorderPage
-        }
-
-        /**
-         * add a watermark text to all rendered images.
-         * @param options  HtmlOptions by reference
-         * @param text     Watermark text
-         * @param color    System.Drawing.Color
-         * @param position the position
-         * @param width    the width
-         */
-        public static void AddWatermark(ImageOptions options, String text, Color color, WatermarkPosition position, float width) {
-            //ExStart:AddWatermark
-            //Initialize watermark object by passing the text to display.
-            Watermark watermark = new Watermark(text);
-            //Apply the watermark color by assigning System.Drawing.Color.
-            watermark.setColor(color);
-            //Set the watermark's position by assigning an enum WatermarkPosition's value.
-            watermark.setPosition(position);
-            //set an integer value as watermark width 
-            watermark.setWidth(width);
-            //Assign intialized and populated watermark object to ImageOptions or HtmlOptions objects
-            options.setWatermark(watermark);
-        }
-
-        /**
-         * add a watermark text to all rendered Html pages.
-         * @param options  HtmlOptions by reference
-         * @param text     Watermark text
-         * @param color    System.Drawing.Color
-         * @param position the position
-         * @param width    the width
-         */
-        public static void AddWatermark(HtmlOptions options, String text, Color color, WatermarkPosition position, float width) {
-
-            Watermark watermark = new Watermark(text);
-            watermark.setColor(color);
-            watermark.setPosition(position);
-            watermark.setWidth(width);
-            options.setWatermark(watermark);
-        }
-
-    }
-
-
-    /**
      * Set product's license
      */
     public static void applyLicense() {
         License lic = new License();
         lic.setLicense(System.getenv("GROUPDOCS_TOTAL"));
+    }
+
+    /**
+     * Set product's license
+     */
+    public static void unsetLicense() {
+        License lic = new License();
+        lic.setLicense(new ByteArrayInputStream(new byte[0]));
     }
 
     /**

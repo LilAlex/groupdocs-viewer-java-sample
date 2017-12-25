@@ -56,10 +56,10 @@ public class S3CacheHandler implements ICacheDataHandler {
     }
 
     @Override
-    public Date getLastModificationDate(CachedPageDescription cachedPageDescription) throws Exception {
-        String guid = cachedPageDescription.getGuid();
-        String baseName = cachedPageDescription.getBaseName();
-        String extension = cachedPageDescription.getFileType();
+    public Date getLastModificationDate(CacheFileDescription cacheFileDescription) throws Exception {
+        String guid = cacheFileDescription.getGuid();
+        String baseName = cacheFileDescription.getBaseName();
+        String extension = cacheFileDescription.getFileType();
 
         try {
             final ObjectMetadata object = amazonS3Client.getObjectMetadata(new GetObjectMetadataRequest(TEXT_BUCKET, guid));

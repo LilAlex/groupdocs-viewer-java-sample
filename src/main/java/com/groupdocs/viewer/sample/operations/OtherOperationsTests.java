@@ -40,7 +40,7 @@ public class OtherOperationsTests {
 
 
     @Test
-    public void testRotate1stPageOfTheDocumentBy90Deg() throws Exception {
+    public void testGetOriginalFile() throws Exception {
         Utilities.showTestHeader();
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
@@ -177,7 +177,7 @@ public class OtherOperationsTests {
 
         // Set apply rotate and reorder transformations
         PdfFileOptions options = new PdfFileOptions();
-        options.setTransformations(Transformation.from(Transformation.Rotate, Transformation.Reorder, Transformation.AddPrintAction));
+        options.setTransformations(Transformation.Rotate | Transformation.Reorder | Transformation.AddPrintAction);
 
 
         // Get file as pdf with transformations
@@ -268,7 +268,7 @@ public class OtherOperationsTests {
         // File guid
         String guid = "document.doc";
 
-//        // Use custom IInputDataHandler implementation
+        // Use custom IInputDataHandler implementation
 //        IInputDataHandler inputDataHandler = new CustomInputDataHandler();
 //
 //        // Get file HTML representation
@@ -292,7 +292,7 @@ public class OtherOperationsTests {
 
         // Get document html for print
         PrintableHtmlOptions options = new PrintableHtmlOptions(guid);
-        PrintableHtmlContainer container = imageHandler.getPrintableHtml(options);
+        PrintableHtmlContainer container = imageHandler.getPrintableHtml(guid, options);
 
         System.out.println("Html content: " + container.getHtmlContent());
         assertTrue("Html content is empty!", container.getHtmlContent().length() > 0);
@@ -311,7 +311,8 @@ public class OtherOperationsTests {
 
         // Get document html for print with watermark
         PrintableHtmlOptions options = new PrintableHtmlOptions(guid, new Watermark("Watermark text"));
-        PrintableHtmlContainer container = imageHandler.getPrintableHtml(options);
+        PrintableHtmlContainer container = imageHandler.getPrintableHtml(guid, options);
+        System.out.println("Html content: " + container.getHtmlContent());
         assertTrue("Html content is empty!", container.getHtmlContent().length() > 0);
     }
 
@@ -328,8 +329,10 @@ public class OtherOperationsTests {
 
         // Get document html for print with custom css
         String css = "a { color: hotpink; }"; // Some style
-        PrintableHtmlOptions options = new PrintableHtmlOptions(guid, css);
-        PrintableHtmlContainer container = imageHandler.getPrintableHtml(options);
+        PrintableHtmlOptions options = new PrintableHtmlOptions(guid);
+        options.setCss(css);
+        PrintableHtmlContainer container = imageHandler.getPrintableHtml(guid, options);
+        System.out.println("Html content: " + container.getHtmlContent());
         assertTrue("Html content is empty!", container.getHtmlContent().length() > 0);
     }
 
@@ -381,6 +384,7 @@ public class OtherOperationsTests {
         for (PageHtml page : pages) {
             System.out.println("Page number: " + page.getPageNumber());
             System.out.println("Html content: " + page.getHtmlContent());
+            assertTrue("Page content is empty!", page.getHtmlContent().length() > 0);
         }
     }
 
@@ -402,6 +406,7 @@ public class OtherOperationsTests {
         //Get pdf file
         FileContainer fileContainer = imageHandler.getPdfFile(guid, pdfFileOptions);
         System.out.println("Stream length: " + fileContainer.getStream().available());
+        assertTrue("Page content is empty!", fileContainer.getStream().available() > 0);
     }
 
     @Test
@@ -515,7 +520,7 @@ public class OtherOperationsTests {
         HtmlOptions options = new HtmlOptions();
         options.getCellsOptions().setShowHiddenSheets(true);
 
-        DocumentInfoContainer container = htmlHandler.getDocumentInfo(new DocumentInfoOptions(guid));
+        DocumentInfoContainer container = htmlHandler.getDocumentInfo(guid, new DocumentInfoOptions(guid));
 
         for (PageData page : container.getPages()) {
             System.out.println("Page number: " + page.getNumber() + ", Page Name: " + page.getName() + ", IsVisible: " + page.isVisible());
@@ -720,7 +725,7 @@ public class OtherOperationsTests {
         config.setStoragePath(STORAGE_PATH);
         // Create image handler
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
-        String guid = "sample.vdx";
+        String guid = "document.vdx";
 
         // Set image options to show hidden pages
         ImageOptions options = new ImageOptions();
@@ -753,7 +758,7 @@ public class OtherOperationsTests {
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
-        String guid = "sample.vdx";
+        String guid = "document.vdx";
 
         // Set html options to show grid lines
         HtmlOptions options = new HtmlOptions();
@@ -785,7 +790,7 @@ public class OtherOperationsTests {
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
-        String guid = "sample.vdx";
+        String guid = "document.vdx";
 
         // Set html options to show grid lines
         HtmlOptions options = new HtmlOptions();

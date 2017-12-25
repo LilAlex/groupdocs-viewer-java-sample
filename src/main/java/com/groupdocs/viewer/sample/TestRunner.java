@@ -43,7 +43,7 @@ public class TestRunner {
         );
 
         for (Failure failure : result.getFailures()) {
-            System.out.println(failure.toString());
+            System.err.println(failure.toString());
             failure.getException().printStackTrace();
         }
 

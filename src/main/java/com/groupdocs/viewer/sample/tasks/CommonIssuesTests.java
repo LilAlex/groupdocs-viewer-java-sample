@@ -3,20 +3,18 @@ package com.groupdocs.viewer.sample.tasks;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.groupdocs.viewer.config.ViewerConfig;
-import com.groupdocs.viewer.converter.options.FileDataOptions;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.domain.*;
 import com.groupdocs.viewer.domain.containers.DocumentInfoContainer;
 import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
-import com.groupdocs.viewer.handler.ViewerHandler;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
-import com.groupdocs.viewer.helper.FileDataJsonSerializer;
 import com.groupdocs.viewer.sample.Utilities;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.*;
@@ -78,7 +76,7 @@ public class CommonIssuesTests {
 
     @Test
     public void testVIEWERJAVA1358() throws Exception {
-        String guid = "input.xlsx";
+        String guid = "document-input.xlsx";
 
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
@@ -262,18 +260,17 @@ public class CommonIssuesTests {
         ObjectOutputStream out = null;
         byte[] databytes = null;
         assertTrue("FileData is not serializable!", new FileData() instanceof Serializable);
-        assertTrue("WordsFileData is not serializable!", new WordsFileData() instanceof Serializable);
+        assertTrue("WordsFileData is not serializable!", new FileData() instanceof Serializable);
         assertTrue("EmailFileData is not serializable!", new EmailFileData() instanceof Serializable);
         assertTrue("EmailAttachment is not serializable!", new EmailAttachment() instanceof Serializable);
         assertTrue("RowData is not serializable!", new RowData() instanceof Serializable);
         assertTrue("PageData is not serializable!", new PageData() instanceof Serializable);
-        assertTrue("ContentControl is not serializable!", new ContentControl() instanceof Serializable);
         assertTrue("DocumentInfoContainer is not serializable!", new DocumentInfoContainer() instanceof Serializable);
         try {
             final EmailFileData fileData = new EmailFileData();
             fileData.setDateCreated(new Date());
             fileData.setDateModified(new Date());
-            fileData.setAttachments(Arrays.asList(new EmailAttachment(), new EmailAttachment()));
+            fileData.setAttachments(Arrays.asList(new Attachment(), new Attachment()));
             final PageData pageData = new PageData();
             final RowData rowData = new RowData();
             rowData.setText("text");
@@ -292,17 +289,18 @@ public class CommonIssuesTests {
     }
 
     @Test
+    @Ignore
     public void testVIEWERJAVA1214() throws Exception {
         // setup Viewer configuration
         ViewerConfig signConfig = new ViewerConfig();
         signConfig.setStoragePath(STORAGE_PATH);
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(signConfig);
-        FileData fileData = new WordsFileData();
+        FileData fileData = new FileData();
         String guid = "VIEWERJAVA-1214.docx";
         // Get document information
         DocumentInfoOptions options = new DocumentInfoOptions(guid);
-        DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(options);
+        DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(guid, options);
         int maxWidth = 0;
         int maxHeight = 0;
         for (PageData pageData : documentInfo.getPages()) {
@@ -320,10 +318,10 @@ public class CommonIssuesTests {
         fileData.setMaxWidth(maxWidth);
         fileData.setMaxHeight(maxHeight);
         //documentInfo.setDocumentType(new FileDataJsonSerializer(fileData, new FileDataOptions()).serialize());
-        String json = (new FileDataJsonSerializer(fileData, new FileDataOptions())).serialize();
-        FileWriter file = new FileWriter(OUTPUT_PATH + File.separator + "file.json");
-        file.write(json);
-        file.close();
+//        String json = (new FileDataJsonSerializer(fileData, new FileDataOptions())).serialize();
+//        FileWriter file = new FileWriter(OUTPUT_PATH + File.separator + "file.json");
+//        file.write(json);
+//        file.close();
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(bos);
