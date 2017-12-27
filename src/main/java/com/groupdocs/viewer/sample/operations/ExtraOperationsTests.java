@@ -70,7 +70,12 @@ public class ExtraOperationsTests {
         assertFalse(listOfFiles == null);
 
         for (File listOfFile : listOfFiles) {
-            if (listOfFile.isFile() && listOfFile.getName().endsWith(".djvu")) {
+//            if (!listOfFile.getName().endsWith(".one")) {
+//                continue;
+//            } else {
+//                System.out.println("IT IS ONE FILE");
+//            }
+            if (listOfFile.isFile()) {
 
                 String fileName = listOfFile.getName();
 

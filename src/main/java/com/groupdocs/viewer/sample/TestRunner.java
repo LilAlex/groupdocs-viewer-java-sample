@@ -39,7 +39,8 @@ public class TestRunner {
                 EmailAttachmentsTests.class,
                 ParameterlessConstructorsTests.class,
                 AdvancedOperationsTests.class,
-                CommonIssuesTests.class
+                CommonIssuesTests.class,
+                ExtraOperationsTests.class
         );
 
         for (Failure failure : result.getFailures()) {
@@ -82,8 +83,8 @@ public class TestRunner {
         final java.io.File oip = new java.io.File(OUTPUT_IMAGE_PATH);
         final java.io.File lcp = new java.io.File(LICENSE_PATH);
         if (!lcp.exists()) {
-            LICENSE_PATH = System.getenv("GROUPDOCS_VIEWER");
-            System.out.println("License file does not exists! Using license from %GROUPDOCS_VIEWER% ...");
+            LICENSE_PATH = System.getenv("GROUPDOCS_TOTAL");
+            System.out.println("License file does not exists! Using license from %GROUPDOCS_TOTAL% ...");
         }
         if ((!sp.exists() && !sp.mkdirs()) || (!op.exists() && !op.mkdirs()) || (!ip.exists() && !ip.mkdirs()) || (!ohp.exists() && !ohp.mkdirs()) || (!oip.exists() && !oip.mkdirs())) {
             System.err.println("Can't create data directories!!!");
