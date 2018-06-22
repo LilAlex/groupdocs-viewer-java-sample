@@ -8,8 +8,10 @@ import com.groupdocs.viewer.domain.*;
 import com.groupdocs.viewer.domain.containers.DocumentInfoContainer;
 import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
+import com.groupdocs.viewer.domain.image.PageImage;
 import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
+import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -356,6 +358,26 @@ public class CommonIssuesTests {
         DocumentInfoContainer container = handler.getDocumentInfo(STORAGE_PATH + File.separator + guid);
         assertNotNull("container is null!", container);
         System.out.println(container);
+    }
+
+    @Test
+    public void testMsgToImage() throws Exception {
+
+        final String sourceFile = "document.msg", targetFile = sourceFile + ".png",
+                targetPath = OUTPUT_IMAGE_PATH + "\\" + targetFile;
+        // setup Viewer configuration
+        ViewerConfig signConfig = new ViewerConfig();
+        signConfig.setStoragePath(STORAGE_PATH);
+        // instantiating the conversion handler
+        ViewerImageHandler handler = new ViewerImageHandler(signConfig);
+        final List<PageImage> pages = handler.getPages(sourceFile);
+        assertTrue(pages.size() > 0);
+        for (PageImage page : pages) {
+            final InputStream stream = page.getStream();
+            assertNotNull(stream);
+            IOUtils.copy(stream, new FileOutputStream(targetPath));
+        }
+        System.out.println("Output file: " + targetPath);
     }
 
     @Test
