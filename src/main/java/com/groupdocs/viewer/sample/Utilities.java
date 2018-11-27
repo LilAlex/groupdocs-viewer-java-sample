@@ -51,8 +51,13 @@ public class Utilities {
      * Set product's license
      */
     public static void applyLicense() {
+
         License lic = new License();
-        lic.setLicense(System.getenv("GROUPDOCS_TOTAL"));
+        if (LICENSE_PATH != null && new File(LICENSE_PATH).exists()) {
+            lic.setLicense(LICENSE_PATH);
+        }else {
+            lic.setLicense(System.getenv("GROUPDOCS_TOTAL"));
+        }
     }
 
     /**
@@ -123,6 +128,42 @@ public class Utilities {
             //ExEnd:SaveAnyFile
         } catch (Exception ex) {
             writeLine(ex.getMessage());
+        }
+    }
+
+
+    public static int countZIndexes(String source) {
+        String subString = "z-index";
+        int count = 0, n = 0;
+        while ((n = source.indexOf(subString, n)) != -1) {
+            n += subString.length();
+            ++count;
+        }
+
+        return count;
+    }
+
+    public static void copyFile(String source, String target) throws IOException {
+        FileUtils.copyFile(new File(source), new File(target));
+    }
+
+    public static void cleanOutput() throws IOException {
+        FileUtils.cleanDirectory(new File(OUTPUT_PATH));
+    }
+
+    public static void initOutput() {
+        final java.io.File sp = new java.io.File(STORAGE_PATH);
+        final java.io.File op = new java.io.File(OUTPUT_PATH);
+        final java.io.File ip = new java.io.File(OUTPUT_PATH);
+        final java.io.File ohp = new java.io.File(OUTPUT_HTML_PATH);
+        final java.io.File oip = new java.io.File(OUTPUT_IMAGE_PATH);
+        final java.io.File lcp = new java.io.File(LICENSE_PATH);
+        if (!lcp.exists()) {
+            LICENSE_PATH = System.getenv("GROUPDOCS_TOTAL");
+            System.out.println("License file does not exists! Using license from %GROUPDOCS_TOTAL% ...");
+        }
+        if ((!sp.exists() && !sp.mkdirs()) || (!op.exists() && !op.mkdirs()) || (!ip.exists() && !ip.mkdirs()) || (!ohp.exists() && !ohp.mkdirs()) || (!oip.exists() && !oip.mkdirs())) {
+            System.err.println("Can't create data directories!!!");
         }
     }
 }

@@ -7,7 +7,9 @@ import com.groupdocs.viewer.domain.containers.DocumentInfoContainer;
 import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.licensing.License;
+import com.groupdocs.viewer.sample.TestRunner;
 import com.groupdocs.viewer.sample.Utilities;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,8 +22,10 @@ import java.net.URI;
 import static com.groupdocs.viewer.sample.TestRunner.LICENSE_PATH;
 import static com.groupdocs.viewer.sample.TestRunner.STORAGE_PATH;
 import static com.groupdocs.viewer.sample.Utilities.applyLicense;
+import static com.groupdocs.viewer.sample.Utilities.initOutput;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Aleksey Permyakov (13.03.2017).
@@ -31,6 +35,12 @@ public class CommonOperationsTests {
     @Before
     public void before() {
         applyLicense();
+        initOutput();
+    }
+
+    @After
+    public void after() throws IOException {
+        Utilities.cleanOutput();
     }
 
     @Test

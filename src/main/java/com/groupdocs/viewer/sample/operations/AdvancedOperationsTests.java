@@ -1,29 +1,37 @@
 package com.groupdocs.viewer.sample.operations;
 
 import com.groupdocs.viewer.config.ViewerConfig;
+import com.groupdocs.viewer.converter.html.CadToHtmlConverter;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.converter.options.ImageOptions;
 import com.groupdocs.viewer.converter.options.TextOverflowMode;
+import com.groupdocs.viewer.domain.FileDescription;
 import com.groupdocs.viewer.domain.containers.DocumentInfoContainer;
 import com.groupdocs.viewer.domain.containers.FileContainer;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.domain.image.PageImage;
+import com.groupdocs.viewer.domain.options.ConvertOptions;
 import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
 import com.groupdocs.viewer.domain.options.PdfFileOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
+import com.groupdocs.viewer.sample.TestRunner;
 import com.groupdocs.viewer.sample.Utilities;
+import com.groupdocs.viewer.sample.handler.LocalCacheDataHandler;
+import com.groupdocs.viewer.sample.handler.LocalInputDataHandler;
+import com.groupdocs.viewer.service.DocumentService;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.List;
 
 import static com.groupdocs.viewer.sample.TestRunner.STORAGE_PATH;
 import static com.groupdocs.viewer.sample.Utilities.applyLicense;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static com.groupdocs.viewer.sample.Utilities.initOutput;
+import static org.junit.Assert.*;
 
 /**
  * @author liosha (15.03.2017)
@@ -33,10 +41,16 @@ public class AdvancedOperationsTests {
     @Before
     public void before() {
         applyLicense();
+        initOutput();
+    }
+
+    @After
+    public void after() throws IOException {
+        Utilities.cleanOutput();
     }
 
     @Test
-    public void testHowToRenderContentWithPreventGlyphsGroupingEnabled() throws Exception {
+    public void testHowToRenderContentWithEnablePreciseRenderingEnabled() throws Exception {
         Utilities.showTestHeader();
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
@@ -48,7 +62,7 @@ public class AdvancedOperationsTests {
 
         // Set pdf options to render content without glyphs grouping
         HtmlOptions options = new HtmlOptions();
-        options.getPdfOptions().setPreventGlyphsGrouping(true); // Default value is false
+        options.getPdfOptions().setEnablePreciseRendering(true); // Default value is false
 
         // Get pages
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
@@ -140,19 +154,19 @@ public class AdvancedOperationsTests {
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
-        String guid = "DocumentWithAnnotations.pdf";
+        String guid = "with-annotations.pdf";
 
-//        // Set pdf options to render content without annotations
-//        HtmlOptions options = new HtmlOptions();
-//        options.getPdfOptions().setDeleteAnnotations(true); // Default value is false
-//
-//        // Get pages
-//        List<PageHtml> pages = htmlHandler.getPages(guid, options);
-//
-//        for (PageHtml page : pages) {
-//            System.out.println("Page number: " + page.getPageNumber());
-//            System.out.println("Html content: " + page.getHtmlContent());
-//        }
+        // Set pdf options to render content without annotations
+        HtmlOptions options = new HtmlOptions();
+        options.setRenderComments(false); // Default value is false
+
+        // Get pages
+        List<PageHtml> pages = htmlHandler.getPages(guid, options);
+
+        for (PageHtml page : pages) {
+            System.out.println("Page number: " + page.getPageNumber());
+            System.out.println("Html content: " + page.getHtmlContent());
+        }
     }
 
     @Test
@@ -164,15 +178,15 @@ public class AdvancedOperationsTests {
 
         // Create image handler
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
-        String guid = "DocumentWithAnnotations.pdf";
+        String guid = "with-annotations.pdf";
 
         // Set pdf options to get original file without annotations
         PdfFileOptions pdfFileOptions = new PdfFileOptions();
-//        pdfFileOptions.getPdfOptions().setDeleteAnnotations(true); // Default value is false
-//
-//        // Get original pdf document without annotations
-//        FileContainer fileContainer = imageHandler.getPdfFile(guid, pdfFileOptions);
-//        // Access result pdf document using fileContainer.Stream property
+        pdfFileOptions.setRenderComments(false); // Default value is false
+
+        // Get original pdf document without annotations
+        FileContainer fileContainer = imageHandler.getPdfFile(guid, pdfFileOptions);
+        // Access result pdf document using fileContainer.Stream property
     }
 
     @Test
@@ -188,15 +202,15 @@ public class AdvancedOperationsTests {
 
         // Set pdf options to render content without annotations
         HtmlOptions options = new HtmlOptions();
-//        options.getWordsOptions().setShowTrackedChanges(true); // Default value is false
-//
-//        // Get pages
-//        List<PageHtml> pages = htmlHandler.getPages(guid, options);
-//
-//        for (PageHtml page : pages) {
-//            System.out.println("Page number: " + page.getPageNumber());
-//            System.out.println("Html content: " + page.getHtmlContent());
-//        }
+        options.getWordsOptions().setShowTrackedChanges(true); // Default value is false
+
+        // Get pages
+        List<PageHtml> pages = htmlHandler.getPages(guid, options);
+
+        for (PageHtml page : pages) {
+            System.out.println("Page number: " + page.getPageNumber());
+            System.out.println("Html content: " + page.getHtmlContent());
+        }
     }
 
     @Test
@@ -208,15 +222,15 @@ public class AdvancedOperationsTests {
 
         // Create image handler
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
-        String guid = "DocumentWithAnnotations.pdf";
+        String guid = "with-annotations.pdf";
 
         // Set pdf options to get pdf file with tracked changes
         PdfFileOptions pdfFileOptions = new PdfFileOptions();
-//        pdfFileOptions.getWordsOptions().setShowTrackedChanges(true); // Default value is false
-//
-//        // Get pdf document without tracked changes
-//        FileContainer fileContainer = imageHandler.getPdfFile(guid, pdfFileOptions);
-//        // Access result pdf document using fileContainer.Stream property
+        pdfFileOptions.getWordsOptions().setShowTrackedChanges(true); // Default value is false
+
+        // Get pdf document without tracked changes
+        FileContainer fileContainer = imageHandler.getPdfFile(guid, pdfFileOptions);
+        // Access result pdf document using fileContainer.Stream property
     }
 
     @Test
@@ -232,17 +246,17 @@ public class AdvancedOperationsTests {
 
         // Set Cad options to render content with a specified size
         ImageOptions options = new ImageOptions();
-//        options.getCadOptions().setHeight(750);
-//        options.getCadOptions().setWidth(450);
-//
-//        // Get pages
-//        List<PageImage> pages = imageHandler.getPages(guid, options);
-//
-//        for (PageImage page : pages)
-//        {
-//            System.out.println("Page number: " + page.getPageNumber());
-//            InputStream imageContent = page.getStream();
-//        }
+        options.getCadOptions().setHeight(750);
+        options.getCadOptions().setWidth(450);
+
+        // Get pages
+        List<PageImage> pages = imageHandler.getPages(guid, options);
+
+        for (PageImage page : pages)
+        {
+            System.out.println("Page number: " + page.getPageNumber());
+            InputStream imageContent = page.getStream();
+        }
     }
 
     @Test
@@ -276,23 +290,28 @@ public class AdvancedOperationsTests {
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
+        final String fileName = "three-layouts.dwg";
 
-        // Create image handler
-        ViewerImageHandler imageHandler = new ViewerImageHandler(config);
-        String guid = "document.dwg";
 
-        // Set CAD options to render specific Layout
-        ImageOptions options = new ImageOptions();
-        options.getCadOptions().setLayoutName("MyFirstLayout");
+        HtmlOptions options = new HtmlOptions();
+        options.getCadOptions().setLayoutName("Layout2");
+        options.getCadOptions().setRenderLayouts(true);
+//        List<PageHtml> pages = runTest(documentName, options, false);
+        ConvertOptions convertOptions = new ConvertOptions(config, new DocumentService(new LocalInputDataHandler(config){
+            @Override
+            public InputStream getFile(String guid) {
+                try {
+                    return new FileInputStream(STORAGE_PATH + File.separator + fileName);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }), new LocalCacheDataHandler(config), new FileDescription(fileName), options);
 
-//        // Get pages
-//        List<PageImage> pages = imageHandler.getPages(guid, options);
-//
-//        for (PageImage page : pages)
-//        {
-//            System.out.println("Page number: " + page.getPageNumber());
-//            InputStream imageContent = page.getStream();
-//        }
+        CadToHtmlConverter converter = new CadToHtmlConverter(convertOptions);
+        final List<PageHtml> pages = converter.convert();
+        assertEquals(1, pages.size());
     }
 
     @Test

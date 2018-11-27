@@ -13,8 +13,10 @@ import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
+import com.groupdocs.viewer.utils.common.Utils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -26,6 +28,8 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import static com.groupdocs.viewer.sample.TestRunner.*;
+import static com.groupdocs.viewer.sample.Utilities.applyLicense;
+import static com.groupdocs.viewer.sample.Utilities.initOutput;
 import static org.junit.Assert.*;
 
 /**
@@ -36,6 +40,12 @@ public class CommonIssuesTests {
     @Before
     public void before() {
         applyLicense();
+        initOutput();
+    }
+
+    @After
+    public void after() throws IOException {
+        Utilities.cleanOutput();
     }
 
     @Test
@@ -82,7 +92,7 @@ public class CommonIssuesTests {
 
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
-        config.setUseCache(true);
+        config.setEnableCaching(true);
 
         ViewerHtmlHandler handler = new ViewerHtmlHandler(config);
 
@@ -96,12 +106,12 @@ public class CommonIssuesTests {
     public void testVIEWERJAVA1318() throws Exception {
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
-        config.setUseCache(true);
+        config.setEnableCaching(true);
         config.setStoragePath(STORAGE_PATH);
 
         // Setup html conversion options
         HtmlOptions htmlOptions = new HtmlOptions();
-        htmlOptions.setResourcesEmbedded(false);
+        htmlOptions.setEmbedResources(false);
 
         // Init viewer html handler
         ViewerHtmlHandler handler = new ViewerHtmlHandler(config);
@@ -121,7 +131,9 @@ public class CommonIssuesTests {
                 System.out.println("	Page: " + page.getPageNumber() + ", size: " + page.getHtmlContent().length());
                 for (HtmlResource htmlResource : page.getHtmlResources()) {
                     InputStream resourceStream = handler.getResource(attachment, htmlResource);
-                    IOUtils.copy(resourceStream, new FileOutputStream(OUTPUT_HTML_PATH + "_" + page.getPageNumber() + "." + htmlResource.getResourceName()));
+                    final FileOutputStream outputStream = new FileOutputStream(OUTPUT_HTML_PATH + "_" + page.getPageNumber() + "." + htmlResource.getResourceName());
+                    IOUtils.copy(resourceStream, outputStream);
+                    Utils.closeStreams(resourceStream, outputStream);
 //                    FileUtils.writeStringToFile(new File(OUTPUT_HTML_PATH + "_" + page.getPageNumber() + attachment.getName()), page.getHtmlContent());
                     System.out.println("	Resource: " + htmlResource.getResourceName());
                 }
@@ -134,14 +146,14 @@ public class CommonIssuesTests {
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
-        config.setUseCache(true);
+        config.setEnableCaching(true);
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
         String guid = "document.pdf";
 
         HtmlOptions options = new HtmlOptions();
-        options.setResourcesEmbedded(false);
+        options.setEmbedResources(false);
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
         System.out.println("\tPages count: " + pages.size());
         assertEquals("Page count is incorrect", pages.size(), 2);
@@ -158,7 +170,7 @@ public class CommonIssuesTests {
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
-        config.setUseCache(false);
+        config.setEnableCaching(false);
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
         String guid = "VIEWERJAVA-1316.msg";
@@ -178,17 +190,17 @@ public class CommonIssuesTests {
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
-        config.setUseCache(true);
+        config.setEnableCaching(true);
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
         String guid = "VIEWERJAVA-766.xlsx";
 
         HtmlOptions options = new HtmlOptions();
-        options.setResourcesEmbedded(true);
+        options.setEmbedResources(true);
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
         System.out.println("\tPages count: " + pages.size());
-        assertEquals("Page count is incorrect", pages.size(), 3);
+        assertEquals("Page count is incorrect", 3, pages.size());
 
         for (PageHtml page : pages) {
             final String htmlContent = page.getHtmlContent();
@@ -207,14 +219,14 @@ public class CommonIssuesTests {
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
-        config.setUseCache(true);
+        config.setEnableCaching(true);
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
         String guid = "VIEWERJAVA-976.xlsx";
 
         HtmlOptions options = new HtmlOptions();
-        options.setResourcesEmbedded(true);
+        options.setEmbedResources(true);
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
         System.out.println("\tPages count: " + pages.size());
         assertEquals("Page count is incorrect", pages.size(), 13);
@@ -237,7 +249,7 @@ public class CommonIssuesTests {
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
-        config.setUseCache(false);
+        config.setEnableCaching(false);
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
         HtmlOptions htmlOptions = new HtmlOptions();
@@ -263,13 +275,13 @@ public class CommonIssuesTests {
         byte[] databytes = null;
         assertTrue("FileData is not serializable!", new FileData() instanceof Serializable);
         assertTrue("WordsFileData is not serializable!", new FileData() instanceof Serializable);
-        assertTrue("EmailFileData is not serializable!", new EmailFileData() instanceof Serializable);
-        assertTrue("EmailAttachment is not serializable!", new EmailAttachment() instanceof Serializable);
+        assertTrue("EmailFileData is not serializable!", new FileData() instanceof Serializable);
+        assertTrue("EmailAttachment is not serializable!", new Attachment() instanceof Serializable);
         assertTrue("RowData is not serializable!", new RowData() instanceof Serializable);
         assertTrue("PageData is not serializable!", new PageData() instanceof Serializable);
         assertTrue("DocumentInfoContainer is not serializable!", new DocumentInfoContainer() instanceof Serializable);
         try {
-            final EmailFileData fileData = new EmailFileData();
+            final FileData fileData = new FileData();
             fileData.setDateCreated(new Date());
             fileData.setDateModified(new Date());
             fileData.setAttachments(Arrays.asList(new Attachment(), new Attachment()));
@@ -315,15 +327,7 @@ public class CommonIssuesTests {
         fileData.getDateCreated();
         fileData.setDateModified(documentInfo.getLastModificationDate());
         fileData.getDateModified();
-        fileData.setPageCount(documentInfo.getPages().size());
         fileData.setPages(documentInfo.getPages());
-        fileData.setMaxWidth(maxWidth);
-        fileData.setMaxHeight(maxHeight);
-        //documentInfo.setDocumentType(new FileDataJsonSerializer(fileData, new FileDataOptions()).serialize());
-//        String json = (new FileDataJsonSerializer(fileData, new FileDataOptions())).serialize();
-//        FileWriter file = new FileWriter(OUTPUT_PATH + File.separator + "file.json");
-//        file.write(json);
-//        file.close();
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(bos);
@@ -375,7 +379,9 @@ public class CommonIssuesTests {
         for (PageImage page : pages) {
             final InputStream stream = page.getStream();
             assertNotNull(stream);
-            IOUtils.copy(stream, new FileOutputStream(targetPath));
+            final FileOutputStream outputStream = new FileOutputStream(targetPath);
+            IOUtils.copy(stream, outputStream);
+            Utils.closeStreams(stream, outputStream);
         }
         System.out.println("Output file: " + targetPath);
     }

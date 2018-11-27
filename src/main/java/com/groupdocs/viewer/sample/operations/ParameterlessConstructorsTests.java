@@ -5,13 +5,15 @@ import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.sample.Utilities;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.groupdocs.viewer.sample.TestRunner.STORAGE_PATH;
-import static com.groupdocs.viewer.sample.TestRunner.applyLicense;
+import static com.groupdocs.viewer.sample.Utilities.initOutput;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -22,7 +24,13 @@ public class ParameterlessConstructorsTests {
 
     @Before
     public void before() {
-        applyLicense();
+        Utilities.applyLicense();
+        initOutput();
+    }
+
+    @After
+    public void after() throws IOException {
+        Utilities.cleanOutput();
     }
 
     @Test
@@ -43,14 +51,14 @@ public class ParameterlessConstructorsTests {
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
-        config.setUseCache(true);
+        config.setEnableCaching(true);
 
         // Create html handler
         ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
         String guid = "document.doc";
 
         HtmlOptions options = new HtmlOptions();
-        options.setResourcesEmbedded(false);
+        options.setEmbedResources(false);
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
         assertEquals("Page count is incorrect", pages.size(), 2);
         for (PageHtml page : pages) {
@@ -66,7 +74,7 @@ public class ParameterlessConstructorsTests {
         String guid = "document.doc";
 
         HtmlOptions options = new HtmlOptions();
-        options.setResourcesEmbedded(false);
+        options.setEmbedResources(false);
         List<PageHtml> pages = htmlHandler.getPages(STORAGE_PATH + "\\" + guid, options);
         assertEquals("Page count is incorrect", pages.size(), 2);
         for (PageHtml page : pages) {

@@ -6,15 +6,17 @@ import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.sample.Utilities;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
 import static com.groupdocs.viewer.sample.TestRunner.STORAGE_PATH;
-import static com.groupdocs.viewer.sample.TestRunner.applyLicense;
+import static com.groupdocs.viewer.sample.Utilities.initOutput;
 import static org.junit.Assert.*;
 
 /**
@@ -24,7 +26,13 @@ public class HtmlRepresentationTests {
 
     @Before
     public void before() {
-        applyLicense();
+        Utilities.applyLicense();
+        initOutput();
+    }
+
+    @After
+    public void after() throws IOException {
+        Utilities.cleanOutput();
     }
 
     @Test
@@ -39,7 +47,7 @@ public class HtmlRepresentationTests {
         String guid = "document.doc";
 
         HtmlOptions options = new HtmlOptions();
-        options.setResourcesEmbedded(true);
+        options.setEmbedResources(true);
         List<PageHtml> pages = htmlHandler.getPages(guid, options);
 
         assertEquals("Page count is incorrect", pages.size(), 2);
@@ -161,19 +169,19 @@ public class HtmlRepresentationTests {
         Utilities.showTestHeader();
         HtmlOptions htmlOptions = new HtmlOptions();
         htmlOptions.setHtmlResourcePrefix("http://contoso.com/api/getResource?name=");
-        htmlOptions.setIgnoreResourcePrefixForCss(true);
+        htmlOptions.setIgnorePrefixInResources(true);
         assertNotNull(htmlOptions.getHtmlResourcePrefix());
-        assertTrue(htmlOptions.getIgnoreResourcePrefixForCss());
+        assertTrue(htmlOptions.getIgnorePrefixInResources());
     }
 
     @Test
     public void testHowToSpecifyResourcePrefixWithResourcesEmbeddedAndHtmlResourcePrefix() throws Exception {
         Utilities.showTestHeader();
         HtmlOptions htmlOptions = new HtmlOptions();
-        htmlOptions.setResourcesEmbedded(false);
+        htmlOptions.setEmbedResources(false);
         htmlOptions.setHtmlResourcePrefix("http://example.com/api/pages/{page-number}/resources/{resource-name}");
         //The {page-number} and {resource-name} patterns will be replaced with current processing page number and resource name accordingly.
         assertNotNull(htmlOptions.getHtmlResourcePrefix());
-        assertFalse(htmlOptions.isResourcesEmbedded());
+        assertFalse(htmlOptions.getEmbedResources());
     }
 }

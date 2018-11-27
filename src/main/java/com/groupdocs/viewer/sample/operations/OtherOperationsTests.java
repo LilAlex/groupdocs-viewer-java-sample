@@ -12,11 +12,13 @@ import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
 import com.groupdocs.viewer.utils.CultureInfo;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.nio.charset.Charset;
@@ -24,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.groupdocs.viewer.sample.TestRunner.STORAGE_PATH;
-import static com.groupdocs.viewer.sample.TestRunner.applyLicense;
+import static com.groupdocs.viewer.sample.Utilities.initOutput;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -35,7 +37,13 @@ public class OtherOperationsTests {
 
     @Before
     public void before() {
-        applyLicense();
+        Utilities.applyLicense();
+        initOutput();
+    }
+
+    @After
+    public void after() throws IOException {
+        Utilities.cleanOutput();
     }
 
 
@@ -486,7 +494,7 @@ public class OtherOperationsTests {
 
         // Set image options to show grid lines
         ImageOptions options = new ImageOptions();
-        options.getCellsOptions().setShowHiddenSheets(true);
+//        options.getCellsOptions().setShowHiddenSheets(true);
 
         DocumentInfoContainer container = imageHandler.getDocumentInfo(guid);
 
@@ -518,7 +526,7 @@ public class OtherOperationsTests {
 
         // Set html options to show grid lines
         HtmlOptions options = new HtmlOptions();
-        options.getCellsOptions().setShowHiddenSheets(true);
+//        options.getCellsOptions().setShowHiddenSheets(true);
 
         DocumentInfoContainer container = htmlHandler.getDocumentInfo(guid, new DocumentInfoOptions(guid));
 
@@ -604,7 +612,7 @@ public class OtherOperationsTests {
         // Setup viewer config
         ViewerConfig viewerConfig = new ViewerConfig();
         viewerConfig.setStoragePath(STORAGE_PATH);
-        viewerConfig.setUsePdf(true);
+//        viewerConfig.setUsePdf(true);
 
         // Set document guid
         String guid = "document.doc";
@@ -684,8 +692,7 @@ public class OtherOperationsTests {
         ViewerImageHandler viewerImageHandler = new ViewerImageHandler(viewerConfig);
 
         //Clear files from cache older than specified time interval
-        long olderThanTwoDays = 2 * 24 * 60 * 60 * 1000;
-        viewerImageHandler.clearCache(olderThanTwoDays);
+        viewerImageHandler.clearCache();
     }
 
     @Test
@@ -714,7 +721,7 @@ public class OtherOperationsTests {
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
         config.setStoragePath(STORAGE_PATH);
-        config.setDefaultFontName("Calibri");
+//        config.setDefaultFontName("Calibri");
     }
 
     @Test
@@ -729,7 +736,7 @@ public class OtherOperationsTests {
 
         // Set image options to show hidden pages
         ImageOptions options = new ImageOptions();
-        options.getDiagramOptions().setShowHiddenPages(true);
+//        options.getDiagramOptions().setShowHiddenPages(true);
 
         DocumentInfoContainer container = imageHandler.getDocumentInfo(guid);
 
@@ -762,7 +769,7 @@ public class OtherOperationsTests {
 
         // Set html options to show grid lines
         HtmlOptions options = new HtmlOptions();
-        options.getDiagramOptions().setShowHiddenPages(true);
+//        options.getDiagramOptions().setShowHiddenPages(true);
 
         DocumentInfoContainer container = htmlHandler.getDocumentInfo(guid);
 
@@ -794,7 +801,7 @@ public class OtherOperationsTests {
 
         // Set html options to show grid lines
         HtmlOptions options = new HtmlOptions();
-        options.getDiagramOptions().setShowHiddenPages(true);
+//        options.getDiagramOptions().setShowHiddenPages(true);
 
         DocumentInfoContainer container = htmlHandler.getDocumentInfo(guid);
 
@@ -893,7 +900,7 @@ public class OtherOperationsTests {
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
 
         // Create attachment object and print out its name and file type
-        EmailAttachment attachment = new EmailAttachment("document-with-attachments.msg", "attachment-image.png");
+        Attachment attachment = new Attachment("document-with-attachments.msg", "attachment-image.png");
         System.out.println("Attach name: " + attachment.getName() + ", size: " + attachment.getFileType());
 
         // Get attachment original file and print out Stream length

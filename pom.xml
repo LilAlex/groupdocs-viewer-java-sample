@@ -6,10 +6,10 @@
 
     <groupId>com.temporary</groupId>
     <artifactId>groupdocs-viewer-java-sample</artifactId>
-    <version>17.5.0</version>
-    <!--<version>17.5.0-dev</version>-->
+    <version>18.12</version>
     <properties>
         <java.version>1.7</java.version>
+        <https.protocols>TLSv1.2</https.protocols>
         <groupdocs.viewer>${project.version}</groupdocs.viewer>
         <java.bootstrap.classes>${java.home}/lib/rt.jar</java.bootstrap.classes>
         <java.cryptographic.extension.classes>${java.home}/lib/jce.jar</java.cryptographic.extension.classes>
@@ -108,7 +108,13 @@
     </build>
     <repositories>
         <repository>
+            <id>maven-apache-central</id>
+            <name>maven-central</name>
+            <url>http://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
             <id>maven-central</id>
+            <name>maven-central</name>
             <url>http://repo1.maven.org/maven2</url>
         </repository>
     </repositories>

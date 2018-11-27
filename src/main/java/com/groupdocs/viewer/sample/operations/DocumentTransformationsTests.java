@@ -13,14 +13,16 @@ import com.groupdocs.viewer.domain.options.RotatePageOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.List;
 
 import static com.groupdocs.viewer.sample.TestRunner.STORAGE_PATH;
-import static com.groupdocs.viewer.sample.TestRunner.applyLicense;
+import static com.groupdocs.viewer.sample.Utilities.initOutput;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -31,7 +33,13 @@ public class DocumentTransformationsTests {
 
     @Before
     public void before() {
-        applyLicense();
+        Utilities.applyLicense();
+        initOutput();
+    }
+
+    @After
+    public void after() throws IOException {
+        Utilities.cleanOutput();
     }
 
     @Test
