@@ -53,8 +53,8 @@ public class HtmlRepresentationTests {
         assertEquals("Page count is incorrect", pages.size(), 2);
         for (PageHtml page : pages) {
             System.out.println("\t\tPage number: " + page.getPageNumber());
-            System.out.println("\t\tHtml content: " + page.getHtmlContent());
-            assertNotNull("Html content is empty", page.getHtmlContent());
+            System.out.println("\t\tHtml content: " + page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
+            assertNotNull("Html content is empty", page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
         }
     }
 
@@ -75,8 +75,8 @@ public class HtmlRepresentationTests {
         for (PageHtml page : pages) {
             System.out.println("\t\tPage number: " + page.getPageNumber());
             System.out.println("\t\tResources count: " + page.getHtmlResources().size());
-            System.out.println("\t\tHtml content: " + page.getHtmlContent());
-            assertNotNull("Html content is empty", page.getHtmlContent());
+            System.out.println("\t\tHtml content: " + page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
+            assertNotNull("Html content is empty", page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
 
             // Html resources descriptions
             for (HtmlResource resource : page.getHtmlResources()) {
@@ -110,8 +110,8 @@ public class HtmlRepresentationTests {
         assertEquals("Page count is incorrect", pages.size(), 1);
         for (PageHtml page : pages) {
             System.out.println("\t\tPage number: " + page.getPageNumber());
-            System.out.println("\t\tHtml content: " + page.getHtmlContent());
-            assertNotNull("Html content is empty", page.getHtmlContent());
+            System.out.println("\t\tHtml content: " + page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
+            assertNotNull("Html content is empty", page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
         }
     }
 
@@ -135,8 +135,8 @@ public class HtmlRepresentationTests {
         assertEquals("Page count is incorrect", pages.size(), 2);
         for (PageHtml page : pages) {
             System.out.println("\t\tPage number: " + page.getPageNumber());
-            System.out.println("\t\tHtml content: " + page.getHtmlContent());
-            assertNotNull("Html content is empty", page.getHtmlContent());
+            System.out.println("\t\tHtml content: " + page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
+            assertNotNull("Html content is empty", page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
         }
     }
 

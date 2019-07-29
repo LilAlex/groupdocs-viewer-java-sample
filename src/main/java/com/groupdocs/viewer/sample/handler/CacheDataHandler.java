@@ -31,9 +31,9 @@ public class CacheDataHandler implements ICacheDataHandler {
 
     public CacheDataHandler(ViewerConfig viewerConfig, IFileStorage fileStorage) {
         if (viewerConfig == null)
-            throw new ArgumentNullException("viewerConfig");
+            throw new IllegalArgumentException("viewerConfig");
         if (fileStorage == null)
-            throw new ArgumentNullException("fileStorage");
+            throw new IllegalArgumentException("fileStorage");
 
         _viewerConfig = viewerConfig;
         _fileStorage = fileStorage;

@@ -147,8 +147,11 @@ public class Utilities {
         FileUtils.copyFile(new File(source), new File(target));
     }
 
-    public static void cleanOutput() throws IOException {
-        FileUtils.cleanDirectory(new File(OUTPUT_PATH));
+    public static void cleanOutput() {
+        final File file = new File(OUTPUT_PATH);
+        if (!file.delete()) {
+            file.deleteOnExit();
+        }
     }
 
     public static void initOutput() {

@@ -84,10 +84,9 @@ public class CommonOperationsTests {
         DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(guid, options);
 
         System.out.println("\tDateCreated: " + documentInfo.getDateCreated());
-        System.out.println("\tDocumentType: " + documentInfo.getDocumentType());
-        System.out.println("\tDocumentTypeFormat: " + documentInfo.getDocumentTypeFormat());
+        System.out.println("\tDocumentType: " + documentInfo.getFileFormat());
         System.out.println("\tExtension: " + documentInfo.getExtension());
-        System.out.println("\tFileType: " + documentInfo.getFileType());
+        System.out.println("\tFileType: " + documentInfo.getExtension());
         System.out.println("\tGuid: " + documentInfo.getGuid());
         System.out.println("\tLastModificationDate: " + documentInfo.getLastModificationDate());
         System.out.println("\tName: " + documentInfo.getName());
@@ -95,8 +94,8 @@ public class CommonOperationsTests {
         System.out.println("\tSize: " + documentInfo.getSize());
 
         assertNotEquals("Document size is incorrect", documentInfo.getSize(), 0);
-        assertEquals("Document type is incorrect", documentInfo.getDocumentType(), "Words");
-        assertEquals("File type is incorrect", documentInfo.getFileType(), "Doc");
+        assertEquals("Document type is incorrect", "Microsoft Word", documentInfo.getFileFormat());
+        assertEquals("File type is incorrect", ".doc", documentInfo.getExtension());
         assertEquals("Page count is incorrect", documentInfo.getPages().size(), 2);
         for (PageData pageData : documentInfo.getPages()) {
             System.out.println("\t\tPage number: " + pageData.getNumber());
@@ -120,10 +119,9 @@ public class CommonOperationsTests {
         DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(stream, options);
 
         System.out.println("\tDateCreated: " + documentInfo.getDateCreated());
-        System.out.println("\tDocumentType: " + documentInfo.getDocumentType());
-        System.out.println("\tDocumentTypeFormat: " + documentInfo.getDocumentTypeFormat());
+        System.out.println("\tDocumentType: " + documentInfo.getFileFormat());
         System.out.println("\tExtension: " + documentInfo.getExtension());
-        System.out.println("\tFileType: " + documentInfo.getFileType());
+        System.out.println("\tFileType: " + documentInfo.getExtension());
         System.out.println("\tGuid: " + documentInfo.getGuid());
         System.out.println("\tLastModificationDate: " + documentInfo.getLastModificationDate());
         System.out.println("\tName: " + documentInfo.getName());
@@ -131,8 +129,8 @@ public class CommonOperationsTests {
         System.out.println("\tSize: " + documentInfo.getSize());
 
         assertNotEquals("Document size is incorrect", documentInfo.getSize(), 0);
-        assertEquals("Document type is incorrect", documentInfo.getDocumentType(), "Words");
-        assertEquals("File type is incorrect", documentInfo.getFileType(), "Doc");
+        assertEquals("Document type is incorrect", "Microsoft Word", documentInfo.getFileFormat());
+        assertEquals("File type is incorrect", ".doc", documentInfo.getExtension());
         assertEquals("Page count is incorrect", documentInfo.getPages().size(), 2);
         for (PageData pageData : documentInfo.getPages()) {
             System.out.println("\t\tPage number: " + pageData.getNumber());
@@ -155,10 +153,9 @@ public class CommonOperationsTests {
         DocumentInfoOptions options = new DocumentInfoOptions();
         DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(stream, documentName, options);
         System.out.println("\tDateCreated: " + documentInfo.getDateCreated());
-        System.out.println("\tDocumentType: " + documentInfo.getDocumentType());
-        System.out.println("\tDocumentTypeFormat: " + documentInfo.getDocumentTypeFormat());
+        System.out.println("\tDocumentType: " + documentInfo.getFileFormat());
         System.out.println("\tExtension: " + documentInfo.getExtension());
-        System.out.println("\tFileType: " + documentInfo.getFileType());
+        System.out.println("\tFileType: " + documentInfo.getExtension());
         System.out.println("\tGuid: " + documentInfo.getGuid());
         System.out.println("\tLastModificationDate: " + documentInfo.getLastModificationDate());
         System.out.println("\tName: " + documentInfo.getName());
@@ -166,8 +163,8 @@ public class CommonOperationsTests {
         System.out.println("\tSize: " + documentInfo.getSize());
 
         assertNotEquals("Document size is incorrect", documentInfo.getSize(), 0);
-        assertEquals("Document type is incorrect", documentInfo.getDocumentType(), "Words");
-        assertEquals("File type is incorrect", documentInfo.getFileType(), "Doc");
+        assertEquals("Document type is incorrect", "Microsoft Word", documentInfo.getFileFormat());
+        assertEquals("File type is incorrect", ".doc", documentInfo.getExtension());
         assertEquals("Page count is incorrect", documentInfo.getPages().size(), 2);
         for (PageData pageData : documentInfo.getPages()) {
             System.out.println("\t\tPage number: " + pageData.getNumber());
@@ -193,10 +190,9 @@ public class CommonOperationsTests {
         DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(uri, options);
 
         System.out.println("\tDateCreated: " + documentInfo.getDateCreated());
-        System.out.println("\tDocumentType: " + documentInfo.getDocumentType());
-        System.out.println("\tDocumentTypeFormat: " + documentInfo.getDocumentTypeFormat());
+        System.out.println("\tDocumentType: " + documentInfo.getFileFormat());
         System.out.println("\tExtension: " + documentInfo.getExtension());
-        System.out.println("\tFileType: " + documentInfo.getFileType());
+        System.out.println("\tFileType: " + documentInfo.getExtension());
         System.out.println("\tGuid: " + documentInfo.getGuid());
         System.out.println("\tLastModificationDate: " + documentInfo.getLastModificationDate());
         System.out.println("\tName: " + documentInfo.getName());
@@ -204,8 +200,8 @@ public class CommonOperationsTests {
         System.out.println("\tSize: " + documentInfo.getSize());
 
         assertNotEquals("Document size is incorrect", 0, documentInfo.getSize());
-        assertEquals("Document type is incorrect", "Words", documentInfo.getDocumentType());
-        assertEquals("File type is incorrect", "Doc", documentInfo.getFileType());
+        assertEquals("Document type is incorrect", documentInfo.getFileFormat(), "Microsoft Word");
+        assertEquals("File type is incorrect", ".doc", documentInfo.getExtension());
         assertEquals("Page count is incorrect", 11, documentInfo.getPages().size());
         for (PageData pageData : documentInfo.getPages()) {
             System.out.println("\t\tPage number: " + pageData.getNumber());
@@ -231,10 +227,9 @@ public class CommonOperationsTests {
         DocumentInfoContainer documentInfo = htmlHandler.getDocumentInfo(uri, credential, options);
 
         System.out.println("\tDateCreated: " + documentInfo.getDateCreated());
-        System.out.println("\tDocumentType: " + documentInfo.getDocumentType());
-        System.out.println("\tDocumentTypeFormat: " + documentInfo.getDocumentTypeFormat());
+        System.out.println("\tDocumentType: " + documentInfo.getFileFormat());
         System.out.println("\tExtension: " + documentInfo.getExtension());
-        System.out.println("\tFileType: " + documentInfo.getFileType());
+        System.out.println("\tFileType: " + documentInfo.getExtension());
         System.out.println("\tGuid: " + documentInfo.getGuid());
         System.out.println("\tLastModificationDate: " + documentInfo.getLastModificationDate());
         System.out.println("\tName: " + documentInfo.getName());
@@ -242,8 +237,8 @@ public class CommonOperationsTests {
         System.out.println("\tSize: " + documentInfo.getSize());
 
         assertNotEquals("Document size is incorrect", documentInfo.getSize(), 0);
-        assertEquals("Document type is incorrect", documentInfo.getDocumentType(), "Words");
-        assertEquals("File type is incorrect", documentInfo.getFileType(), "Doc");
+        assertEquals("Document type is incorrect", documentInfo.getFileFormat(), "Microsoft Word");
+        assertEquals("File type is incorrect", ".doc", documentInfo.getExtension());
         assertEquals("Page count is incorrect", documentInfo.getPages().size(), 11);
         for (PageData pageData : documentInfo.getPages()) {
             System.out.println("\t\tPage number: " + pageData.getNumber());

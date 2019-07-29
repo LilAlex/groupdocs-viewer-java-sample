@@ -302,7 +302,7 @@ public class OtherOperationsTests {
         PrintableHtmlOptions options = new PrintableHtmlOptions(guid);
         PrintableHtmlContainer container = imageHandler.getPrintableHtml(guid, options);
 
-        System.out.println("Html content: " + container.getHtmlContent());
+        System.out.println("Html content: " + container.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
         assertTrue("Html content is empty!", container.getHtmlContent().length() > 0);
     }
 
@@ -320,7 +320,7 @@ public class OtherOperationsTests {
         // Get document html for print with watermark
         PrintableHtmlOptions options = new PrintableHtmlOptions(guid, new Watermark("Watermark text"));
         PrintableHtmlContainer container = imageHandler.getPrintableHtml(guid, options);
-        System.out.println("Html content: " + container.getHtmlContent());
+        System.out.println("Html content: " + container.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
         assertTrue("Html content is empty!", container.getHtmlContent().length() > 0);
     }
 
@@ -340,7 +340,7 @@ public class OtherOperationsTests {
         PrintableHtmlOptions options = new PrintableHtmlOptions(guid);
         options.setCss(css);
         PrintableHtmlContainer container = imageHandler.getPrintableHtml(guid, options);
-        System.out.println("Html content: " + container.getHtmlContent());
+        System.out.println("Html content: " + container.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
         assertTrue("Html content is empty!", container.getHtmlContent().length() > 0);
     }
 
@@ -391,7 +391,7 @@ public class OtherOperationsTests {
 
         for (PageHtml page : pages) {
             System.out.println("Page number: " + page.getPageNumber());
-            System.out.println("Html content: " + page.getHtmlContent());
+            System.out.println("Html content: " + page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
             assertTrue("Page content is empty!", page.getHtmlContent().length() > 0);
         }
     }
@@ -836,8 +836,8 @@ public class OtherOperationsTests {
             if (node.isDirectory()) {
                 System.out.println("Guid: " + node.getGuid() + " | Name: " + node.getName() + " | LastModificationDate: " + node.getLastModificationDate());
             } else {
-                System.out.println("Guid: " + node.getGuid() + " | Name: " + node.getName() + " | Document type: " + node.getDocumentType()
-                        + " | File type: " + node.getFileType() + " | Extension: " + node.getExtension() + " | Size: " + node.getSize() + " | LastModificationDate: " + node.getLastModificationDate());
+                System.out.println("Guid: " + node.getGuid() + " | Name: " + node.getName() + " | File format: " + node.getFileFormat()
+                        + " | Extension: " + node.getExtension() + " | Extension: " + node.getExtension() + " | Size: " + node.getSize() + " | LastModificationDate: " + node.getLastModificationDate());
             }
         }
     }
@@ -859,14 +859,14 @@ public class OtherOperationsTests {
             if (node.isDirectory()) {
                 System.out.println("Guid: " + node.getGuid() + " | Name: " + node.getName() + " | LastModificationDate: " + node.getLastModificationDate());
             } else {
-                System.out.println("Guid: " + node.getGuid() + " | Name: " + node.getName() + " | Document type: " + node.getDocumentType()
-                        + " | File type: " + node.getFileType() + " | Extension: " + node.getExtension() + " | Size: " + node.getSize() + " | LastModificationDate: " + node.getLastModificationDate());
+                System.out.println("Guid: " + node.getGuid() + " | Name: " + node.getName() + " | File format: " + node.getFileFormat()
+                        + " | Extension: " + node.getExtension() + " | Extension: " + node.getExtension() + " | Size: " + node.getSize() + " | LastModificationDate: " + node.getLastModificationDate());
             }
         }
     }
 
     @Test
-    public void testLoadFileListForCustomPathWithOrder() throws Exception {
+    public void testLoadFileListForCustomPathWithOrder() {
         Utilities.showTestHeader();
         // Setup GroupDocs.Viewer config
         ViewerConfig config = new ViewerConfig();
@@ -876,15 +876,15 @@ public class OtherOperationsTests {
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
 
         // Load file list sorted by Name and ordered Ascending for custom path
-        FileListOptions options = new FileListOptions(STORAGE_PATH, FileListOptions.FileListSortBy.Name, FileListOptions.FileListOrderBy.Ascending);
+        FileListOptions options = new FileListOptions(STORAGE_PATH, FileListOptions.FileListSortBy.NAME, FileListOptions.FileListOrderBy.ASCENDING);
         // Load file list for ViewerConfig.StoragePath
         FileListContainer container = imageHandler.getFileList(options);
         for (FileDescription node : container.getFiles()) {
             if (node.isDirectory()) {
                 System.out.println("Guid: " + node.getGuid() + " | Name: " + node.getName() + " | LastModificationDate: " + node.getLastModificationDate());
             } else {
-                System.out.println("Guid: " + node.getGuid() + " | Name: " + node.getName() + " | Document type: " + node.getDocumentType()
-                        + " | File type: " + node.getFileType() + " | Extension: " + node.getExtension() + " | Size: " + node.getSize() + " | LastModificationDate: " + node.getLastModificationDate());
+                System.out.println("Guid: " + node.getGuid() + " | Name: " + node.getName() + " | File format: " + node.getFileFormat()
+                        + " | Extension: " + node.getExtension() + " | Extension: " + node.getExtension() + " | Size: " + node.getSize() + " | LastModificationDate: " + node.getLastModificationDate());
             }
         }
     }
@@ -899,9 +899,9 @@ public class OtherOperationsTests {
         // Create image handler
         ViewerImageHandler imageHandler = new ViewerImageHandler(config);
 
-        // Create attachment object and print out its name and file type
+        // Create attachment object and print out its name and Extension
         Attachment attachment = new Attachment("document-with-attachments.msg", "attachment-image.png");
-        System.out.println("Attach name: " + attachment.getName() + ", size: " + attachment.getFileType());
+        System.out.println("Attach name: " + attachment.getName() + ", size: " + attachment.getExtension());
 
         // Get attachment original file and print out Stream length
         FileContainer fileContainer = imageHandler.getFile(attachment);

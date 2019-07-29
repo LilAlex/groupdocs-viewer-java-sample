@@ -10,27 +10,21 @@ import com.groupdocs.viewer.domain.options.ReorderPageOptions;
 import com.groupdocs.viewer.domain.options.RotatePageOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
+import com.groupdocs.viewer.internal.o.a.c.lang3.exception.ExceptionUtils;
 import com.groupdocs.viewer.licensing.License;
 import com.groupdocs.viewer.licensing.metered.Metered;
-import com.groupdocs.viewer.sample.TestRunner;
 import com.groupdocs.viewer.sample.Utilities;
-import com.groupdocs.viewer.utils.common.Utils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 
+import static com.groupdocs.viewer.common.ViewerUtils.closeStreams;
 import static com.groupdocs.viewer.sample.TestRunner.STORAGE_PATH;
-import static com.groupdocs.viewer.sample.Utilities.applyLicense;
-import static com.groupdocs.viewer.sample.Utilities.initOutput;
-import static com.groupdocs.viewer.sample.Utilities.unsetLicense;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static com.groupdocs.viewer.sample.Utilities.*;
+import static org.junit.Assert.*;
 
 /**
  * Extra tests to check different problems which were found by somebody
@@ -148,7 +142,7 @@ public class ExtraOperationsTests {
         if (pdfFileHtml.getStream().read() == -1) {
             throw new Exception();
         }
-        Utils.closeStreams(pdfFileHtml.getStream());
+        closeStreams(pdfFileHtml.getStream());
 
         // get printable html
         PrintableHtmlContainer getPrintableHtml = handler.getPrintableHtml(guid);
@@ -166,7 +160,7 @@ public class ExtraOperationsTests {
         FileContainer file = handler.getFile(guid);
         if (file.getStream().read() == -1) {
             throw new Exception();
-        }Utils.closeStreams(file.getStream());
+        }closeStreams(file.getStream());
 
         // get supported document formats
         DocumentFormatsContainer formats = handler.getSupportedDocumentFormats();
@@ -215,7 +209,7 @@ public class ExtraOperationsTests {
         if (pdfFileHtml.getStream().read() == -1) {
             throw new Exception();
         }
-        Utils.closeStreams(pdfFileHtml.getStream());
+        closeStreams(pdfFileHtml.getStream());
 
         // get printable html
         PrintableHtmlContainer getPrintableHtml = handler.getPrintableHtml(guid);
@@ -234,7 +228,7 @@ public class ExtraOperationsTests {
         if (file.getStream().read() == -1) {
             throw new Exception();
         }
-        Utils.closeStreams(file.getStream());
+        closeStreams(file.getStream());
 
         // get supported document formats
         DocumentFormatsContainer formats = handler.getSupportedDocumentFormats();
@@ -277,7 +271,7 @@ public class ExtraOperationsTests {
         if (pdfFileHtml.getStream().read() == -1) {
             throw new Exception();
         }
-        Utils.closeStreams(pdfFileHtml.getStream());
+        closeStreams(pdfFileHtml.getStream());
 
         // get printable html
         PrintableHtmlContainer getPrintableHtml = handler.getPrintableHtml(guid);
@@ -296,7 +290,7 @@ public class ExtraOperationsTests {
         if (file.getStream().read() == -1) {
             throw new Exception();
         }
-        Utils.closeStreams(file.getStream());
+        closeStreams(file.getStream());
 
         // get supported document formats
         DocumentFormatsContainer formats = handler.getSupportedDocumentFormats();

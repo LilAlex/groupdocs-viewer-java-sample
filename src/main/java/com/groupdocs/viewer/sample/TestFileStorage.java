@@ -3,12 +3,10 @@ package com.groupdocs.viewer.sample;
 // ********* THIS FILE IS AUTO PORTED *********
 
 import com.amazonaws.util.StringUtils;
-import com.groupdocs.viewer.common.IDisposable;
 import com.groupdocs.viewer.storage.FileInfo;
 import com.groupdocs.viewer.storage.IFileInfo;
 import com.groupdocs.viewer.storage.IFileStorage;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -17,7 +15,7 @@ import java.io.InputStream;
 import java.util.*;
 
 
-public class TestFileStorage implements IDisposable, IFileStorage {
+public class TestFileStorage implements IFileStorage {
     private Map<String, byte[]> _files = new HashMap<String, byte[]>();
 
     public boolean fileExists(String path) {
@@ -38,7 +36,7 @@ public class TestFileStorage implements IDisposable, IFileStorage {
     }
 
     public void deleteDirectory(String path) {
-        throw new NotImplementedException("deleteDirectory");
+        throw new RuntimeException("deleteDirectory");
     }
 
     public IFileInfo getFileInfo(String path) {
@@ -76,10 +74,5 @@ public class TestFileStorage implements IDisposable, IFileStorage {
             }
         }
         return filesInfo;
-    }
-
-    @Override
-    public void dispose() {
-        _files.clear();
     }
 }

@@ -13,7 +13,6 @@ import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
-import com.groupdocs.viewer.utils.common.Utils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
@@ -27,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+import static com.groupdocs.viewer.common.ViewerUtils.closeStreams;
 import static com.groupdocs.viewer.sample.TestRunner.*;
 import static com.groupdocs.viewer.sample.Utilities.applyLicense;
 import static com.groupdocs.viewer.sample.Utilities.initOutput;
@@ -73,7 +73,7 @@ public class CommonIssuesTests {
                         pages = htmlHandler.getPages(guid, htmlOptions);
                         for (PageHtml page : pages) {
                             assertEquals("Page count incorrect", 1, page.getPageNumber());
-                            assertNotNull("Html content of resource is null", page.getHtmlContent());
+                            assertNotNull("Html content of resource is null", page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
                         }
                     } catch (Throwable e) {
                         System.err.println(prefix + "Uncaught exception - " + e.getMessage());
@@ -133,7 +133,7 @@ public class CommonIssuesTests {
                     InputStream resourceStream = handler.getResource(attachment, htmlResource);
                     final FileOutputStream outputStream = new FileOutputStream(OUTPUT_HTML_PATH + "_" + page.getPageNumber() + "." + htmlResource.getResourceName());
                     IOUtils.copy(resourceStream, outputStream);
-                    Utils.closeStreams(resourceStream, outputStream);
+                    closeStreams(resourceStream, outputStream);
 //                    FileUtils.writeStringToFile(new File(OUTPUT_HTML_PATH + "_" + page.getPageNumber() + attachment.getName()), page.getHtmlContent());
                     System.out.println("	Resource: " + htmlResource.getResourceName());
                 }
@@ -159,7 +159,7 @@ public class CommonIssuesTests {
         assertEquals("Page count is incorrect", pages.size(), 2);
         for (PageHtml page : pages) {
             System.out.println("Page number: " + page.getPageNumber());
-            System.out.println("Html content: " + page.getHtmlContent());
+            System.out.println("Html content: " + page.getHtmlContent().substring(0, 100).replaceAll("\\s+", " "));
             assertTrue("Page content is empty", page.getHtmlContent().length() > 0);
         }
     }
@@ -207,7 +207,7 @@ public class CommonIssuesTests {
             System.out.println("Page number: " + page.getPageNumber());
             FileUtils.writeStringToFile(new File(OUTPUT_PATH + File.separator + "testVIEWERJAVA766.html"), htmlContent);
             assertTrue("Page content is empty", htmlContent.length() > 0);
-            System.out.println("Html content: " + htmlContent.substring(0, 100) + "...");
+            System.out.println("Html content: " + htmlContent.substring(0, 100).replaceAll("\\s+", " ") + "...");
 
             final List<HtmlResource> htmlResources = page.getHtmlResources();
             assertFalse("Resources list is not empty", htmlResources.size() > 0);
@@ -236,7 +236,7 @@ public class CommonIssuesTests {
             System.out.println("Page number: " + page.getPageNumber());
             FileUtils.writeStringToFile(new File(OUTPUT_PATH + File.separator + "testVIEWERJAVA976.html"), htmlContent);
             assertTrue("Page content is empty", htmlContent.length() > 0);
-            System.out.println("Html content: " + htmlContent.substring(0, 100) + "...");
+            System.out.println("Html content: " + htmlContent.substring(0, 100).replaceAll("\\s+", " ") + "...");
 
             final List<HtmlResource> htmlResources = page.getHtmlResources();
             assertFalse("Resources list is not empty", htmlResources.size() > 0);
@@ -381,13 +381,16 @@ public class CommonIssuesTests {
             assertNotNull(stream);
             final FileOutputStream outputStream = new FileOutputStream(targetPath);
             IOUtils.copy(stream, outputStream);
-            Utils.closeStreams(stream, outputStream);
+            closeStreams(stream, outputStream);
         }
         System.out.println("Output file: " + targetPath);
     }
 
     @Test
     public void testVIEWERJAVAxxx() throws Exception {
+
+        System.out.println("test " + new ViewerConfig().getStoragePath());
+
 //        // setup Viewer configuration
 //        ViewerConfig signConfig = new ViewerConfig();
 //        signConfig.setStoragePath(STORAGE_PATH);

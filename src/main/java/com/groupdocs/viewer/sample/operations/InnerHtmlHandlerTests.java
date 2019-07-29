@@ -171,7 +171,7 @@ public class InnerHtmlHandlerTests {
         TestFileStorage storage = new TestFileStorage();
         CultureInfo cultureInfo = new CultureInfo("en-US");
 
-        ViewerHtmlHandler handler = new ViewerHtmlHandler(storage, new CultureInfo(cultureInfo.getName()));
+        ViewerHtmlHandler handler = new ViewerHtmlHandler(storage, cultureInfo);
 
         assertNotNull(handler);
     }
@@ -182,7 +182,7 @@ public class InnerHtmlHandlerTests {
         TestFileStorage storage = new TestFileStorage();
         CultureInfo cultureInfo = new CultureInfo("en-US");
 
-        ViewerHtmlHandler handler = new ViewerHtmlHandler(config, storage, new CultureInfo(cultureInfo.getName()));
+        ViewerHtmlHandler handler = new ViewerHtmlHandler(config, storage, cultureInfo);
 
         assertNotNull(handler);
     }
