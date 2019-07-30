@@ -5,12 +5,16 @@ import com.groupdocs.viewer.sample.operations.*;
 import com.groupdocs.viewer.sample.tasks.CommonIssuesTests;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
+import org.junit.internal.TextListener;
+import org.junit.runner.Computer;
 import org.junit.runner.JUnitCore;
+import org.junit.runner.Request;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 /**
  * The type TestRunner.
@@ -30,7 +34,8 @@ public class TestRunner {
      */
     public static void main(String[] args) throws Exception {
 
-        Result result = JUnitCore.runClasses(
+        // https://www.logicbig.com/tutorials/unit-testing/junit/junit-core.html
+        Class<?>[] testClasses = {
                 InnerImageHandlerTests.class,
                 InnerHtmlHandlerTests.class,
                 CommonOperationsTests.class,
@@ -42,19 +47,47 @@ public class TestRunner {
                 AdvancedOperationsTests.class,
                 CommonIssuesTests.class,
                 ExtraOperationsTests.class
-        );
+        };
 
-        for (Failure failure : result.getFailures()) {
-            System.err.println(failure.toString());
-            failure.getException().printStackTrace();
+        Result result;
+        if (args.length == 0) {
+            JUnitCore junit = new JUnitCore();
+            junit.addListener(new TextListener(System.out));
+            result = junit.run(Computer.serial(), testClasses); // ParallelComputer.methods()
+        } else {
+            final String testName = args[0];
+            Class<?> clazz = null;
+            for (Class<?> testClass : testClasses) {
+                try {
+                    final Method testMethod = testClass.getDeclaredMethod(testName);
+                    if (testMethod != null) {
+                        if (clazz != null) {
+                            System.err.println("The test '" + testName + "' CAN NOT be run because there are few classes with the same test name!");
+                            System.exit(-1);
+                        } else {
+                            clazz = testClass;
+                        }
+                    }
+                } catch (NoSuchMethodException e) {
+                    // pass
+                }
+            }
+            if (clazz == null) {
+                System.err.println("The test '" + testName + "' was not found!");
+                System.exit(-2);
+            }
+            final Request request = Request.method(clazz, testName);
+            JUnitCore junit = new JUnitCore();
+            junit.addListener(new TextListener(System.out));
+            result = junit.run(request);
         }
 
-        System.out.println(String.format("=== SUCCESS: %d, FAIL: %d, IGNORE: %d ===", result.getRunCount(), result.getFailureCount(), result.getIgnoreCount()));
+        final int runCount = result.getRunCount();
+        final int failureCount = result.getFailureCount();
+        final int ignoreCount = result.getIgnoreCount();
+        System.out.println(String.format("\n===== RUN: %d, SUCCESS: %d, FAIL: %d, IGNORE: %d =====\n", runCount, (runCount - failureCount - ignoreCount), failureCount, ignoreCount));
 
-        if (result.getFailures().size() > 0) {
-            Assert.fail();
-        }
-    }
+        System.exit(failureCount);    }
 
     public static String getStoragePath(String fileName, String... subDirectories) {
         StringBuilder builder = new StringBuilder(STORAGE_PATH);
