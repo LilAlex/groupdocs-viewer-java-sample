@@ -13,6 +13,7 @@ import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
 import com.groupdocs.viewer.sample.Utilities;
+import com.groupdocs.viewer.utils.CultureInfo;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
@@ -24,6 +25,7 @@ import java.io.*;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 
 import static com.groupdocs.viewer.common.ViewerUtils.closeStreams;
@@ -384,6 +386,25 @@ public class CommonIssuesTests {
             closeStreams(stream, outputStream);
         }
         System.out.println("Output file: " + targetPath);
+    }
+
+    @Test
+    public void testVIEWERJAVA1947() throws Exception {
+
+        ViewerConfig config = new ViewerConfig();
+        config.setStoragePath(STORAGE_PATH);
+        config.setEnableCaching(true);
+        config.setLocalesPath(STORAGE_PATH + File.separator + "locales");
+        new CultureInfo(Locale.CANADA);
+
+        CultureInfo cultureInfo = new CultureInfo("en-DE");
+        String guid = "calibre.docx";
+
+        // Create image or HTML handler
+        ViewerImageHandler imageHandler = new ViewerImageHandler(config, cultureInfo);
+
+        // Get supported document formats
+        DocumentInfoContainer docInfo = imageHandler.getDocumentInfo(guid);
     }
 
     @Test
