@@ -12,6 +12,7 @@ import com.groupdocs.viewer.domain.image.PageImage;
 import com.groupdocs.viewer.domain.options.DocumentInfoOptions;
 import com.groupdocs.viewer.handler.ViewerHtmlHandler;
 import com.groupdocs.viewer.handler.ViewerImageHandler;
+import com.groupdocs.viewer.licensing.License;
 import com.groupdocs.viewer.sample.Utilities;
 import com.groupdocs.viewer.utils.CultureInfo;
 import org.apache.commons.io.FileUtils;
@@ -405,6 +406,51 @@ public class CommonIssuesTests {
 
         // Get supported document formats
         DocumentInfoContainer docInfo = imageHandler.getDocumentInfo(guid);
+    }
+
+    @Test
+    public void testVIEWERJAVA1969() throws Exception {
+
+        try {
+            Locale usLocale = new Locale("en", "DE");
+//            Locale.setDefault(usLocale);
+            CultureInfo.setDefault("en", "DE");
+
+            License license = new License();
+            System.out.println("1 License isValid: " + License.isValidLicense());
+            File licenseFile = new File("D:\\groupdocs\\licenses\\GroupDocs.Total.Java_20200103.lic");
+            System.out.println("2 licenseFile.length(): " + licenseFile.length());
+            license.setLicense(new FileInputStream(licenseFile));
+            System.out.println("3 License isValid: " + License.isValidLicense());
+        } catch (Throwable throwable) {
+            fail("Can not verify Viewer license!");
+        }
+    }
+
+    @Test
+    public void testVIEWERJAVA2029() throws Exception {
+        // Setup GroupDocs.Viewer config
+        ViewerConfig config = new ViewerConfig();
+        // Set storage path
+        config.setStoragePath(STORAGE_PATH.toString());
+        // Set cache to true for cache purpose
+        config.setCachePath(STORAGE_PATH + File.separator + "temp");
+        // Add custom fonts directories to FontDirectories list
+        config.setFontDirectories(Arrays.asList(STORAGE_PATH + File.separator + "fonts"));
+        config.setEnableCaching(false);
+        // Create HTML or image handler
+        ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
+        String guid = "VIEWERJAVA-2029.zip";
+
+        // Get archive document info
+//        ArchiveDocumentInfoContainer documentInfoContainer = (ArchiveDocumentInfoContainer) htmlHandler.getDocumentInfo(guid);
+        DocumentInfoContainer documentInfoContainer = htmlHandler.getDocumentInfo(guid);
+
+//        for (String folderName : documentInfoContainer.getFolders())
+//        {
+//            System.out.println("Folder name: " + folderName);
+//        }
+        return;
     }
 
     @Test

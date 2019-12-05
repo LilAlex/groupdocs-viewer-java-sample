@@ -6,7 +6,7 @@
 
     <groupId>com.temporary</groupId>
     <artifactId>groupdocs-viewer-java-sample</artifactId>
-    <version>19.7</version>
+    <version>19.11</version>
     <properties>
         <java.version>1.7</java.version>
         <https.protocols>TLSv1.2</https.protocols>
@@ -121,6 +121,11 @@
             <id>maven-central-org</id>
             <name>maven-central-org</name>
             <url>http://central.maven.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>repository-groupdocs-com</id>
+            <name>repository-groupdocs-com</name>
+            <url>http://repository.groupdocs.com/repo/</url>
         </repository>
     </repositories>
 </project>

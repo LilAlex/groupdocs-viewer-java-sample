@@ -25,7 +25,7 @@ public class TestRunner {
     public static String OUTPUT_PATH = PROJECT_PATH + "\\Output";
     public static String OUTPUT_HTML_PATH = OUTPUT_PATH + "\\html";
     public static String OUTPUT_IMAGE_PATH = OUTPUT_PATH + "\\images";
-    public static String LICENSE_PATH = STORAGE_PATH + "\\GroupDocs.Total.Java.lic";
+    public static String LICENSE_PATH = STORAGE_PATH + "\\..\\GroupDocs.Total.Java.lic";
 
     /**
      * The entry point of application.
