@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.groupdocs.viewer.config.ViewerConfig;
 import com.groupdocs.viewer.converter.options.HtmlOptions;
 import com.groupdocs.viewer.domain.*;
+import com.groupdocs.viewer.domain.containers.ArchiveDocumentInfoContainer;
 import com.groupdocs.viewer.domain.containers.DocumentInfoContainer;
 import com.groupdocs.viewer.domain.html.HtmlResource;
 import com.groupdocs.viewer.domain.html.PageHtml;
@@ -451,6 +452,30 @@ public class CommonIssuesTests {
 //            System.out.println("Folder name: " + folderName);
 //        }
         return;
+    }
+
+    @Test
+    public void testVIEWERJAVA2030() throws Exception {
+        // Setup GroupDocs.Viewer config
+        ViewerConfig config = new ViewerConfig();
+        // Set storage path
+        config.setStoragePath(STORAGE_PATH.toString());
+        // Set cache to true for cache purpose
+        config.setCachePath(STORAGE_PATH + File.separator + "temp");
+        // Add custom fonts directories to FontDirectories list
+        config.setFontDirectories(Arrays.asList(STORAGE_PATH + File.separator + "fonts"));
+        config.setEnableCaching(false);
+        // Create HTML or image handler
+        ViewerHtmlHandler htmlHandler = new ViewerHtmlHandler(config);
+        String guid = "VIEWERJAVA-2030.zip";
+
+        // Get archive document info
+        ArchiveDocumentInfoContainer documentInfoContainer = (ArchiveDocumentInfoContainer) htmlHandler.getDocumentInfo(guid);
+
+        assertFalse(documentInfoContainer.getFolders().isEmpty());
+        for (String folderName : documentInfoContainer.getFolders()) {
+            System.out.println("Folder name: " + folderName);
+        }
     }
 
     @Test
