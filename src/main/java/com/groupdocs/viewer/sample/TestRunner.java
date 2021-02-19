@@ -1,19 +1,14 @@
 package com.groupdocs.viewer.sample;
 
-import com.groupdocs.viewer.licensing.License;
 import com.groupdocs.viewer.sample.operations.*;
-import com.groupdocs.viewer.sample.tasks.CommonIssuesTests;
-import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
+import com.groupdocs.viewer.sample.issues.CommonIssuesTests;
 import org.junit.internal.TextListener;
 import org.junit.runner.Computer;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Request;
 import org.junit.runner.Result;
-import org.junit.runner.notification.Failure;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 
 /**
@@ -25,7 +20,7 @@ public class TestRunner {
     public static String OUTPUT_PATH = PROJECT_PATH + "\\Output";
     public static String OUTPUT_HTML_PATH = OUTPUT_PATH + "\\html";
     public static String OUTPUT_IMAGE_PATH = OUTPUT_PATH + "\\images";
-    public static String LICENSE_PATH = STORAGE_PATH + "\\..\\GroupDocs.Total.Java.lic";
+    public static String LICENSE_PATH = STORAGE_PATH + "\\..\\GroupDocs.Viewer.Java.lic";
 
     /**
      * The entry point of application.
@@ -36,17 +31,8 @@ public class TestRunner {
 
         // https://www.logicbig.com/tutorials/unit-testing/junit/junit-core.html
         Class<?>[] testClasses = {
-                InnerImageHandlerTests.class,
-                InnerHtmlHandlerTests.class,
-                CommonOperationsTests.class,
-                HtmlRepresentationTests.class,
-                ImageRepresentationTests.class,
-                DocumentTransformationsTests.class,
-                EmailAttachmentsTests.class,
-                ParameterlessConstructorsTests.class,
-                AdvancedOperationsTests.class,
+                CommonTests.class,
                 CommonIssuesTests.class,
-                ExtraOperationsTests.class
         };
 
         Result result;
@@ -87,7 +73,10 @@ public class TestRunner {
         final int ignoreCount = result.getIgnoreCount();
         System.out.println(String.format("\n===== RUN: %d, SUCCESS: %d, FAIL: %d, IGNORE: %d =====\n", runCount, (runCount - failureCount - ignoreCount), failureCount, ignoreCount));
 
-        System.exit(failureCount);    }
+        if (failureCount != 0) {
+            System.exit(failureCount);
+        }
+    }
 
     public static String getStoragePath(String fileName, String... subDirectories) {
         StringBuilder builder = new StringBuilder(STORAGE_PATH);

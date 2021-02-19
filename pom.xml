@@ -6,7 +6,7 @@
 
     <groupId>com.temporary</groupId>
     <artifactId>groupdocs-viewer-java-sample</artifactId>
-    <version>19.11</version>
+    <version>20.7</version>
     <properties>
         <java.version>1.7</java.version>
         <https.protocols>TLSv1.2</https.protocols>
@@ -91,8 +91,7 @@
                 </executions>
                 <configuration>
                     <mainClass>com.groupdocs.viewer.sample.TestRunner</mainClass>
-                    <cleanupDaemonThreads>false</cleanupDaemonThreads>
-                    <executable>maven</executable>
+                    <killAfter>-1</killAfter>
                 </configuration>
             </plugin>
             <plugin>

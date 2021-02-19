@@ -1,6 +1,6 @@
 package com.groupdocs.viewer.sample;
 
-import com.groupdocs.viewer.licensing.License;
+import com.groupdocs.viewer.License;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -15,6 +15,8 @@ import static com.groupdocs.viewer.sample.TestRunner.*;
  * @author Aleksey Permyakov (21.03.2016).
  */
 public class Utilities {
+
+    public static final double DELTA = 0.001;
 
     /**
      * Gets file name without extension.

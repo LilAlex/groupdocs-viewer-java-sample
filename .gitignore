@@ -2,6 +2,6 @@
 /.idea
 /Data/Output
 /target
-/Data/Storage/*.lic
+*.lic
 /Data/Storage/temp/vs.bin
 /Data/Storage/temp
