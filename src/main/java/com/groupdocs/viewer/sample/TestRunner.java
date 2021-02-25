@@ -1,7 +1,7 @@
 package com.groupdocs.viewer.sample;
 
-import com.groupdocs.viewer.sample.operations.*;
 import com.groupdocs.viewer.sample.issues.CommonIssuesTests;
+import com.groupdocs.viewer.sample.operations.CommonTests;
 import org.junit.internal.TextListener;
 import org.junit.runner.Computer;
 import org.junit.runner.JUnitCore;
@@ -24,6 +24,7 @@ public class TestRunner {
 
     /**
      * The entry point of application.
+     *
      * @param args the input arguments
      * @throws Exception the exception
      */

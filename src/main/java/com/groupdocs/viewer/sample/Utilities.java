@@ -12,6 +12,7 @@ import static com.groupdocs.viewer.sample.TestRunner.*;
 
 /**
  * The type Utilities.
+ *
  * @author Aleksey Permyakov (21.03.2016).
  */
 public class Utilities {
@@ -20,6 +21,7 @@ public class Utilities {
 
     /**
      * Gets file name without extension.
+     *
      * @param name the name
      * @return the file name without extension
      */
@@ -30,12 +32,13 @@ public class Utilities {
 
     /**
      * Write line.
+     *
      * @param template the template
      * @param params   the params
      */
     public static void writeLine(String template, Object... params) {
         for (int n = 0; n < params.length; n++) {
-            template = template.replaceAll("\\{" + Integer.toString(n) + "\\}", params[n].toString());
+            template = template.replaceAll("\\{" + n + "\\}", params[n].toString());
         }
         System.out.println(template);
     }
@@ -57,7 +60,7 @@ public class Utilities {
         License lic = new License();
         if (LICENSE_PATH != null && new File(LICENSE_PATH).exists()) {
             lic.setLicense(LICENSE_PATH);
-        }else {
+        } else {
             lic.setLicense(System.getenv("GROUPDOCS_TOTAL"));
         }
     }
@@ -72,6 +75,7 @@ public class Utilities {
 
     /**
      * Save file in html form
+     *
      * @param filename Save as provided String
      * @param content  Html contents in String form
      */
@@ -92,6 +96,7 @@ public class Utilities {
 
     /**
      * Save the rendered images at disk
+     *
      * @param imageName    Save as provided String
      * @param imageContent stream of image contents
      */
@@ -110,6 +115,7 @@ public class Utilities {
 
     /**
      * Save file in any format
+     *
      * @param filename Save as provided String
      * @param content  Stream as content of a file
      */

@@ -125,8 +125,8 @@ public class CommonTests extends BaseJUnit {
             assertEquals(1, pages.size());
 
             for (Page page : pages) {
-                assertEquals(612, page.getWidth());
-                assertEquals(792, page.getHeight());
+                assertEquals(816, page.getWidth());
+                assertEquals(1056, page.getHeight());
                 assertEquals(1, page.getNumber());
                 final List<Line> lines = page.getLines();
                 assertNotNull(lines);
@@ -153,28 +153,28 @@ public class CommonTests extends BaseJUnit {
             final List<Page> pages = viewInfo.getPages();
             assertEquals(1, pages.size());
 
-            double[] wordsX = new double[]{72.0, 109.8105};
-            double[] wordsY = new double[]{72.342, 72.342};
-            double[] wordsW = new double[]{31.5, 37.8};
-            double[] wordsH = new double[]{11.55, 11.55};
+            double[] wordsX = new double[]{56.7, 92.71};
+            double[] wordsY = new double[]{57.025, 57.025};
+            double[] wordsW = new double[]{30.0, 36.0};
+            double[] wordsH = new double[]{11.0, 11.0};
             String[] wordsV = new String[]{"Hello", "world."};
 
             int[] charactersSize = new int[]{5, 6};
             double[][] characterX = new double[][]{
-                    {72.0, 78.3, 84.6, 90.9, 97.2},
-                    {109.81, 116.11, 122.41, 128.71, 135.01, 141.31}
+                    {56.7, 62.7, 68.7, 74.7, 80.7},
+                    {92.71, 98.71, 104.71, 110.71, 116.71, 122.71}
             };
             double[][] characterY = new double[][]{
-                    {72.342, 72.342, 72.342, 72.342, 72.342},
-                    {72.342, 72.342, 72.342, 72.342, 72.342, 72.342}
+                    {57.025, 57.025, 57.025, 57.025, 57.025},
+                    {57.025, 57.025, 57.025, 57.025, 57.025, 57.025}
             };
             double[][] characterW = new double[][]{
-                    {6.3, 6.3, 6.3, 6.3, 6.3},
-                    {6.3, 6.3, 6.3, 6.3, 6.3, 6.3}
+                    {6.0, 6.0, 6.0, 6.0, 6.0},
+                    {6.0, 6.0, 6.0, 6.0, 6.0, 6.0}
             };
             double[][] characterH = new double[][]{
-                    {11.55, 11.55, 11.55, 11.55, 11.55},
-                    {11.55, 11.55, 11.55, 11.55, 11.55, 11.55}
+                    {11.0, 11.0, 11.0, 11.0, 11.0},
+                    {11.0, 11.0, 11.0, 11.0, 11.0, 11.0}
             };
             String[][] characterV = new String[][]{
                     {"H", "e", "l", "l", "o"},
@@ -190,10 +190,10 @@ public class CommonTests extends BaseJUnit {
                 assertEquals(1, lines.size());
                 for (Line line : lines) {
 //                    System.out.print(line.getX() + ", ");
-                    assertEquals(72, line.getX(), Utilities.DELTA);
-                    assertEquals(72.342, line.getY(), Utilities.DELTA);
-                    assertEquals(75.6105, line.getWidth(), Utilities.DELTA);
-                    assertEquals(11.55, line.getHeight(), Utilities.DELTA);
+                    assertEquals(56.7, line.getX(), Utilities.DELTA);
+                    assertEquals(57.025, line.getY(), Utilities.DELTA);
+                    assertEquals(72.01, line.getWidth(), Utilities.DELTA);
+                    assertEquals(11.0, line.getHeight(), Utilities.DELTA);
                     assertEquals("Hello world.", line.getValue());
                     final List<Word> words = line.getWords();
                     assertNotNull(words);

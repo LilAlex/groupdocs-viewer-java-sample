@@ -1,20 +1,20 @@
 package com.groupdocs.viewer.sample;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 
 import static com.groupdocs.viewer.sample.Utilities.*;
 
 public class BaseJUnit {
 
-    @Before
-    public void before() {
+    @BeforeClass
+    public static void beforeClass() {
         applyLicense();
         cleanOutput();
         initOutput();
     }
 
-    @After
-    public void after() {
+    @AfterClass
+    public static void afterClass() {
     }
 }
